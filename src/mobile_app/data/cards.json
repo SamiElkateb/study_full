@@ -1,0 +1,103 @@
+[
+	{
+		"question": "0.How to see all docker networks?",
+		"answer": "docker network ls",
+		"answerType": "terminal",
+		"streak": 0,
+        "id":0
+	},
+	{
+		"question": "1.What variables can be set for array reduce?",
+		"answer": "array.reduce((previousValue, currentValue, currentIndex, array) => {  /* ... */  }, initialValue)",
+		"answerType": "javascript",
+		"streak": 0,
+        "id":1
+	},
+	{
+		"question": "2.What's on the first line of a docker-compose file?",
+		"answer": "version: '3.8'",
+		"answerType": "yaml",
+		"streak": 0,
+        "id":2
+	},{
+		"question": "3.How to see all docker networks?",
+		"answer": "docker network ls",
+		"answerType": "terminal",
+		"streak": 0,
+        "id":3
+	},
+	{
+		"question": "4.What variables can be set for array reduce?",
+		"answer": "array.reduce((previousValue, currentValue, currentIndex, array) => {  /* ... */  }, initialValue)",
+		"answerType": "javascript",
+		"streak": 0,
+        "id":4
+	},
+	{
+		"question": "5.What's on the first line of a docker-compose file?",
+		"answer": "version: '3.8'",
+		"answerType": "yaml",
+		"streak": 0,
+        "id":5
+	},{
+		"question": "6.How to see all docker networks?",
+		"answer": "docker network ls",
+		"answerType": "terminal",
+		"streak": 0,
+        "id":6
+	},
+	{
+		"question": "7.What variables can be set for array reduce?",
+		"answer": "array.reduce((previousValue, currentValue, currentIndex, array) => {  /* ... */  }, initialValue)",
+		"answerType": "javascript",
+		"streak": 0,
+        "id":7
+	},
+	{
+		"question": "8.What's on the first line of a docker-compose file?",
+		"answer": "version: '3.8'",
+		"answerType": "yaml",
+		"streak": 0,
+        "id":8
+	},{
+		"question": "9.How to see all docker networks?",
+		"answer": "docker network ls",
+		"answerType": "terminal",
+		"streak": 0,
+        "id":9
+	},
+	{
+		"question": "10.What variables can be set for array reduce?",
+		"answer": "array.reduce((previousValue, currentValue, currentIndex, array) => {  /* ... */  }, initialValue)",
+		"answerType": "javascript",
+		"streak": 0,
+        "id":10
+	},
+	{
+		"question": "11.What's on the first line of a docker-compose file?",
+		"answer": "version: '3.8'",
+		"answerType": "yaml",
+		"streak": 0,
+        "id":11
+	},{
+		"question": "12.How to see all docker networks?",
+		"answer": "docker network ls",
+		"answerType": "terminal",
+		"streak": 0,
+        "id":12
+	},
+	{
+		"question": "13.What variables can be set for array reduce?",
+		"answer": "array.reduce((previousValue, currentValue, currentIndex, array) => {  /* ... */  }, initialValue)",
+		"answerType": "javascript",
+		"streak": 0,
+        "id":13
+	},
+	{
+		"question": "14.What's on the first line of a docker-compose file?",
+		"answer": "version: '3.8'",
+		"answerType": "yaml",
+		"streak": 0,
+        "id":14
+	}
+]
