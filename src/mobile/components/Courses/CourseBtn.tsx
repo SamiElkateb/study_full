@@ -2,20 +2,20 @@
 
 import { Text, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Course from '../../DataStructures/Courses';
 import useCustomTheme from '../../hooks/useCustomTheme';
 import { iconNames } from '../../types';
 import Icon from '../UI/Icon';
 import ProgressBar from '../UI/ProgressBar';
 
 interface props {
-	icon: iconNames;
-	title: string;
-	color: string;
+	course: Course;
 	onClick: () => void;
 	progress?: number;
 }
-const LessonTitleBtn: React.FC<props> = (props) => {
-	const { title, icon, color, onClick, progress = 0 } = props;
+const CourseBtn: React.FC<props> = (props) => {
+	const { course, onClick, progress = 0 } = props;
+	const { title, iconName, color } = course;
 	const { themeStyle } = useCustomTheme();
 	return (
 		<TouchableOpacity
@@ -25,7 +25,7 @@ const LessonTitleBtn: React.FC<props> = (props) => {
 		>
 			<View style={styles.button}>
 				<View style={styles.title_container}>
-					<Icon name={icon} size="med" color={color} />
+					<Icon name={iconName} size="med" color={color} />
 					<Text style={[styles.title, themeStyle.text]}>{title}</Text>
 				</View>
 				<ProgressBar progress={progress} />
@@ -34,7 +34,7 @@ const LessonTitleBtn: React.FC<props> = (props) => {
 	);
 };
 
-export default LessonTitleBtn;
+export default CourseBtn;
 
 const styles = StyleSheet.create({
 	button: {

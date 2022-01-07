@@ -46,14 +46,17 @@ export type iconNames =
 	| 'css'
 	| 'sass'
 	| 'arrowdown'
-	| 'done';
+	| 'done'
+	| 'square'
+	| 'react'
+	| 'backend';
 export type sizes = 'large' | 'med' | 'small' | 'x-small';
 
 export interface NavigationTreeNodeData {
 	id: number;
 	title?: string;
 	ancestry?: string;
-	rank?:number;
+	rank?: number;
 	icon_name?: string;
 	lesson_id?: number;
 	creator_id?: number;
@@ -94,4 +97,3 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
 		BottomTabScreenProps<RootTabParamList, Screen>,
 		NativeStackScreenProps<RootStackParamList>
 	>;
-

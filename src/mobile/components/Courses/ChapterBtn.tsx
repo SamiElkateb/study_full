@@ -11,7 +11,7 @@ interface props {
 	onClick: () => void;
 	done?: boolean;
 }
-const LessonChapterBtn: React.FC<props> = (props) => {
+const CourseBtn: React.FC<props> = (props) => {
 	const { title, onClick, done = false } = props;
 	const { theme, themeStyle } = useCustomTheme();
 	return (
@@ -32,7 +32,7 @@ const LessonChapterBtn: React.FC<props> = (props) => {
 	);
 };
 
-export default LessonChapterBtn;
+export default CourseBtn;
 
 const styles = StyleSheet.create({
 	button: {

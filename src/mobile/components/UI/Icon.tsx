@@ -1,7 +1,6 @@
 /** @format */
 
-import { AntDesign, Entypo, Feather, FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { StyleSheetProperties } from 'react-native';
+import { AntDesign, Entypo, Feather, FontAwesome, FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { iconSizes } from '../../constants/Size';
 import { iconNames, sizes } from '../../types';
 interface props {
@@ -56,6 +55,15 @@ const Icon: React.FC<props> = (props) => {
 	}
 	if (name === 'done') {
 		return <Feather name="check-circle" color={color} size={iconSize} />;
+	}
+	if (name === 'square') {
+		return <FontAwesome name="square" color={color} size={iconSize} />;
+	}
+	if (name === 'react') {
+		return <MaterialCommunityIcons name="square" color={color} size={iconSize} />;
+	}
+	if (name === 'backend') {
+		return <FontAwesome5 name="server" color={color} size={iconSize} />;
 	}
 
 	return <AntDesign name={name} color={color} size={iconSize} />;
