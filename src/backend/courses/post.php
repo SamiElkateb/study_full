@@ -4,15 +4,17 @@ function addCourse()
     global $db;
     $title = $_POST["title"];
     $icon_name = $_POST["icon_name"];
+    $color = $_POST["color"];
     $creator_id = $_POST["creator_id"];
     $rank = $_POST["rank"];
     $visibility = $_POST["visibility"];
     $created = date('Y-m-d H:i:s');
     $modified = date('Y-m-d H:i:s');
 
-    $q = $db->prepare('INSERT INTO courses(title, icon_name, creator_id, rank, visibility, created, modified) VALUES (:title, :icon_name, :creator_id, :rank, :visibility, :created, :modified)');
+    $q = $db->prepare('INSERT INTO courses(title, icon_name, color, creator_id, rank, visibility, created, modified) VALUES (:title, :icon_name, :color, :creator_id, :rank, :visibility, :created, :modified)');
     $q->bindValue(':title', $title);
     $q->bindValue(':icon_name', $icon_name);
+    $q->bindValue(':color', $color);
     $q->bindValue(':rank', $rank);
     $q->bindValue(':creator_id', $creator_id);
     $q->bindValue(':visibility', $visibility);

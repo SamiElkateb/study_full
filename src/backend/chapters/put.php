@@ -11,14 +11,16 @@ function updateChapter($id = 0)
     parse_str(file_get_contents('php://input'), $_PUT);
     $title = $_PUT["title"];
     $icon_name = $_PUT["icon_name"];
+    $color = $_PUT["color"];
     $course_id = $_PUT["course_id"];
     $rank = $_PUT["rank"];
     $visibility = $_PUT["visibility"];
     $modified = date('Y-m-d H:i:s');
 
-    $q = $db->prepare('UPDATE chapters SET title=:title, icon_name=:icon_name, course_id=:course_id, visibility=:visibility, rank=:rank, modified=:modified WHERE id=:id');
+    $q = $db->prepare('UPDATE chapters SET title=:title, icon_name=:icon_name, color=:color, course_id=:course_id, visibility=:visibility, rank=:rank, modified=:modified WHERE id=:id');
     $q->bindValue(':title', $title, PDO::PARAM_STR);
     $q->bindValue(':icon_name', $icon_name, PDO::PARAM_STR);
+    $q->bindValue(':color', $color, PDO::PARAM_STR);
     $q->bindValue(':course_id', $course_id, PDO::PARAM_INT);
     $q->bindValue(':rank', $rank, PDO::PARAM_INT);
     $q->bindValue(':visibility', $visibility, PDO::PARAM_INT);
