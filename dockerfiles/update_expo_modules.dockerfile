@@ -2,7 +2,7 @@ FROM node:latest
 
 WORKDIR /app
 
-COPY src/mobile_app/package*.json ./
-COPY src/mobile_app/app.json ./
+COPY src/mobile/package*.json ./
+COPY src/mobile/app.json ./
 
 CMD ["npm", "install"]
