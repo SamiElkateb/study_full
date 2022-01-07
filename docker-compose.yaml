@@ -8,20 +8,20 @@ services:
       context: .
       dockerfile: dockerfiles/nginx.dockerfile
     ports:
-      - '8000:80'
+      - 8000:80
     volumes:
-      - ./src/api:/var/www/html:ro
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./src/api:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
       - mariadb
 
-  php:
+  api:
     build:
       context: .
-      dockerfile: dockerfiles/php.dockerfile
+      dockerfile: dockerfiles/api.dockerfile
     volumes:
-      - ./src/api:/var/www/html:ro
+      - ./src/api:/var/www/html
     env_file:
       - ./env/api.env
 

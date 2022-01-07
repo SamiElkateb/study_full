@@ -1,12 +1,12 @@
 <?php
-function deleteNavigation($id = 0)
+function deleteCourse($id = 0)
 {
     if (!is_numeric($id) || $id === 0) {
         header("HTTP/1.0 422 Unprocessable Entity");
         return;
     }
     global $db;
-    $q = $db->prepare('DELETE FROM navigation WHERE id=:id LIMIT 1');
+    $q = $db->prepare('DELETE FROM courses WHERE id=:id LIMIT 1');
     $q->bindValue(':id', $id, PDO::PARAM_INT);
 
     if ($q->execute()) {

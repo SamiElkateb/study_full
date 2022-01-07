@@ -1,5 +1,5 @@
 <?php
-function updateNavigation($id = 0)
+function updateCourse($id = 0)
 {
     if (!is_numeric($id) || $id === 0) {
         header("HTTP/1.0 422 Unprocessable Entity");
@@ -11,17 +11,15 @@ function updateNavigation($id = 0)
     parse_str(file_get_contents('php://input'), $_PUT);
     $title = $_PUT["title"];
     $icon_name = $_PUT["icon_name"];
-    $ancestry = $_PUT["ancestry"];
-    $lesson_id = $_PUT["lesson_id"];
+    $rank = $_PUT["rank"];
     $visibility = $_PUT["visibility"];
     $modified = date('Y-m-d H:i:s');
 
-    $q = $db->prepare('UPDATE navigation SET title=:title, icon_name=:icon_name, ancestry=:ancestry, visibility=:visibility, lesson_id=:lesson_id, modified=:modified WHERE id=:id');
+    $q = $db->prepare('UPDATE courses SET title=:title, icon_name=:icon_name, visibility=:visibility, rank=:rank, modified=:modified WHERE id=:id');
     $q->bindValue(':title', $title, PDO::PARAM_STR);
     $q->bindValue(':icon_name', $icon_name, PDO::PARAM_STR);
-    $q->bindValue(':ancestry', $ancestry, PDO::PARAM_STR);
-    $q->bindValue(':lesson_id', $lesson_id, PDO::PARAM_STR);
-    $q->bindValue(':visibility', $visibility, PDO::PARAM_STR);
+    $q->bindValue(':rank', $rank, PDO::PARAM_INT);
+    $q->bindValue(':visibility', $visibility, PDO::PARAM_INT);
     $q->bindValue(':modified', $modified, PDO::PARAM_STR);
     $q->bindValue(':id', $id, PDO::PARAM_INT);
 
