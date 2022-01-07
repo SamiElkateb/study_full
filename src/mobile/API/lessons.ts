@@ -1,18 +1,18 @@
-import { API_URL } from "../constants/Url";
+import { API_URL } from '../constants/Url';
+import { apiResponse, lessonData } from '../types/api_interfaces';
 
-/** @format */
-
-export async function getLessons() {
+export async function getLessons(): Promise<apiResponse<lessonData>> {
 	const url = `http://${API_URL}/api/lessons`;
 	const requestOptions = {
 		method: 'GET',
 	};
+
 	return fetch(url, requestOptions)
 		.then((response) => response.json())
 		.catch((error) => console.log(error));
 }
 
-export async function getLesson(id: number) {
+export async function getLesson(id: number): Promise<apiResponse<lessonData>> {
 	const url = `http://${API_URL}/api/lessons`;
 
 	const formData = new FormData();
@@ -20,14 +20,17 @@ export async function getLesson(id: number) {
 
 	const requestOptions = {
 		method: 'GET',
-		body:formData
+		body: formData,
 	};
+
 	return fetch(url, requestOptions)
 		.then((response) => response.json())
 		.catch((error) => console.log(error));
 }
 
-export async function getLessonByChapterId(courseId: number) {
+export async function getLessonByChapterId(
+	courseId: number
+): Promise<apiResponse<lessonData>> {
 	const url = `http://${API_URL}/api/lessons`;
 
 	const formData = new FormData();
@@ -35,8 +38,9 @@ export async function getLessonByChapterId(courseId: number) {
 
 	const requestOptions = {
 		method: 'GET',
-		body:formData
+		body: formData,
 	};
+
 	return fetch(url, requestOptions)
 		.then((response) => response.json())
 		.catch((error) => console.log(error));
