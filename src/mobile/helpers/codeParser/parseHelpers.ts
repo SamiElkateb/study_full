@@ -1,5 +1,5 @@
 /** @format */
-import { indexAndLengthArray } from '../../types';
+import { indexAndLengthArray } from '../../types/types';
 
 interface typedCode<Type> {
 	type: Type;

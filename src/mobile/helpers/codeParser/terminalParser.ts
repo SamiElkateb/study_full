@@ -1,4 +1,4 @@
-import { indexAndLengthArray } from "../../types";
+import { indexAndLengthArray } from "../../types/types";
 import {parseType, getRegexIndexesAndLength} from './parseHelpers'
 
 /** @format */

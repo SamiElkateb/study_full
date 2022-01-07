@@ -3,7 +3,7 @@
 import { Text, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import useCustomTheme from '../../hooks/useCustomTheme';
-import { iconNames } from '../../types';
+import { iconNames } from '../../types/types';
 import Icon from '../UI/Icon';
 
 interface props {

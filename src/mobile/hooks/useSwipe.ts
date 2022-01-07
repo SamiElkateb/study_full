@@ -4,7 +4,7 @@ import { useState, useRef, useContext } from 'react';
 import { Animated, Dimensions, PanResponder } from 'react-native';
 import StudyCard from '../DataStructures/StudyCard';
 import StudyContext from '../store/StudyContext';
-import { toggleButton } from '../types';
+import { toggleButton } from '../types/types';
 
 type PointerEvent = 'auto' | 'none';
 interface props {

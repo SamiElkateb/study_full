@@ -2,7 +2,7 @@
 
 import { AntDesign, Entypo, Feather, FontAwesome, FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { iconSizes } from '../../constants/Size';
-import { iconNames, sizes } from '../../types';
+import { iconNames, sizes } from '../../types/types';
 interface props {
 	name: iconNames;
 	size: sizes;

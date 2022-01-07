@@ -1,7 +1,7 @@
 /** @format */
 
 import { StyleSheet, Text } from 'react-native';
-import { yamlCodeType } from '../../../../types';
+import { yamlCodeType } from '../../../../types/types';
 
 interface props {
 	codeItem: string | { text: string; type: yamlCodeType };

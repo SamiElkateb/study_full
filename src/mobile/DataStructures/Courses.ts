@@ -1,7 +1,7 @@
 /** @format */
 
 import isIconName from '../helpers/data_testing/isIconName';
-import { iconNames } from '../types';
+import { iconNames } from '../types/types';
 
 interface course {
 	id: number;

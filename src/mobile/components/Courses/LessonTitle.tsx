@@ -2,7 +2,7 @@
 
 import { Text, StyleSheet, View } from 'react-native';
 import useCustomTheme from '../../hooks/useCustomTheme';
-import { iconNames } from '../../types';
+import { iconNames } from '../../types/types';
 import Icon from '../UI/Icon';
 
 interface props {

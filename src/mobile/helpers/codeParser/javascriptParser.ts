@@ -1,6 +1,6 @@
 /** @format */
 
-import { javascriptCodeType } from '../../types';
+import { javascriptCodeType } from '../../types/types';
 import {parseType, getRegexIndexesAndLength, addLocationsAndType} from './parseHelpers'
 
 /** @format */

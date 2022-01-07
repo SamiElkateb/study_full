@@ -5,7 +5,7 @@ import { Animated, View, StyleSheet } from 'react-native';
 import StudyCard from '../../DataStructures/StudyCard';
 import useSwipe from '../../hooks/useSwipe';
 import StudyContext from '../../store/StudyContext';
-import { toggleButton } from '../../types';
+import { toggleButton } from '../../types/types';
 
 interface props {
 	studyCard: StudyCard;

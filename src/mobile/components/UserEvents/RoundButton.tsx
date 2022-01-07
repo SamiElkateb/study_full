@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import useCustomTheme from '../../hooks/useCustomTheme';
-import { toggleButton } from '../../types';
+import { toggleButton } from '../../types/types';
 import Icon from '../UI/Icon';
 
 interface props {

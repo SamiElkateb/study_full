@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import Terminal from '../UI/Code/Terminal/Terminal';
 import Javascript from '../UI/Code/Javascript/Javascript';
 import Yaml from '../UI/Code/Yaml/Yaml';
-import { answerType } from '../../types';
+import { answerType } from '../../types/types';
 import useCustomTheme from '../../hooks/useCustomTheme';
 
 interface props {

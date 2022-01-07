@@ -2,7 +2,7 @@
 
 /** @format */
 
-import { yamlCodeType } from '../../types';
+import { yamlCodeType } from '../../types/types';
 import {
 	parseType,
 	getRegexIndexesAndLength,

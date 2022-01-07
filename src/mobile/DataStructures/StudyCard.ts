@@ -1,6 +1,6 @@
 /** @format */
 
-import { answerType } from '../types';
+import { answerType } from '../types/types';
 
 interface card {
 	question: string;
