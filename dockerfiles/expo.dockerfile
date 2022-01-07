@@ -8,6 +8,10 @@ COPY src/mobile/app.json ./
 
 RUN npm install --global expo-cli && npm install
 
+ARG EXPO_USERNAME
+ARG EXPO_PASSWORD
+RUN expo signin --username $EXPO_USERNAME --password $EXPO_PASSWORD
+
 COPY src/mobile/ ./
 
 EXPOSE 19000

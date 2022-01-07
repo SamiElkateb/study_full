@@ -1,7 +1,7 @@
 /** @format */
 
 import { View, StyleSheet } from 'react-native';
-import { getCards } from '../API/study';
+import { getCards } from '../API/cards';
 import LessonChapterBtn from '../components/Lessons/LessonChapterBtn';
 import LessonTitle from '../components/Lessons/LessonTitle';
 import Icon from '../components/UI/Icon';
