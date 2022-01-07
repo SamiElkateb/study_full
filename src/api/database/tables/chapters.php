@@ -4,7 +4,7 @@ $q = $db->prepare(
         id int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL, 
         title varchar(255) NOT NULL, 
         icon_name varchar(255) NOT NULL,
-        course_id int(11) DEFAULT NULL,
+        course_id int(11) NOT NULL,
         creator_id int(11) NOT NULL,
         rank int(11) NOT NULL,
         visibility int(11) NOT NULL, 
