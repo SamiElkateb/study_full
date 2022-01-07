@@ -63,6 +63,7 @@ function getLessonsByChapterId($chapter_id = 0)
     }
     global $db;
     $q = $db->prepare('SELECT * FROM lessons WHERE chapter_id=:chapter_id');
+    $q->bindValue(':chapter_id', $chapter_id, PDO::PARAM_INT);
     if ($q->execute()) {
         $responseData = [];
         while ($data = $q->fetch(PDO::FETCH_ASSOC)) {
