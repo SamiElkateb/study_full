@@ -15,14 +15,14 @@ export async function getChapters(): Promise<apiResponse<chapterData>> {
 export async function getChapter(
 	id: number
 ): Promise<apiResponse<chapterData>> {
-	const url = `http://${API_URL}/api/chapters`;
+	const params = new URLSearchParams({
+		id: id.toString(),
+	});
 
-	const formData = new FormData();
-	formData.append('id', id.toString());
+	const url = `http://${API_URL}/api/chapters?${params}`;
 
 	const requestOptions = {
 		method: 'GET',
-		body: formData,
 	};
 
 	return fetch(url, requestOptions)
@@ -33,14 +33,13 @@ export async function getChapter(
 export async function getChapterByCourseId(
 	courseId: number
 ): Promise<apiResponse<chapterData>> {
-	const url = `http://${API_URL}/api/chapters`;
-
-	const formData = new FormData();
-	formData.append('course_id', courseId.toString());
+	const params = new URLSearchParams({
+		course_id: courseId.toString(),
+	});
+	const url = `http://${API_URL}/api/chapters?${params}`;
 
 	const requestOptions = {
 		method: 'GET',
-		body: formData,
 	};
 
 	return fetch(url, requestOptions)

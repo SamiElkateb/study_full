@@ -5,12 +5,14 @@ import { Pressable } from 'react-native';
 import Icon from '../components/UI/Icon';
 import useCustomTheme from '../hooks/useCustomTheme';
 import CardStack from '../screens/CardStack';
+import ChapterScreen from '../screens/ChapterScreen';
+import LessonScreen from '../screens/LessonScreen';
 import BottomTabNavigator from './BottomTab';
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
-	const {theme} = useCustomTheme();
+	const { theme } = useCustomTheme();
 	return (
 		<Stack.Navigator>
 			<Stack.Screen
@@ -18,6 +20,8 @@ const StackNavigator = () => {
 				component={BottomTabNavigator}
 				options={{ headerShown: false }}
 			/>
+			<Stack.Screen name="Chapters" component={ChapterScreen} />
+			<Stack.Screen name="Lessons" component={LessonScreen} />
 			<Stack.Screen
 				name="Study"
 				component={CardStack}

@@ -1,18 +1,16 @@
-/** @format */
-
 import { Text, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Lesson from '../../DataStructures/Lesson';
 import useCustomTheme from '../../hooks/useCustomTheme';
-import { iconNames } from '../../types/types';
 import Icon from '../UI/Icon';
 
 interface props {
-	title: string;
+	lesson: Lesson;
 	onClick: () => void;
-	done?: boolean;
+	isDone?: boolean;
 }
-const CourseBtn: React.FC<props> = (props) => {
-	const { title, onClick, done = false } = props;
+const LessonBtn: React.FC<props> = (props) => {
+	const { lesson, onClick, isDone = false } = props;
 	const { theme, themeStyle } = useCustomTheme();
 	return (
 		<TouchableOpacity
@@ -21,18 +19,24 @@ const CourseBtn: React.FC<props> = (props) => {
 			activeOpacity={0.7}
 		>
 			<View style={styles.button}>
-				{done && (
+				{isDone && (
 					<View style={styles.done}>
-						<Icon name="done" size="x-small" color={theme.correct} />
+						<Icon
+							name="done"
+							size="x-small"
+							color={theme.correct}
+						/>
 					</View>
 				)}
-				<Text style={[styles.title, themeStyle.text]}>{title}</Text>
+				<Text style={[styles.title, themeStyle.text]}>
+					{lesson.title}
+				</Text>
 			</View>
 		</TouchableOpacity>
 	);
 };
 
-export default CourseBtn;
+export default LessonBtn;
 
 const styles = StyleSheet.create({
 	button: {
@@ -54,8 +58,8 @@ const styles = StyleSheet.create({
 	},
 	done: {
 		position: 'absolute',
-        right: 6,
-        top: 6,
+		right: 6,
+		top: 6,
 	},
 	title: {
 		fontSize: 16,

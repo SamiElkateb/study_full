@@ -1,7 +1,4 @@
-/** @format */
-
 import { View, StyleSheet, Text } from 'react-native';
-
 import StudyCard from '../components/StudyCard/StudyCard';
 import { useContext } from 'react';
 import StudyContext, { StudyContextProvider } from '../store/StudyContext';

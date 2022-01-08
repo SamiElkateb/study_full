@@ -80,6 +80,8 @@ export type RootStackParamList = {
 	Root: NavigatorScreenParams<RootTabParamList> | undefined;
 	Modal: undefined;
 	Study: undefined;
+	Chapters: { courseId: number };
+	Lessons: { chapterId: number };
 	NotFound: undefined;
 };
 

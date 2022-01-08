@@ -15,14 +15,14 @@ export async function getCourses(): Promise<apiResponse<courseData>> {
 }
 
 export async function getCourse(id: number): Promise<apiResponse<courseData>> {
-	const url = `http://${API_URL}/api/courses`;
+	const params = new URLSearchParams({
+		id: id.toString(),
+	});
 
-	const formData = new FormData();
-	formData.append('id', id.toString());
+	const url = `http://${API_URL}/api/courses?${params}`;
 
 	const requestOptions = {
 		method: 'GET',
-		body: formData,
 	};
 
 	return fetch(url, requestOptions)

@@ -3,14 +3,13 @@ import * as React from 'react';
 import Icon from '../components/UI/Icon';
 import useCustomTheme from '../hooks/useCustomTheme';
 import DailyCards from '../screens/DailyCards';
-import Lessons from '../screens/Lessons';
+import CourseScreen from '../screens/CourseScreen';
 import Stats from '../screens/Stats';
-
 
 const Tab = createBottomTabNavigator();
 
-const  BottomTabNavigator = () => {
-	const {theme} = useCustomTheme()
+const BottomTabNavigator = () => {
+	const { theme } = useCustomTheme();
 
 	return (
 		<Tab.Navigator
@@ -20,10 +19,10 @@ const  BottomTabNavigator = () => {
 			}}
 		>
 			<Tab.Screen
-				name="Lesson"
-				component={Lessons}
+				name="Learn"
+				component={CourseScreen}
 				options={({ navigation }) => ({
-					title: 'Lessons',
+					title: 'Learn',
 					tabBarIcon: ({ color }) => (
 						<Icon name="curved-flag" color={color} size={'small'} />
 					),
@@ -51,6 +50,6 @@ const  BottomTabNavigator = () => {
 			/>
 		</Tab.Navigator>
 	);
-}
+};
 
-export default BottomTabNavigator
+export default BottomTabNavigator;
