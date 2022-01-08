@@ -1,0 +1,31 @@
+$primary: rgb(101, 196, 102);
+$accent: rgb(246, 206, 70);
+$correct: rgb(101, 196, 102);
+$error: rgb(234, 78, 61);
+$footerBackground: rgb(62, 65, 106);
+$footerText: rgb(220, 220, 220);
+
+$themes: (
+	'light': (
+		'background-color': rgb(240, 244, 253),
+		'text-color': rgb(62, 65, 106),
+		'card': rgb(255, 255, 255),
+		'primary': $primary,
+		'accent': $accent,
+		'correct': $correct,
+		'error': $error,
+		'footer-background': $footerBackground,
+		'footer-text': $footerText,
+	),
+	'dark': (
+		'background-color': rgb(40, 40, 40),
+		'text-color': rgb(220, 220, 220),
+		'card': rgb(62, 65, 106),
+		'primary': $primary,
+		'accent': $accent,
+		'correct': $correct,
+		'error': $error,
+		'footer-background': $footerBackground,
+		'footer-text': $footerText,
+	),
+);

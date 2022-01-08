@@ -1,0 +1,68 @@
+@use '../../../constants/style/themify.scss' as *;
+
+.footer {
+	@include themify($themes) {
+		color: themed('footer-text');
+		background-color: themed('footer-background');
+	}
+
+	align-self: flex-end;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	text-align: right;
+	padding: 0.5rem;
+
+	nav {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+	}
+
+	ul {
+		list-style: none;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		max-width: 1040px;
+		margin: auto;
+	}
+
+	li {
+		margin: 1rem;
+	}
+
+	a {
+		opacity: 0.8;
+		text-decoration: none;
+		font-weight: bold;
+		margin: 0px 1rem;
+		text-align: center;
+		@include themify($themes) {
+			color: themed('footer-text');
+		}
+		&:hover {
+			opacity: 1;
+		}
+	}
+}
+
+.copyright {
+	opacity: 0.8;
+	font-weight: bold;
+	text-align: center;
+	@include themify($themes) {
+		color: themed('footer-text');
+	}
+}
+
+@media (max-width: 769px) {
+	.footer {
+		ul {
+			flex-direction: column;
+		}
+	}
+}

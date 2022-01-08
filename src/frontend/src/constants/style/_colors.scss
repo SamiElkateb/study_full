@@ -1,0 +1,40 @@
+@use 'sass:map';
+$main-color-dark: #035eca;
+$main-color-darker: #042143;
+$main-color: #2687fb;
+$main-color-light: #77b3fa;
+$main-color-lightest: #f5fafe;
+$main-color-icon: #004599;
+$accent-color: #ffc973;
+$accent-color-gradient: #ff9c00;
+$background: rgb(240, 245, 253);
+$danger: #a94442;
+$success: #3c763d;
+$warning: #f0ad4e;
+$text-less-important: rgb(176, 178, 190);
+
+@function theme($theme, $value) {
+	@if map.get($themes, $value) {
+		@return map.get($themes, $value);
+	}
+	@return map.get(map.get($themes, $theme), $value);
+}
+
+$themes: (
+	'correct': rgb(101, 196, 102),
+	'error': rgb(234, 78, 61),
+	'primary': rgb(101, 196, 102),
+	'accent': rgb(246, 206, 70),
+	'light': (
+		'background-color': rgb(240, 244, 253),
+		'text-color': rgb(62, 65, 106),
+		'card': rgb(255, 255, 255),
+	),
+	'dark': (
+		'background-color': rgb(40, 40, 40),
+		'text-color': rgb(220, 220, 220),
+		'card': rgb(62, 65, 106),
+	),
+	'footer-background': rgb(62, 65, 106),
+	'footer-text': rgb(220, 220, 220),
+);

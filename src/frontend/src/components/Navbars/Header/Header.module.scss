@@ -1,0 +1,132 @@
+@use '../../../constants/style/themify.scss' as *;
+.header {
+	z-index: 3;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	text-align: right;
+	display: flex;
+	background-color: white;
+	@include themify($themes) {
+		background-color: themed('background-color');
+	}
+}
+
+.header ul {
+	list-style: none;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	max-width: 1040px;
+	margin: auto;
+	flex: 1;
+}
+
+.header.sticky {
+	box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 6px 0px;
+}
+
+.header nav {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+}
+
+.header li {
+	padding: 0rem 1rem;
+}
+
+.header a {
+	transition: color 0.2s;
+	font-size: 1rem;
+	font-weight: bold;
+	text-decoration: none;
+	@include themify($themes) {
+		color: themed('primary');
+	}
+}
+
+.header a:hover,
+.header a.selected {
+	@include themify($themes) {
+		color: themed('primary');
+	}
+}
+.signup a {
+	padding: 0.5rem 1rem;
+	display: inline-block;
+	transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+	border-width: 1px;
+	border-style: solid;
+	font-size: 1rem;
+	background-color: transparent;
+	font-weight: bold;
+	margin: 1rem 0px;
+	border-radius: 2rem;
+	padding: 0.5rem 1rem;
+	@include themify($themes) {
+		color: themed('primary');
+		border-color: themed('primary');
+	}
+}
+.signup:hover a {
+	color: white !important;
+	@include themify($themes) {
+		background-color: themed('primary');
+	}
+}
+.signup.active a {
+	color: white !important;
+	@include themify($themes) {
+		background-color: themed('primary');
+	}
+}
+.auth a {
+	text-transform: uppercase;
+	font-size: 0.75rem;
+}
+.auth li {
+	padding: 0rem 0.5rem !important;
+}
+
+.login a {
+	white-space: nowrap;
+	color: grey;
+	&:hover {
+		@include themify($themes) {
+			color: themed('primary');
+		}
+	}
+}
+.header a:hover,
+.header .active {
+	@include themify($themes) {
+		color: themed('primary');
+	}
+}
+
+.brand-name a {
+	font-weight: 900;
+	font-size: 2rem;
+	@include themify($themes) {
+		color: themed('primary');
+	}
+}
+@media (max-width: 1040px) {
+	header ul {
+		padding: 0px 0.5rem;
+	}
+}
+
+@media (max-width: 769px) {
+	.header ul {
+		padding: 1rem;
+	}
+	.brand-name,
+	.auth {
+		display: none;
+	}
+}

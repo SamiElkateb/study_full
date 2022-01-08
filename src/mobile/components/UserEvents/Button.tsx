@@ -31,17 +31,16 @@ const Button: React.FC<props> = (props) => {
 		backgroundColor,
 		borderColor: theme[color],
 		borderWidth: 2,
-	}
+	};
 
 	return (
 		<TouchableOpacity
 			onPress={onClick}
 			activeOpacity={0.7}
 			disabled={disabled}
+			style={[styles.button_container]}
 		>
-			<Text style={[styles.button, buttonStyle, style ]}>
-				{children}
-			</Text>
+			<Text style={[styles.button, buttonStyle, style]}>{children}</Text>
 		</TouchableOpacity>
 	);
 };
@@ -49,6 +48,15 @@ const Button: React.FC<props> = (props) => {
 export default Button;
 
 const styles = StyleSheet.create({
+	button_container: {
+		borderRadius: 28,
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.2,
+		shadowRadius: 2,
+	},
 	button: {
 		fontSize: 20,
 		fontWeight: 'bold',
