@@ -1,9 +1,9 @@
 import { View, StyleSheet, Text } from 'react-native';
-import StudyCard from '../components/StudyCard/StudyCard';
 import { useContext } from 'react';
-import StudyContext, { StudyContextProvider } from '../store/StudyContext';
-import ProgressBar from '../components/UI/ProgressBar';
-import useCustomTheme from '../hooks/useCustomTheme';
+import ProgressBar from '../UI/ProgressBar';
+import StudyContext from '../../store/StudyContext';
+import StudyCard from './StudyCard';
+import useCustomTheme from '../../hooks/useCustomTheme';
 
 const CardStack: React.FC = (props) => {
 	const studyCtx = useContext(StudyContext);

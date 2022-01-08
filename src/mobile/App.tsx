@@ -16,12 +16,10 @@ export default function App() {
 		return null;
 	} else {
 		return (
-			<StudyContextProvider>
-				<SafeAreaProvider>
-					<Navigation colorScheme={colorScheme} />
-					<StatusBar />
-				</SafeAreaProvider>
-			</StudyContextProvider>
+			<SafeAreaProvider>
+				<Navigation colorScheme={colorScheme} />
+				<StatusBar />
+			</SafeAreaProvider>
 		);
 	}
 }

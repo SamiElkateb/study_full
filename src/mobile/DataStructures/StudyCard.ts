@@ -5,9 +5,9 @@ import { answerType } from '../types/types';
 interface card {
 	question: string;
 	answer: string;
-	streak: number;
+	streak?: number;
 	answerType: string;
-	id:number
+	id: number;
 }
 class StudyCard {
 	readonly question: string;
@@ -16,7 +16,7 @@ class StudyCard {
 	readonly id: number;
 	private streak: number;
 	constructor(props: card) {
-		const { question, answer, answerType, streak, id } = props;
+		const { question, answer, answerType, streak = 0, id } = props;
 		this.id = id;
 		this.question = question;
 		this.answer = answer;

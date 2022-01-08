@@ -4,12 +4,12 @@ import {
 	useNavigation,
 } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { getChapterByCourseId } from '../API/chapters';
 import CourseBtn from '../components/Learn/CourseBtn';
+import Loading from '../components/UI/Loading';
 import Chapter from '../DataStructures/Chapter';
-import useCustomTheme from '../hooks/useCustomTheme';
-import { chapterData, courseData } from '../types/api_interfaces';
+import { chapterData } from '../types/api_interfaces';
 import { RootStackParamList } from '../types/types';
 
 interface props {
@@ -19,14 +19,9 @@ interface props {
 
 const ChapterScreen: React.FC<props> = (props) => {
 	const navigation = useNavigation();
-	const { route } = props;
-	const { courseId } = route.params;
+	const courseId = props.route.params.courseId;
 	const [chapters, setChapters] = useState<chapterData[]>([]);
-	const { theme } = useCustomTheme();
-
 	const [isLoading, setIsLoading] = useState(true);
-	const isChaptersEmpty = chapters.length === 0;
-	const shouldShowSpinner = isLoading && isChaptersEmpty;
 
 	useEffect(() => {
 		getChapterByCourseId(courseId).then((response) => {
@@ -35,19 +30,13 @@ const ChapterScreen: React.FC<props> = (props) => {
 		});
 	}, []);
 
-	const onNavigateToLesson = (chapterId: number) => {
+	const navigateToLessonHandler = (chapterId: number) => {
 		navigation.navigate('Lessons', { chapterId });
 	};
 
 	return (
 		<View style={styles.container}>
-			{shouldShowSpinner && (
-				<ActivityIndicator
-					size="large"
-					color={theme.primary}
-					style={styles.loading}
-				/>
-			)}
+			{isLoading && <Loading />}
 
 			{chapters.map((chapterResponse) => {
 				const chapter = new Chapter(chapterResponse);
@@ -55,7 +44,7 @@ const ChapterScreen: React.FC<props> = (props) => {
 					<CourseBtn
 						key={chapter.id}
 						course={chapter}
-						onClick={onNavigateToLesson.bind(null, chapter.id)}
+						onClick={navigateToLessonHandler.bind(null, chapter.id)}
 					/>
 				);
 			})}
@@ -68,9 +57,5 @@ export default ChapterScreen;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-	},
-	loading: {
-		alignSelf: 'center',
-		marginTop: 40,
 	},
 });

@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Pressable } from 'react-native';
 import Icon from '../components/UI/Icon';
 import useCustomTheme from '../hooks/useCustomTheme';
-import CardStack from '../screens/CardStack';
+import StudyScreen from '../screens/StudyScreen';
 import ChapterScreen from '../screens/ChapterScreen';
 import LessonScreen from '../screens/LessonScreen';
 import BottomTabNavigator from './BottomTab';
@@ -24,7 +24,7 @@ const StackNavigator = () => {
 			<Stack.Screen name="Lessons" component={LessonScreen} />
 			<Stack.Screen
 				name="Study"
-				component={CardStack}
+				component={StudyScreen}
 				options={({ navigation }) => ({
 					title: 'Study',
 					headerTintColor: 'transparent',

@@ -1,20 +1,16 @@
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { getCourses } from '../API/courses';
 import CourseBtn from '../components/Learn/CourseBtn';
+import Loading from '../components/UI/Loading';
 import Course from '../DataStructures/Courses';
-import useCustomTheme from '../hooks/useCustomTheme';
 import { courseData } from '../types/api_interfaces';
 
 const CourseScreen: React.FC = (props) => {
 	const navigation = useNavigation();
 	const [courses, setCourses] = useState<courseData[]>([]);
-	const { theme } = useCustomTheme();
-
 	const [isLoading, setIsLoading] = useState(true);
-	const isCoursesEmpty = courses.length === 0;
-	const shouldShowSpinner = isLoading && isCoursesEmpty;
 
 	useEffect(() => {
 		getCourses().then((response) => {
@@ -23,19 +19,13 @@ const CourseScreen: React.FC = (props) => {
 		});
 	}, []);
 
-	const onNavigateToChapter = (courseId: number) => {
+	const navigateToChapterHandler = (courseId: number) => {
 		navigation.navigate('Chapters', { courseId });
 	};
 
 	return (
 		<View style={styles.container}>
-			{shouldShowSpinner && (
-				<ActivityIndicator
-					size="large"
-					color={theme.primary}
-					style={styles.loading}
-				/>
-			)}
+			{isLoading && <Loading />}
 
 			{courses.map((courseResponse) => {
 				const course = new Course(courseResponse);
@@ -43,7 +33,7 @@ const CourseScreen: React.FC = (props) => {
 					<CourseBtn
 						key={course.id}
 						course={course}
-						onClick={onNavigateToChapter.bind(null, course.id)}
+						onClick={navigateToChapterHandler.bind(null, course.id)}
 					/>
 				);
 			})}
@@ -56,9 +46,5 @@ export default CourseScreen;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-	},
-	loading: {
-		alignSelf: 'center',
-		marginTop: 40,
 	},
 });

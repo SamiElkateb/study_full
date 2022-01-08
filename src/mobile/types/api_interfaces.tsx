@@ -4,7 +4,7 @@ export interface apiResponse<T> {
 	ok: boolean;
 	status: number;
 	message: string;
-    data:T[];
+	data: T[];
 }
 
 export interface courseData {
@@ -39,6 +39,16 @@ export interface lessonData {
 	creator_id: number;
 	rank: number;
 	visibility: number;
+	created: string;
+	modified: string;
+}
+
+export interface cardData {
+	id: number;
+	question: string;
+	answer: string;
+	answerType: string;
+	lesson_id: number;
 	created: string;
 	modified: string;
 }

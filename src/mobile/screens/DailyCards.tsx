@@ -1,31 +1,32 @@
-/** @format */
-
 import { useNavigation } from '@react-navigation/native';
-import { useContext } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import Button from '../components/UserEvents/Button';
 import useCustomTheme from '../hooks/useCustomTheme';
-import StudyContext from '../store/StudyContext';
+import { cardData } from '../types/api_interfaces';
+import cards from '../data/cards.json';
+const allStudyCards = cards as unknown as cardData[];
 
-const DailyCards: React.FC= () => {
-	const studyCtx = useContext(StudyContext);
-	const { studyDeck } = studyCtx;
+const DailyCards: React.FC = () => {
 	const navigation = useNavigation();
-	const cardsRemaining = studyDeck.length;
-	const areCardsRemaining = studyDeck.length > 0;
-	const {themeStyle} = useCustomTheme()
+	const cardsRemaining = allStudyCards.length;
+	const areCardsRemaining = allStudyCards.length > 0;
+	const { themeStyle } = useCustomTheme();
 
-	const onStartHandler = () => {
-		navigation.navigate('Study');
+	const startHandler = () => {
+		navigation.navigate('Study', { initialDeck: allStudyCards });
 	};
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.number_card_container}>
-				<Text style={[themeStyle.text, styles.number]}>{cardsRemaining}</Text>
-				<Text style={[themeStyle.text, styles.text ]}>Cards remaining</Text>
+				<Text style={[themeStyle.text, styles.number]}>
+					{cardsRemaining}
+				</Text>
+				<Text style={[themeStyle.text, styles.text]}>
+					Cards remaining
+				</Text>
 			</View>
-			{areCardsRemaining && <Button onClick={onStartHandler}>Start</Button>}
+			{areCardsRemaining && <Button onClick={startHandler}>Start</Button>}
 		</View>
 	);
 };

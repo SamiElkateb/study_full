@@ -69,6 +69,8 @@ import {
 	NavigatorScreenParams,
 } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import StudyCard from '../DataStructures/StudyCard';
+import { cardData } from './api_interfaces';
 
 declare global {
 	namespace ReactNavigation {
@@ -79,7 +81,7 @@ declare global {
 export type RootStackParamList = {
 	Root: NavigatorScreenParams<RootTabParamList> | undefined;
 	Modal: undefined;
-	Study: undefined;
+	Study: { initialDeck: cardData[] };
 	Chapters: { courseId: number };
 	Lessons: { chapterId: number };
 	NotFound: undefined;
