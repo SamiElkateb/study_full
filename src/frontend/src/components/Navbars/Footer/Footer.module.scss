@@ -2,8 +2,8 @@
 
 .footer {
 	@include themify($themes) {
-		color: themed('footer-text');
-		background-color: themed('footer-background');
+		color: themed('on-navbar');
+		background-color: themed('navbar');
 	}
 
 	align-self: flex-end;
@@ -42,7 +42,7 @@
 		margin: 0px 1rem;
 		text-align: center;
 		@include themify($themes) {
-			color: themed('footer-text');
+			color: themed('on-navbar');
 		}
 		&:hover {
 			opacity: 1;
@@ -55,7 +55,7 @@
 	font-weight: bold;
 	text-align: center;
 	@include themify($themes) {
-		color: themed('footer-text');
+		color: themed('on-navbar');
 	}
 }
 

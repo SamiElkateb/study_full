@@ -6,7 +6,7 @@
 	flex-direction: column;
 	justify-content: space-between;
 	@include themify($themes) {
-		background-color: themed('background-color');
+		background-color: themed('background');
 	}
 }
 

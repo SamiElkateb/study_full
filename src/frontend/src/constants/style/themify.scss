@@ -2,25 +2,42 @@
 @forward './themes.scss';
 
 @mixin themify($themes: t.$themes) {
-	@each $theme, $map in t.$themes {
-		:global(.theme-#{$theme}) & {
-			$theme-map: () !global;
-			@each $key, $submap in $map {
-				$value: map-get(map-get(t.$themes, $theme), '#{$key}');
-				$theme-map: map-merge(
-					$theme-map,
-					(
-						$key: $value,
-					)
-				) !global;
-			}
+	@each $theme, $map in $themes {
+		@if (isMap($map)) {
+			:global(.theme-#{$theme}) & {
+				$theme-map: () !global;
+				@each $key, $submap in $map {
+					$value: map-get(map-get($themes, $theme), '#{$key}');
+					$theme-map: map-merge(
+						$theme-map,
+						(
+							$key: $value,
+						)
+					) !global;
+				}
 
-			@content;
-			$theme-map: null !global;
+				@content;
+				$theme-map: null !global;
+			}
+		} @else {
+			$key: $theme !global;
+			$value: $map !global;
+			:global(#root) & {
+				$theme-map: () !global;
+				$theme-map: (
+					$key: $value,
+				) !global;
+				@content;
+				$theme-map: null !global;
+			}
 		}
 	}
 }
 
 @function themed($key) {
 	@return map-get($theme-map, $key);
+}
+
+@function isMap($var) {
+	@return type-of($var) == 'map';
 }

@@ -8,7 +8,7 @@
 	text-align: right;
 	display: flex;
 	@include themify($themes) {
-		background-color: themed('card');
+		background-color: themed('surface');
 	}
 }
 
@@ -44,7 +44,7 @@
 	font-weight: bold;
 	text-decoration: none;
 	@include themify($themes) {
-		color: themed('text-color');
+		color: themed('on-surface');
 	}
 }
 
@@ -94,7 +94,7 @@
 .login a {
 	white-space: nowrap;
 	@include themify($themes) {
-		color: themed('text-color');
+		color: themed('on-surface');
 	}
 	&:hover {
 		@include themify($themes) {

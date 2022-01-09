@@ -3,7 +3,7 @@
 	padding-top: 5rem;
 	grid-column: 1;
 	@include themify($themes) {
-		background-color: themed('footer-background');
+		background-color: themed('navbar');
 	}
 }
 
@@ -25,6 +25,6 @@
 	font-size: 1rem;
 	text-decoration: none;
 	@include themify($themes) {
-		color: themed('footer-text');
+		color: themed('on-navbar');
 	}
 }

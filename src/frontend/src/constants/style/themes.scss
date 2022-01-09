@@ -1,31 +1,44 @@
-$primary: rgb(101, 196, 102);
-$accent: rgb(246, 206, 70);
-$correct: rgb(101, 196, 102);
-$error: rgb(234, 78, 61);
-$footerBackground: rgb(62, 65, 106);
-$footerText: rgb(220, 220, 220);
+@use './colors.scss' as c;
+$on-light: rgb(5, 25, 45);
+$on-dark: rgb(255, 255, 255);
+
+$primary: map-get(c.$green, 'A700');
+$primary-hover: map-get(c.$green, 'A400');
+$on-primary: $on-light;
+
+$secondary: map-get(c.$green, '500');
+$secondary-hover: map-get(c.$green, '300');
+$on-secondary: $on-light;
+
+$success: map-get(c.$green, 'A700');
+$on-success: $on-light;
+
+$error: map-get(c.$red, '500');
+$on-error: $on-light;
 
 $themes: (
 	'light': (
-		'background-color': rgb(240, 244, 253),
-		'text-color': rgb(62, 65, 106),
-		'card': rgb(255, 255, 255),
-		'primary': $primary,
-		'accent': $accent,
-		'correct': $correct,
-		'error': $error,
-		'footer-background': $footerBackground,
-		'footer-text': $footerText,
+		'background': rgb(240, 244, 253),
+		'on-background': $on-light,
+		'surface': rgb(255, 255, 255),
+		'on-surface': $on-light,
 	),
 	'dark': (
-		'background-color': rgb(40, 40, 40),
-		'text-color': rgb(220, 220, 220),
-		'card': rgb(62, 65, 106),
-		'primary': $primary,
-		'accent': $accent,
-		'correct': $correct,
-		'error': $error,
-		'footer-background': $footerBackground,
-		'footer-text': $footerText,
+		'background': rgb(40, 40, 40),
+		'on-background': $on-dark,
+		'surface': rgb(62, 65, 106),
+		'on-surface': $on-dark,
 	),
+	'primary': $primary,
+	'primary-hover': $primary-hover,
+	'on-primary': $on-primary,
+	'secondary': $secondary,
+	'secondary-hover': $secondary-hover,
+	'on-secondary': $on-secondary,
+	'success': $success,
+	'on-success': $on-success,
+	'error': $error,
+	'on-error': $on-error,
+	'navbar': $on-light,
+	'on-navbar': $on-dark,
 );
