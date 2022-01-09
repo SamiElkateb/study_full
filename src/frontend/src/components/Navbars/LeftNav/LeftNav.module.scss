@@ -1,0 +1,30 @@
+@use '../../../constants/style/themify.scss' as *;
+.left-nav {
+	padding-top: 5rem;
+	grid-column: 1;
+	@include themify($themes) {
+		background-color: themed('footer-background');
+	}
+}
+
+.left-nav ul {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+}
+.left-nav li {
+	padding: 0.5rem 1rem;
+	transition: background-color 250ms;
+	&:hover {
+		background-color: rgba(255, 255, 255, 0.1);
+	}
+}
+
+.left-nav a {
+	transition: color 0.2s;
+	font-size: 1rem;
+	text-decoration: none;
+	@include themify($themes) {
+		color: themed('footer-text');
+	}
+}

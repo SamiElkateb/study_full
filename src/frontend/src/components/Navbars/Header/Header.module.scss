@@ -7,9 +7,8 @@
 	width: 100%;
 	text-align: right;
 	display: flex;
-	background-color: white;
 	@include themify($themes) {
-		background-color: themed('background-color');
+		background-color: themed('card');
 	}
 }
 
@@ -45,7 +44,7 @@
 	font-weight: bold;
 	text-decoration: none;
 	@include themify($themes) {
-		color: themed('primary');
+		color: themed('text-color');
 	}
 }
 
@@ -64,7 +63,7 @@
 	font-size: 1rem;
 	background-color: transparent;
 	font-weight: bold;
-	margin: 1rem 0px;
+	margin: 0.5rem 0px;
 	border-radius: 2rem;
 	padding: 0.5rem 1rem;
 	@include themify($themes) {
@@ -94,7 +93,9 @@
 
 .login a {
 	white-space: nowrap;
-	color: grey;
+	@include themify($themes) {
+		color: themed('text-color');
+	}
 	&:hover {
 		@include themify($themes) {
 			color: themed('primary');
@@ -109,8 +110,11 @@
 }
 
 .brand-name a {
-	font-weight: 900;
-	font-size: 2rem;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	font-weight: 700;
+	font-size: 1.5rem;
 	@include themify($themes) {
 		color: themed('primary');
 	}

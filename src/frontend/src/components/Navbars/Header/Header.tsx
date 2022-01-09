@@ -1,6 +1,7 @@
 import classes from './Header.module.scss';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { GiGraduateCap } from 'react-icons/gi';
 
 const Header: React.FC = () => {
 	const [scrolled, setScrolled] = useState(false);
@@ -34,7 +35,7 @@ const Header: React.FC = () => {
 					<Link to="/">Log In</Link>
 				</li>
 				<li className={classes.signup}>
-					<Link to="/">Signup</Link>
+					<Link to="/">Get Started</Link>
 				</li>
 			</ul>
 		</li>
@@ -44,10 +45,12 @@ const Header: React.FC = () => {
 			<nav>
 				<ul>
 					<li className={classes['brand-name']}>
-						<Link to="/">StudyApp</Link>
+						<Link to="/">
+							<GiGraduateCap /> StudyApp
+						</Link>
 					</li>
 					<li>
-						<Link to="/about">About Us</Link>
+						<Link to="/study">Study</Link>
 					</li>
 					{authElements}
 				</ul>
