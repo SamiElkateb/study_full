@@ -1,0 +1,10 @@
+@use '../../../constants/style/themify.scss' as *;
+
+.card {
+	box-shadow: rgb(0 0 0 / 10%) 0px 3px 5px 5px;
+	padding: 0.5rem;
+	border-radius: 1rem;
+	@include themify($themes) {
+		background-color: themed('surface');
+	}
+}
