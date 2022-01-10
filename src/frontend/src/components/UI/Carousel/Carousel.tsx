@@ -6,10 +6,11 @@ import classes from './Carousel.module.scss';
 
 interface props {
 	list: Course[] | Chapter[] | Lesson[];
+	onClick?: (id: number) => void;
 }
 
 const Carousel: React.FC<props> = (props) => {
-	const { list } = props;
+	const { list, onClick = () => {} } = props;
 	const carouselRef = useRef<HTMLDivElement>(null);
 
 	const {
@@ -32,7 +33,9 @@ const Carousel: React.FC<props> = (props) => {
 						<LearnCard
 							key={item.id}
 							learningModule={item}
-							onClick={() => {}}
+							onClick={() => {
+								onClick(item.id);
+							}}
 						/>
 					);
 				})}

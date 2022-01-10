@@ -1,32 +1,41 @@
-import { useEffect, useState } from 'react';
-import { getCourses } from '../../../API/courses';
-import LearnCard from '../../../components/Learn/LearnCard/LearnCard';
-import Card from '../../../components/UI/Card/Card';
 import Carousel from '../../../components/UI/Carousel/Carousel';
-import { Course } from '../../../DataStructures/LearnModule';
-import { courseData } from '../../../types/api_interfaces';
+import useNavigateLearnModules from '../../../hooks/useNavigateLearnModules';
 import classes from './ManageCards.module.scss';
 
 const ManageCards: React.FC = (props) => {
-	const [courses, setCourses] = useState<Course[]>([]);
-	useEffect(() => {
-		getCourses().then((response) => {
-			const courses = response.data.map((courseResponse) => {
-				return new Course(courseResponse);
-			});
-			setCourses(courses);
-		});
-	}, []);
+	const {
+		showChapters,
+		showLessons,
+		courses,
+		chapters,
+		lessons,
+		navigateToChapterHandler,
+		navigateToLessonHandler,
+	} = useNavigateLearnModules();
 
-	const navigateToChapterHandler = (courseId: number) => {};
 	return (
 		<>
 			<h1>Manage Cards</h1>
 			<h2>Courses</h2>
-			<Carousel list={courses} />
-			<h2>Chapters</h2>
-
-			<h2>Chapters</h2>
+			<Carousel list={courses} onClick={navigateToChapterHandler} />
+			{showChapters && (
+				<div className={classes.chapters}>
+					<h2>Chapters</h2>
+					<Carousel
+						list={chapters}
+						onClick={navigateToLessonHandler}
+					/>
+				</div>
+			)}
+			{showLessons && (
+				<div className={classes.lessons}>
+					<h2>Lessons</h2>
+					<Carousel
+						list={lessons}
+						onClick={navigateToLessonHandler}
+					/>
+				</div>
+			)}
 		</>
 	);
 };
