@@ -1,7 +1,5 @@
 import { useRef, useState } from 'react';
-import Chapter from '../../../DataStructures/Chapter';
-import Course from '../../../DataStructures/Courses';
-import Lesson from '../../../DataStructures/Lesson';
+import { Course, Chapter, Lesson } from '../../../DataStructures/LearnModule';
 import useCarousel from '../../../hooks/useCarousel';
 import LearnCard from '../../Learn/LearnCard/LearnCard';
 import classes from './Carousel.module.scss';

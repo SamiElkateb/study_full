@@ -8,7 +8,7 @@ import { View, StyleSheet } from 'react-native';
 import { getChapterByCourseId } from '../API/chapters';
 import CourseBtn from '../components/Learn/CourseBtn';
 import Loading from '../components/UI/Loading';
-import Chapter from '../DataStructures/Chapter';
+import { Chapter } from '../DataStructures/LearnModule';
 import { chapterData } from '../types/api_interfaces';
 import { RootStackParamList } from '../types/types';
 

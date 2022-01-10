@@ -1,21 +1,25 @@
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import { getCourses } from '../API/courses';
 import CourseBtn from '../components/Learn/CourseBtn';
 import Loading from '../components/UI/Loading';
-import Course from '../DataStructures/Courses';
+import { Course } from '../DataStructures/LearnModule';
 import { courseData } from '../types/api_interfaces';
 
 const CourseScreen: React.FC = (props) => {
 	const navigation = useNavigation();
-	const [courses, setCourses] = useState<courseData[]>([]);
+	const [courses, setCourses] = useState<Course[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
 		getCourses().then((response) => {
 			setIsLoading(false);
-			setCourses(response.data);
+			const courseMap = response.data.map(
+				(courseResponse) => new Course(courseResponse)
+			);
+			setCourses(courseMap);
 		});
 	}, []);
 
@@ -27,16 +31,21 @@ const CourseScreen: React.FC = (props) => {
 		<View style={styles.container}>
 			{isLoading && <Loading />}
 
-			{courses.map((courseResponse) => {
-				const course = new Course(courseResponse);
-				return (
-					<CourseBtn
-						key={course.id}
-						course={course}
-						onClick={navigateToChapterHandler.bind(null, course.id)}
-					/>
-				);
-			})}
+			{courses.length > 0 && (
+				<FlatList
+					data={courses}
+					keyExtractor={(course) => course.id.toString()}
+					renderItem={({ item }) => (
+						<CourseBtn
+							course={item}
+							onClick={navigateToChapterHandler.bind(
+								null,
+								item.id
+							)}
+						/>
+					)}
+				/>
+			)}
 		</View>
 	);
 };

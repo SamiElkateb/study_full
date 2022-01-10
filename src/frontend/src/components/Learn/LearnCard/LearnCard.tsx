@@ -1,6 +1,4 @@
-import Course from '../../../DataStructures/Courses';
-import Chapter from '../../../DataStructures/Chapter';
-import Lesson from '../../../DataStructures/Lesson';
+import { Course, Chapter, Lesson } from '../../../DataStructures/LearnModule';
 import classes from './LearnCard.module.scss';
 import Icon from '../../UI/Icons/Icon';
 import Button from '../../UserEvents/Button/Button';

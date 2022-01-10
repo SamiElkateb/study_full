@@ -8,7 +8,7 @@ import { View, StyleSheet } from 'react-native';
 import useCustomTheme from '../hooks/useCustomTheme';
 import { lessonData } from '../types/api_interfaces';
 import { RootStackParamList } from '../types/types';
-import Lesson from '../DataStructures/Lesson';
+import { Lesson } from '../DataStructures/LearnModule';
 import { getLessonByChapterId } from '../API/lessons';
 import LessonBtn from '../components/Learn/LessonBtn';
 import Icon from '../components/UI/Icon';

@@ -2,7 +2,7 @@
 
 import { Text, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Course from '../../DataStructures/Courses';
+import { Course } from '../../DataStructures/LearnModule';
 import useCustomTheme from '../../hooks/useCustomTheme';
 import { iconNames } from '../../types/types';
 import Icon from '../UI/Icon';

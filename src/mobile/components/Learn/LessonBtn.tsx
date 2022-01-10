@@ -1,6 +1,6 @@
 import { Text, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Lesson from '../../DataStructures/Lesson';
+import { Lesson } from '../../DataStructures/LearnModule';
 import useCustomTheme from '../../hooks/useCustomTheme';
 import Icon from '../UI/Icon';
 

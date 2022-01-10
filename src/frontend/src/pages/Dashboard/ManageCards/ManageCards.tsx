@@ -3,7 +3,7 @@ import { getCourses } from '../../../API/courses';
 import LearnCard from '../../../components/Learn/LearnCard/LearnCard';
 import Card from '../../../components/UI/Card/Card';
 import Carousel from '../../../components/UI/Carousel/Carousel';
-import Course from '../../../DataStructures/Courses';
+import { Course } from '../../../DataStructures/LearnModule';
 import { courseData } from '../../../types/api_interfaces';
 import classes from './ManageCards.module.scss';
 
