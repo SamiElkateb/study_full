@@ -4,6 +4,7 @@ import { IoRocket } from 'react-icons/io5';
 import { IoMdCalendar } from 'react-icons/io';
 import { AiTwotoneTrophy } from 'react-icons/ai';
 import { BsFileEarmarkDiff } from 'react-icons/bs';
+import Icon from '../../UI/Icons/Icon';
 
 const LeftNav: React.FC = () => {
 	return (
@@ -11,12 +12,13 @@ const LeftNav: React.FC = () => {
 			<ul>
 				<li>
 					<Link to="/study/learn">
-						<IoRocket /> Learn
+						<Icon name="rocket" />
+						Learn
 					</Link>
 				</li>
 				<li>
 					<Link to="/study/daily-cards">
-						<IoMdCalendar /> Daily Cards
+						<Icon name="calendar" /> Daily Cards
 					</Link>
 				</li>
 				<li>

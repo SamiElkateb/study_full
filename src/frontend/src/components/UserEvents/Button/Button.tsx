@@ -1,19 +1,26 @@
-/** @format */
-
 import classes from './Button.module.scss';
 
 type props = {
 	onClick?: (event: React.FormEvent) => void;
 	disabled?: boolean;
-	styling?: string;
+	styling?: 'primary' | 'secondary' | 'card';
 	type?: 'submit' | 'button';
+	className?: string;
 };
 
 const Button: React.FC<props> = (props) => {
-	const { children, onClick } = props;
+	const {
+		children,
+		onClick,
+		className = '',
+		disabled = false,
+		styling = 'primary',
+	} = props;
 
+	const selectedStyling = classes['button-' + styling];
+	const classNames = `${classes.button} ${selectedStyling} ${className}`;
 	return (
-		<button className={classes.button} onClick={onClick}>
+		<button className={classNames} onClick={onClick} disabled={disabled}>
 			{children}
 		</button>
 	);
