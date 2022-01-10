@@ -6,7 +6,6 @@ const isIconName = (name: string) => {
 	if (name === 'flag') return true;
 	if (name === 'calendar') return true;
 	if (name === 'trophy') return true;
-	if (name === 'curved-flag') return true;
 	if (name === 'html') return true;
 	if (name === 'sql') return true;
 	if (name === 'git') return true;
@@ -22,6 +21,7 @@ const isIconName = (name: string) => {
 	if (name === 'square') return true;
 	if (name === 'react') return true;
 	if (name === 'backend') return true;
+	if (name === 'rocket') return true;
 	return false;
 };
 

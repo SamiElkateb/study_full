@@ -34,7 +34,6 @@ export type iconNames =
 	| 'flag'
 	| 'calendar'
 	| 'trophy'
-	| 'curved-flag'
 	| 'html'
 	| 'sql'
 	| 'git'
@@ -49,7 +48,8 @@ export type iconNames =
 	| 'done'
 	| 'square'
 	| 'react'
-	| 'backend';
+	| 'backend'
+	| 'rocket';
 export type sizes = 'large' | 'med' | 'small' | 'x-small';
 
 export interface NavigationTreeNodeData {

@@ -24,7 +24,7 @@ const BottomTabNavigator = () => {
 				options={({ navigation }) => ({
 					title: 'Learn',
 					tabBarIcon: ({ color }) => (
-						<Icon name="curved-flag" color={color} size={'small'} />
+						<Icon name="rocket" color={color} size={'small'} />
 					),
 				})}
 			/>
