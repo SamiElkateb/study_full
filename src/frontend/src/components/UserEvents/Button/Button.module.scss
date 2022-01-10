@@ -42,9 +42,16 @@
 		color: themed('on-surface');
 		background-color: themed('surface');
 	}
-	&:hover {
+	&:hover,
+	&.selected {
 		box-shadow: rgba(5, 25, 45, 0.25) 0px 0px 2px 0px,
 			rgba(5, 25, 45, 0.3) 0px 2px 4px -1px;
 		transform: translate(0px, -1px);
+	}
+	&.selected {
+		@include themify($themes) {
+			color: themed('surface');
+			background-color: themed('on-surface');
+		}
 	}
 }

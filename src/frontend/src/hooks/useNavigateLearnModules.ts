@@ -7,17 +7,26 @@ interface learnModuleState {
 	courses: Course[];
 	chapters: Chapter[];
 	lessons: Lesson[];
+	selectedCourse?: number | null;
+	selectedChapter?: number | null;
+	selectedLesson?: number | null;
 }
 interface action {
 	type: 'SET_COURSES' | 'SET_CHAPTERS' | 'SET_LESSONS';
 	courses?: Course[];
 	chapters?: Chapter[];
 	lessons?: Lesson[];
+	selectedCourse?: number | null;
+	selectedChapter?: number | null;
+	selectedLesson?: number | null;
 }
 const initialLearnModuleState = {
 	courses: [],
 	chapters: [],
 	lessons: [],
+	selectedCourse: null,
+	selectedChapter: null,
+	selectedLesson: null,
 };
 
 const learnModuleReducer: Reducer<learnModuleState, action> = (
@@ -29,18 +38,41 @@ const learnModuleReducer: Reducer<learnModuleState, action> = (
 		const courses = action.courses;
 		const chapters: Chapter[] = [];
 		const lessons: Lesson[] = [];
-		return { ...prevState, courses, chapters, lessons };
+		const selectedCourse = null;
+		const selectedChapter = null;
+		const selectedLesson = null;
+		return {
+			...prevState,
+			courses,
+			chapters,
+			lessons,
+			selectedCourse,
+			selectedChapter,
+			selectedLesson,
+		};
 	}
 	if (action.type === 'SET_CHAPTERS') {
 		if (typeof action.chapters === 'undefined') return prevState;
 		const chapters: Chapter[] = action.chapters;
 		const lessons: Lesson[] = [];
-		return { ...prevState, chapters, lessons };
+		const selectedCourse = action.selectedCourse;
+		const selectedChapter = null;
+		const selectedLesson = null;
+		return {
+			...prevState,
+			chapters,
+			lessons,
+			selectedCourse,
+			selectedChapter,
+			selectedLesson,
+		};
 	}
 	if (action.type === 'SET_LESSONS') {
 		if (typeof action.lessons === 'undefined') return prevState;
 		const lessons: Lesson[] = action.lessons;
-		return { ...prevState, lessons };
+		const selectedChapter = action.selectedChapter;
+		const selectedLesson = null;
+		return { ...prevState, lessons, selectedChapter, selectedLesson };
 	}
 
 	return prevState;
@@ -52,7 +84,14 @@ const useNavigateLearnModules = () => {
 		initialLearnModuleState
 	);
 
-	const { courses, chapters, lessons } = learnModuleState;
+	const {
+		courses,
+		chapters,
+		lessons,
+		selectedCourse,
+		selectedChapter,
+		selectedLesson,
+	} = learnModuleState;
 
 	const showChapters = chapters.length > 0;
 	const showLessons = lessons.length > 0;
@@ -71,7 +110,11 @@ const useNavigateLearnModules = () => {
 			const chaptersMap = response.data.map((chapterResponse) => {
 				return new Chapter(chapterResponse);
 			});
-			dispatch({ type: 'SET_CHAPTERS', chapters: chaptersMap });
+			dispatch({
+				type: 'SET_CHAPTERS',
+				chapters: chaptersMap,
+				selectedCourse: id,
+			});
 		});
 	};
 
@@ -80,7 +123,11 @@ const useNavigateLearnModules = () => {
 			const lessonsMap = response.data.map((lessonResponse) => {
 				return new Lesson(lessonResponse);
 			});
-			dispatch({ type: 'SET_LESSONS', lessons: lessonsMap });
+			dispatch({
+				type: 'SET_LESSONS',
+				lessons: lessonsMap,
+				selectedChapter: id,
+			});
 		});
 	};
 
@@ -90,6 +137,9 @@ const useNavigateLearnModules = () => {
 		courses,
 		chapters,
 		lessons,
+		selectedCourse,
+		selectedChapter,
+		selectedLesson,
 		navigateToChapterHandler,
 		navigateToLessonHandler,
 	};

@@ -7,10 +7,11 @@ interface props {
 	learningModule: Course | Chapter | Lesson;
 	onClick: () => void;
 	progress?: number;
+	selected?: boolean;
 }
 
 const LearnCard: React.FC<props> = (props) => {
-	const { learningModule, onClick, progress = 0 } = props;
+	const { learningModule, onClick, progress = 0, selected = false } = props;
 	const { title } = learningModule;
 	let icon = null;
 
@@ -27,7 +28,12 @@ const LearnCard: React.FC<props> = (props) => {
 	}
 
 	return (
-		<Button styling="card" onClick={onClick} className={classes.button}>
+		<Button
+			styling="card"
+			onClick={onClick}
+			className={classes.button}
+			selected={selected}
+		>
 			{icon} {title}
 		</Button>
 	);

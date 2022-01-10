@@ -8,7 +8,7 @@ import Stats from './Stats/Stats';
 import ManageCards from './ManageCards/ManageCards';
 
 const Dashboard: React.FC = (props) => {
-	let { section } = useParams();
+	let { section = 'daily-cards' } = useParams();
 	return (
 		<main className={classes['study-panel']}>
 			<LeftNav />
