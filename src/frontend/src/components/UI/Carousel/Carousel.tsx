@@ -5,12 +5,11 @@ import LearnCard from '../../Learn/LearnCard/LearnCard';
 import classes from './Carousel.module.scss';
 
 interface props {
-	list: Course[] | Chapter[] | Lesson[];
-	onClick?: (id: number) => void;
+	length: number;
 }
 
 const Carousel: React.FC<props> = (props) => {
-	const { list, onClick = () => {} } = props;
+	const { children, length } = props;
 	const carouselRef = useRef<HTMLDivElement>(null);
 
 	const {
@@ -18,7 +17,7 @@ const Carousel: React.FC<props> = (props) => {
 		scrollRightHandler,
 		canScrollLeft,
 		canScrollRight,
-	} = useCarousel(carouselRef, list.length);
+	} = useCarousel(carouselRef, length);
 
 	const leftVisibleClasses = canScrollLeft ? classes.visible : '';
 	const rightVisibleClasses = canScrollRight ? classes.visible : '';
@@ -28,17 +27,7 @@ const Carousel: React.FC<props> = (props) => {
 				<button onClick={scrollLeftHandler}>&lt;</button>
 			</div>
 			<div className={classes.carousel__inner} ref={carouselRef}>
-				{list.map((item) => {
-					return (
-						<LearnCard
-							key={item.id}
-							learningModule={item}
-							onClick={() => {
-								onClick(item.id);
-							}}
-						/>
-					);
-				})}
+				{children}
 			</div>
 			<div className={`${classes.right} ${rightVisibleClasses}`}>
 				<button onClick={scrollRightHandler}>&gt;</button>
