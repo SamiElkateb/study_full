@@ -1,6 +1,6 @@
 import isIconName from '../helpers/data_testing/isIconName';
 import { chapterData, courseData, lessonData } from '../types/api_interfaces';
-import { iconNames } from '../types/types';
+import { iconNamesType } from '../types/types';
 
 class LearnModule {
 	readonly id: number;
@@ -11,7 +11,6 @@ class LearnModule {
 
 	constructor(props: courseData | chapterData | lessonData) {
 		const { id, title, creator_id, rank, visibility } = props;
-
 		this.id = id;
 		this.title = title;
 		this.creatorId = +creator_id;
@@ -21,14 +20,14 @@ class LearnModule {
 }
 
 class Course extends LearnModule {
-	readonly iconName: iconNames;
+	readonly iconName: iconNamesType;
 	readonly color: string;
 	constructor(props: courseData) {
 		super(props);
 		const { icon_name, color } = props;
 		this.color = color;
 		if (isIconName(icon_name)) {
-			this.iconName = icon_name as iconNames;
+			this.iconName = icon_name as iconNamesType;
 		} else {
 			this.iconName = 'square';
 		}
@@ -37,7 +36,7 @@ class Course extends LearnModule {
 
 class Chapter extends LearnModule {
 	readonly courseId: number;
-	readonly iconName: iconNames;
+	readonly iconName: iconNamesType;
 	readonly color: string;
 	constructor(props: chapterData) {
 		super(props);
@@ -45,7 +44,7 @@ class Chapter extends LearnModule {
 		this.courseId = +course_id;
 		this.color = color;
 		if (isIconName(icon_name)) {
-			this.iconName = icon_name as iconNames;
+			this.iconName = icon_name as iconNamesType;
 		} else {
 			this.iconName = 'square';
 		}

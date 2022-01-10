@@ -1,4 +1,5 @@
-/** @format */
+import { iconNames } from '../../constants/IconNames';
+
 const isIconName = (name: string) => {
 	if (name === 'close') return true;
 	if (name === 'question') return true;

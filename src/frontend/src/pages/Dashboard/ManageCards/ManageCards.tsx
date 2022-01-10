@@ -1,9 +1,13 @@
+import AddLearnModule from '../../../components/Learn/AddLearnModule/AddLearnModule';
 import LearnCard from '../../../components/Learn/LearnCard/LearnCard';
 import Carousel from '../../../components/UI/Carousel/Carousel';
 import Button from '../../../components/UserEvents/Button/Button';
 import { Course } from '../../../DataStructures/LearnModule';
 import useNavigateLearnModules from '../../../hooks/useNavigateLearnModules';
+import { useShowAddLearnModule } from '../../../hooks/useToggleVisible';
 import classes from './ManageCards.module.scss';
+
+//TODO: REFACTOR IN SECTIONS
 
 const ManageCards: React.FC = (props) => {
 	const {
@@ -17,14 +21,44 @@ const ManageCards: React.FC = (props) => {
 		selectedLesson,
 		navigateToChapterHandler,
 		navigateToLessonHandler,
+		updateCoursesHandler,
+		updateChaptersHandler,
+		updateLessonsHandler,
 	} = useNavigateLearnModules();
+	const {
+		showAddCourse,
+		showAddChapter,
+		showAddLesson,
+		toggleShowAddCourse,
+		toggleShowAddChapter,
+		toggleShowAddLesson,
+	} = useShowAddLearnModule();
+
+	const addedCourseHandler = () => {
+		updateCoursesHandler();
+		toggleShowAddCourse(false);
+	};
+	const addedChapterHandler = () => {
+		updateChaptersHandler();
+		toggleShowAddChapter(false);
+	};
+	const addedLessonHandler = () => {
+		updateLessonsHandler();
+		toggleShowAddLesson(false);
+	};
 
 	return (
 		<>
 			<h1>Manage Cards</h1>
 			<h2>Courses</h2>
 			<Carousel length={courses.length}>
-				<Button styling="card">Add</Button>
+				<Button
+					styling="card"
+					onClick={toggleShowAddCourse.bind(null, true)}
+					selected={showAddCourse}
+				>
+					Add
+				</Button>
 				{courses.map((course) => {
 					return (
 						<LearnCard
@@ -39,12 +73,21 @@ const ManageCards: React.FC = (props) => {
 					);
 				})}
 			</Carousel>
+			{showAddCourse && (
+				<AddLearnModule type="course" onAdded={addedCourseHandler} />
+			)}
 
 			{showChapters && (
 				<div className={classes.chapters}>
 					<h2>Chapters</h2>
 					<Carousel length={courses.length}>
-						<Button styling="card">Add</Button>
+						<Button
+							styling="card"
+							onClick={toggleShowAddChapter.bind(null, true)}
+							selected={showAddChapter}
+						>
+							Add
+						</Button>
 						{chapters.map((chapter) => {
 							return (
 								<LearnCard
@@ -59,6 +102,13 @@ const ManageCards: React.FC = (props) => {
 							);
 						})}
 					</Carousel>
+					{showAddChapter && (
+						<AddLearnModule
+							type="chapter"
+							courseId={selectedCourse}
+							onAdded={addedChapterHandler}
+						/>
+					)}
 				</div>
 			)}
 
@@ -66,7 +116,13 @@ const ManageCards: React.FC = (props) => {
 				<div className={classes.lessons}>
 					<h2>Lessons</h2>
 					<Carousel length={lessons.length}>
-						<Button styling="card">Add</Button>
+						<Button
+							styling="card"
+							onClick={toggleShowAddLesson.bind(null, true)}
+							selected={showAddLesson}
+						>
+							Add
+						</Button>
 						{lessons.map((lesson) => {
 							return (
 								<LearnCard
@@ -78,6 +134,12 @@ const ManageCards: React.FC = (props) => {
 							);
 						})}
 					</Carousel>
+					{showAddLesson && (
+						<AddLearnModule
+							type="lesson"
+							onAdded={addedLessonHandler}
+						/>
+					)}
 				</div>
 			)}
 		</>

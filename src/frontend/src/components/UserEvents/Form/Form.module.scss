@@ -1,0 +1,25 @@
+@use '../../../constants/style/themify.scss' as *;
+.form {
+	display: flex;
+	border-radius: 0.25rem;
+	flex-direction: column;
+	max-width: 35rem;
+	padding: 2rem 3rem;
+	margin: auto;
+	box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 6px 0px;
+	margin-bottom: 3rem;
+	@include themify($themes) {
+		background-color: themed('surface');
+	}
+}
+.form h1 {
+	text-align: center;
+	margin: 1rem 0;
+	font-size: 1.5rem;
+	@include themify($themes) {
+		background-color: themed('on-surface');
+	}
+}
+.logo {
+	align-self: center;
+}

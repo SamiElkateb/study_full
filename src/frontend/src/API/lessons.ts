@@ -1,5 +1,10 @@
 import { API_URL } from '../constants/Url';
-import { apiResponse, lessonData } from '../types/api_interfaces';
+import {
+	apiPostResponse,
+	apiResponse,
+	lessonData,
+	lessonPost,
+} from '../types/api_interfaces';
 
 export async function getLessons(): Promise<apiResponse<lessonData>> {
 	const url = `http://${API_URL}/api/lessons`;
@@ -38,6 +43,30 @@ export async function getLessonByChapterId(
 
 	const requestOptions = {
 		method: 'GET',
+	};
+
+	return fetch(url, requestOptions)
+		.then((response) => response.json())
+		.catch((error) => console.log(error));
+}
+
+export async function addLesson(
+	postData: lessonPost
+): Promise<apiPostResponse> {
+	const { title, chapterId, creatorId, visibility, rank } = postData;
+	if (chapterId === 0) throw 'ChapterId = 0';
+	const formData = new FormData();
+	formData.append('title', title);
+	formData.append('chapter_id', chapterId.toString());
+	formData.append('creator_id', creatorId.toString());
+	formData.append('rank', rank.toString());
+	formData.append('visibility', visibility.toString());
+
+	const url = `http://${API_URL}/api/lessons`;
+
+	const requestOptions = {
+		method: 'POST',
+		body: formData,
 	};
 
 	return fetch(url, requestOptions)

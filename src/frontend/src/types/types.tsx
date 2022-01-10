@@ -1,5 +1,7 @@
 /** @format */
 
+import { iconNames } from '../constants/IconNames';
+
 export type javascriptCodeType =
 	| 'function'
 	| 'string'
@@ -27,30 +29,7 @@ export interface toggleButton {
 	toggleSwipeHandler: (override?: boolean) => void;
 }
 
-export type iconNames =
-	| 'close'
-	| 'question'
-	| 'check'
-	| 'flag'
-	| 'calendar'
-	| 'trophy'
-	| 'curved-flag'
-	| 'html'
-	| 'sql'
-	| 'git'
-	| 'github'
-	| 'javascript'
-	| 'typescript'
-	| 'docker'
-	| 'kubernetes'
-	| 'css'
-	| 'sass'
-	| 'arrowdown'
-	| 'done'
-	| 'square'
-	| 'react'
-	| 'backend'
-	| 'rocket';
+export type iconNamesType = typeof iconNames[number];
 export type sizes = 'large' | 'med' | 'small' | 'x-small';
 
 export interface NavigationTreeNodeData {

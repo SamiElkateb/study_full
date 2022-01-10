@@ -1,0 +1,33 @@
+@use '../../../constants/style/themify.scss' as *;
+.input {
+	margin: 1rem 0rem;
+	display: flex;
+	font-size: 1.5rem;
+	padding: 0.5rem;
+	border-radius: 0.2rem;
+	border-width: 1px;
+	border-style: solid;
+	@include themify($themes) {
+		background-color: themed('surface');
+		border-color: themed('on-surface');
+	}
+
+	&:focus-within {
+		@include themify($themes) {
+			border-color: themed('primary');
+		}
+	}
+}
+.icon {
+	display: inline-block;
+	color: rgba(0, 0, 0, 0.3);
+}
+
+.input input {
+	font-size: 1rem;
+	margin-left: 1rem;
+	width: 100%;
+	&::placeholder {
+		color: rgba(0, 0, 0, 0.3);
+	}
+}

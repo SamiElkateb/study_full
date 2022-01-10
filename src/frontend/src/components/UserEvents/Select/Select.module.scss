@@ -1,0 +1,22 @@
+@use '../../../constants/style/themify.scss' as *;
+.select {
+	margin: 1rem 0rem;
+	display: flex;
+	font-size: 1.5rem;
+	padding: 0.5rem 1.5rem;
+	border-radius: 0.2rem;
+	border-width: 1px;
+	border-style: solid;
+	@include themify($themes) {
+		background-color: themed('surface');
+		border-color: themed('on-surface');
+	}
+}
+
+.select option {
+	font-size: 1rem;
+	width: 100%;
+	&::placeholder {
+		color: rgba(0, 0, 0, 0.3);
+	}
+}

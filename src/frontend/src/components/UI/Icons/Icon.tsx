@@ -1,6 +1,6 @@
-import { iconNames, sizes } from '../../../types/types';
+import { iconNamesType, sizes } from '../../../types/types';
 import { iconSizes } from '../../../constants/Size';
-import { IoLogoHtml5, IoRocket } from 'react-icons/io5';
+import { IoCloseSharp, IoLogoHtml5, IoRocket } from 'react-icons/io5';
 import {
 	SiDocker,
 	SiJavascript,
@@ -13,10 +13,11 @@ import { IoMdCalendar } from 'react-icons/io';
 import { AiTwotoneTrophy } from 'react-icons/ai';
 import { FaDatabase, FaGit, FaSass, FaServer } from 'react-icons/fa';
 import { DiCss3 } from 'react-icons/di';
-import { BsSquareFill } from 'react-icons/bs';
+import { BsGithub, BsSquareFill } from 'react-icons/bs';
 import { FiCheckCircle } from 'react-icons/fi';
+import { GrClose } from 'react-icons/gr';
 interface props {
-	name: iconNames;
+	name: iconNamesType;
 	size?: sizes;
 	color?: string;
 	className?: string;
@@ -25,6 +26,12 @@ const Icon: React.FC<props> = (props) => {
 	const { name, size, color } = props;
 	const iconSize = size ? iconSizes[size] : undefined;
 	const { className = '' } = props;
+	if (name === 'close') {
+		return (
+			<IoCloseSharp size={iconSize} color={color} className={className} />
+		);
+	}
+
 	if (name === 'calendar') {
 		return (
 			<IoMdCalendar size={iconSize} color={color} className={className} />
@@ -99,6 +106,9 @@ const Icon: React.FC<props> = (props) => {
 	}
 	if (name === 'backend') {
 		return <FaServer size={iconSize} color={color} className={className} />;
+	}
+	if (name === 'github') {
+		return <BsGithub size={iconSize} color={color} className={className} />;
 	}
 
 	return <IoRocket size={iconSize} color={color} className={className} />;
