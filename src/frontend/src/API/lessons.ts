@@ -4,6 +4,7 @@ import {
 	apiResponse,
 	lessonData,
 	lessonPost,
+	lessonPut,
 } from '../types/api_interfaces';
 
 export async function getLessons(): Promise<apiResponse<lessonData>> {
@@ -54,7 +55,8 @@ export async function addLesson(
 	postData: lessonPost
 ): Promise<apiPostResponse> {
 	const { title, chapterId, creatorId, visibility, rank } = postData;
-	if (chapterId === 0) throw 'ChapterId = 0';
+	if (!chapterId) throw 'chapterId undefined';
+
 	const formData = new FormData();
 	formData.append('title', title);
 	formData.append('chapter_id', chapterId.toString());
@@ -67,6 +69,50 @@ export async function addLesson(
 	const requestOptions = {
 		method: 'POST',
 		body: formData,
+	};
+
+	return fetch(url, requestOptions)
+		.then((response) => response.json())
+		.catch((error) => console.log(error));
+}
+export async function updateLesson(
+	postData: lessonPut
+): Promise<apiPostResponse> {
+	const { id, chapterId, creatorId } = postData;
+	if (!id) throw 'update id undefined';
+	if (!chapterId) throw 'chapterId undefined';
+
+	const params = new URLSearchParams({
+		id: id.toString(),
+	});
+
+	const url = `http://${API_URL}/api/lessons?${params}`;
+	const bodyObject = {
+		...postData,
+		chapter_id: chapterId,
+		creator_id: creatorId,
+	};
+
+	const requestOptions = {
+		method: 'PUT',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(bodyObject),
+	};
+
+	return fetch(url, requestOptions)
+		.then((response) => response.json())
+		.catch((error) => console.log(error));
+}
+
+export async function deleteLesson(id: number): Promise<apiPostResponse> {
+	const params = new URLSearchParams({
+		id: id.toString(),
+	});
+
+	const url = `http://${API_URL}/api/lessons?${params}`;
+
+	const requestOptions = {
+		method: 'DELETE',
 	};
 
 	return fetch(url, requestOptions)

@@ -4,6 +4,7 @@ import {
 	apiResponse,
 	chapterData,
 	chapterPost,
+	chapterPut,
 } from '../types/api_interfaces';
 
 export async function getChapters(): Promise<apiResponse<chapterData>> {
@@ -57,7 +58,7 @@ export async function addChapter(
 ): Promise<apiPostResponse> {
 	const { title, iconName, color, courseId, creatorId, visibility, rank } =
 		postData;
-	if (courseId === 0) throw 'courseId = 0';
+	if (!courseId) throw 'courseId undefined';
 	const formData = new FormData();
 	formData.append('title', title);
 	formData.append('icon_name', iconName);
@@ -72,6 +73,52 @@ export async function addChapter(
 	const requestOptions = {
 		method: 'POST',
 		body: formData,
+	};
+
+	return fetch(url, requestOptions)
+		.then((response) => response.json())
+		.catch((error) => console.log(error));
+}
+
+export async function updateChapter(
+	postData: chapterPut
+): Promise<apiPostResponse> {
+	const { id, iconName, courseId, creatorId } = postData;
+	if (!id) throw 'update id undefined';
+	if (!courseId) throw 'courseId undefined';
+
+	const params = new URLSearchParams({
+		id: id.toString(),
+	});
+
+	const url = `http://${API_URL}/api/chapters?${params}`;
+	const bodyObject = {
+		...postData,
+		icon_name: iconName,
+		course_id: courseId,
+		creator_id: creatorId,
+	};
+
+	const requestOptions = {
+		method: 'PUT',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(bodyObject),
+	};
+
+	return fetch(url, requestOptions)
+		.then((response) => response.json())
+		.catch((error) => console.log(error));
+}
+
+export async function deleteChapter(id: number): Promise<apiPostResponse> {
+	const params = new URLSearchParams({
+		id: id.toString(),
+	});
+
+	const url = `http://${API_URL}/api/chapters?${params}`;
+
+	const requestOptions = {
+		method: 'DELETE',
 	};
 
 	return fetch(url, requestOptions)

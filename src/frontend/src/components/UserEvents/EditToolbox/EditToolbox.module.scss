@@ -1,0 +1,37 @@
+@use '../../../constants/style/themify.scss' as *;
+
+.toolbox-container {
+	display: flex;
+	position: relative;
+}
+
+.toolbox-options {
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	top: 1rem;
+	right: 0px;
+	transition: all 250ms;
+}
+.toolbox-options svg {
+	margin-left: 0.5rem;
+}
+.toolbox-visible {
+	transform: translateY(-2.2rem);
+	//top: -1.2rem;
+}
+.toolbox-visible button {
+	&:hover {
+		cursor: pointer;
+	}
+}
+.edit-button {
+	@include themify($themes) {
+		color: themed('on-background');
+	}
+}
+.delete-button {
+	@include themify($themes) {
+		color: themed('error');
+	}
+}

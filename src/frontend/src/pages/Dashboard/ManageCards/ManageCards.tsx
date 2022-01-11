@@ -27,7 +27,7 @@ const ManageCards: React.FC = (props) => {
 				learnModules={courses}
 				selectedLearnModule={selectedCourse}
 				onNavigate={navigateToChapterHandler}
-				onAdded={updateCoursesHandler}
+				onEdited={updateCoursesHandler}
 			/>
 
 			{showChapters && (
@@ -37,7 +37,7 @@ const ManageCards: React.FC = (props) => {
 					selectedLearnModule={selectedChapter}
 					selectedParent={selectedCourse}
 					onNavigate={navigateToLessonHandler}
-					onAdded={updateChaptersHandler}
+					onEdited={updateChaptersHandler}
 				/>
 			)}
 			{showLessons && (
@@ -46,7 +46,7 @@ const ManageCards: React.FC = (props) => {
 					learnModules={lessons}
 					selectedLearnModule={selectedLesson}
 					selectedParent={selectedChapter}
-					onAdded={updateLessonsHandler}
+					onEdited={updateLessonsHandler}
 				/>
 			)}
 		</>

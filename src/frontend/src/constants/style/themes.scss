@@ -6,14 +6,14 @@ $primary: map-get(c.$green, 'A700');
 $primary-hover: map-get(c.$green, 'A400');
 $on-primary: $on-light;
 
-$secondary: map-get(c.$green, '500');
-$secondary-hover: map-get(c.$green, '300');
+$secondary: map-get(c.$green, 500);
+$secondary-hover: map-get(c.$green, 300);
 $on-secondary: $on-light;
 
 $success: map-get(c.$green, 'A700');
 $on-success: $on-light;
 
-$error: map-get(c.$red, '500');
+$error: map-get(c.$red, 500);
 $on-error: $on-light;
 
 $themes: (

@@ -74,7 +74,7 @@ export interface chapterPost {
 	title: string;
 	iconName: iconNamesType;
 	color: string;
-	courseId: number;
+	courseId?: number;
 	creatorId: number;
 	rank: number;
 	visibility: number;
@@ -82,7 +82,7 @@ export interface chapterPost {
 
 export interface lessonPost {
 	title: string;
-	chapterId: number;
+	chapterId?: number;
 	creatorId: number;
 	rank: number;
 	visibility: number;
@@ -99,6 +99,53 @@ export interface anyLearnModulePost {
 }
 
 export type learnModulePost =
+	| coursePost
+	| chapterPost
+	| lessonPost
+	| anyLearnModulePost;
+
+export interface coursePut {
+	id?: number;
+	title: string;
+	iconName: iconNamesType;
+	color: string;
+	creatorId: number;
+	rank: number;
+	visibility: number;
+}
+
+export interface chapterPut {
+	id?: number;
+	title: string;
+	iconName: iconNamesType;
+	color: string;
+	courseId?: number;
+	creatorId: number;
+	rank: number;
+	visibility: number;
+}
+
+export interface lessonPut {
+	id?: number;
+	title: string;
+	chapterId?: number;
+	creatorId: number;
+	rank: number;
+	visibility: number;
+}
+export interface anyLearnModulePut {
+	id: number;
+	title: string;
+	creatorId: number;
+	iconName?: iconNamesType;
+	color?: string;
+	rank: number;
+	visibility: number;
+	courseId?: number;
+	chapterId?: number;
+}
+
+export type learnModulePut =
 	| coursePost
 	| chapterPost
 	| lessonPost

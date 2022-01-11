@@ -1,17 +1,27 @@
-import { Course, Chapter, Lesson } from '../../../DataStructures/LearnModule';
+import { Course, Chapter } from '../../../DataStructures/LearnModule';
 import classes from './LearnCard.module.scss';
 import Icon from '../../UI/Icons/Icon';
 import Button from '../../UserEvents/Button/Button';
-
+import EditToolbox from '../../UserEvents/EditToolbox/EditToolbox';
+import { learnModule } from '../../../types/learnModules';
 interface props {
-	learningModule: Course | Chapter | Lesson;
-	onClick: () => void;
+	learningModule: learnModule;
+	onNavigate: () => void;
 	progress?: number;
+	onEdit?: (learningModule: learnModule) => void;
+	onDelete?: (learningModule: learnModule) => void;
 	selected?: boolean;
 }
 
 const LearnCard: React.FC<props> = (props) => {
-	const { learningModule, onClick, progress = 0, selected = false } = props;
+	const {
+		learningModule,
+		onNavigate,
+		progress = 0,
+		selected = false,
+		onEdit = () => {},
+		onDelete = () => {},
+	} = props;
 	const { title } = learningModule;
 	let icon = null;
 
@@ -26,16 +36,28 @@ const LearnCard: React.FC<props> = (props) => {
 			/>
 		);
 	}
+	const editingHandler = () => {
+		onEdit(learningModule);
+	};
+	const deletingHandler = () => {
+		onDelete(learningModule);
+	};
 
 	return (
-		<Button
-			styling="card"
-			onClick={onClick}
-			className={classes.button}
-			selected={selected}
+		<EditToolbox
+			active={selected}
+			onEdit={editingHandler}
+			onDelete={deletingHandler}
 		>
-			{icon} {title}
-		</Button>
+			<Button
+				styling="card"
+				onClick={onNavigate}
+				className={classes.button}
+				selected={selected}
+			>
+				{icon} {title}
+			</Button>
+		</EditToolbox>
 	);
 };
 

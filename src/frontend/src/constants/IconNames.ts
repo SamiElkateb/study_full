@@ -1,5 +1,6 @@
 const iconNames = [
 	'close',
+	'options',
 	'question',
 	'check',
 	'flag',

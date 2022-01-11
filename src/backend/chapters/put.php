@@ -1,4 +1,5 @@
 <?php
+include_once($_SERVER['DOCUMENT_ROOT'] . '/helpers/get_put_data.php');
 function updateChapter($id = 0)
 {
     if (!is_numeric($id) || $id === 0) {
@@ -7,8 +8,7 @@ function updateChapter($id = 0)
     }
 
     global $db;
-    $_PUT = array();
-    parse_str(file_get_contents('php://input'), $_PUT);
+    $_PUT = get_put_data();
     $title = $_PUT["title"];
     $icon_name = $_PUT["icon_name"];
     $color = $_PUT["color"];
@@ -27,20 +27,20 @@ function updateChapter($id = 0)
     $q->bindValue(':modified', $modified, PDO::PARAM_STR);
     $q->bindValue(':id', $id, PDO::PARAM_INT);
 
-    if($q->execute()){
+    if ($q->execute()) {
         $response = array(
             'ok' => true,
             'status' => 200,
             'message' => 'Updated successfully.'
         );
-    }else{
+    } else {
         $response = array(
             'ok' => false,
             'status' => 500,
             'message' => 'ERROR: ' . $q->errorCode()
         );
     }
-    
+
     header('Content-Type: application/json');
     echo json_encode($response, JSON_PRETTY_PRINT);
 }

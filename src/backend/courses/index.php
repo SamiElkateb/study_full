@@ -26,6 +26,9 @@ switch ($request_method) {
         $id = intval($_GET["id"]);
         deleteCourse($id);
         break;
+    case 'OPTIONS':
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+        break;
     default:
         header("HTTP/1.0 406 Method Not Allowed");
         break;

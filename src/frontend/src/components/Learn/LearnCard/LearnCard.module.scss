@@ -2,9 +2,29 @@
 	margin-right: 1rem;
 }
 .button {
+	position: relative;
 	display: flex;
 	align-items: center;
 	white-space: nowrap;
 	font-size: 1.25rem;
 	padding: 1rem 1.25rem;
+	z-index: 2;
+}
+
+.button-container {
+	display: flex;
+	position: relative;
+}
+
+.edit {
+	position: absolute;
+	top: 1rem;
+	right: 0px;
+	width: 20px;
+	height: 20px;
+	background-color: black;
+	transition: all 250ms;
+}
+.edit-visible {
+	transform: translateY(-2rem);
 }

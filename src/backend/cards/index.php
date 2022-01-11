@@ -11,7 +11,7 @@ switch ($request_method) {
         if (!empty($_GET["id"])) {
             $id = intval($_GET["id"]);
             getCard($id);
-        }else if (!empty($_GET["lesson_id"])) {
+        } else if (!empty($_GET["lesson_id"])) {
             $lesson_id = intval($_GET["lesson_id"]);
             getCardByLessonId($lesson_id);
         } else {
@@ -28,6 +28,9 @@ switch ($request_method) {
     case 'DELETE':
         $id = intval($_GET["id"]);
         deleteCard($id);
+        break;
+    case 'OPTIONS':
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
         break;
     default:
         header("HTTP/1.0 405 Method Not Allowed");

@@ -11,7 +11,7 @@ switch ($request_method) {
         if (!empty($_GET["id"])) {
             $id = intval($_GET["id"]);
             getChapter($id);
-        }else if (!empty($_GET["course_id"])) {
+        } else if (!empty($_GET["course_id"])) {
             $course_id = intval($_GET["course_id"]);
             getChaptersByCourseId($course_id);
         } else {
@@ -28,6 +28,9 @@ switch ($request_method) {
     case 'DELETE':
         $id = intval($_GET["id"]);
         deleteChapter($id);
+        break;
+    case 'OPTIONS':
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
         break;
     default:
         header("HTTP/1.0 406 Method Not Allowed");

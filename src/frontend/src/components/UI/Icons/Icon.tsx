@@ -16,6 +16,7 @@ import { DiCss3 } from 'react-icons/di';
 import { BsGithub, BsSquareFill } from 'react-icons/bs';
 import { FiCheckCircle } from 'react-icons/fi';
 import { GrClose } from 'react-icons/gr';
+import { HiDotsHorizontal } from 'react-icons/hi';
 interface props {
 	name: iconNamesType;
 	size?: sizes;
@@ -29,6 +30,15 @@ const Icon: React.FC<props> = (props) => {
 	if (name === 'close') {
 		return (
 			<IoCloseSharp size={iconSize} color={color} className={className} />
+		);
+	}
+	if (name === 'options') {
+		return (
+			<HiDotsHorizontal
+				size={iconSize}
+				color={color}
+				className={className}
+			/>
 		);
 	}
 
