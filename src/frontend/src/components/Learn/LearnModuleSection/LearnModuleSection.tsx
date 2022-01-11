@@ -2,14 +2,11 @@ import classes from './LearnModuleSection.module.scss';
 import useToggleVisible from '../../../hooks/useToggleVisible';
 import Carousel from '../../UI/Carousel/Carousel';
 import Button from '../../UserEvents/Button/Button';
-import AddLearnModule from '../AddLearnModule/AddLearnModule';
+import EditLearnModule from '../EditLearnModule/EditLearnModule';
 import LearnCard from '../LearnCard/LearnCard';
 import { learnModule, learnModuleArray } from '../../../types/learnModules';
 import { useState } from 'react';
-import { deleteChapter } from '../../../API/chapters';
-import { Chapter, Course, Lesson } from '../../../DataStructures/LearnModule';
-import { deleteLesson } from '../../../API/lessons';
-import { deleteCourse } from '../../../API/courses';
+import { deleteLearnModule } from '../../../API/learnModule';
 
 interface props {
 	learnModuleType: 'course' | 'chapter' | 'lesson';
@@ -29,39 +26,41 @@ const LearnModuleSection: React.FC<props> = (props) => {
 		onEdited = () => {},
 		selectedParent,
 	} = props;
+
 	const [learnModuleInEdition, setLearnModuleInEdition] =
 		useState<learnModule>();
 
-	const isEdit = typeof onEdited !== 'undefined';
 	const {
-		isVisible: isAddingNewLearnModule,
-		toggleIsVisible: toggleAddingNewLearnModule,
+		isVisible: isEditingLearnModule,
+		toggleIsVisible: toggleEditingLearnModule,
 	} = useToggleVisible();
 
 	const editedLearnModuleHandler = () => {
 		onEdited();
 		setLearnModuleInEdition(undefined);
-		toggleAddingNewLearnModule(false);
+		toggleEditingLearnModule(false);
+	};
+
+	const addingLearnModuleHandler = () => {
+		toggleEditingLearnModule(true);
+		setLearnModuleInEdition(undefined);
 	};
 
 	const deleteLearnModuleHandler = (learnModule: learnModule) => {
-		if (learnModule instanceof Course)
-			deleteCourse(learnModule.id).then(editedLearnModuleHandler);
-		if (learnModule instanceof Chapter)
-			deleteChapter(learnModule.id).then(editedLearnModuleHandler);
-		if (learnModule instanceof Lesson)
-			deleteLesson(learnModule.id).then(editedLearnModuleHandler);
+		deleteLearnModule(learnModule).then(editedLearnModuleHandler);
 	};
 
 	const editingLearnModuleHandler = (learnModule: learnModule) => {
-		toggleAddingNewLearnModule(true);
+		toggleEditingLearnModule(true);
 		setLearnModuleInEdition(learnModule);
 	};
 
 	const navigateHandler = (learnModuleId: number) => {
-		toggleAddingNewLearnModule(false);
+		toggleEditingLearnModule(false);
 		onNavigate(learnModuleId);
 	};
+
+	const isEdit = typeof onEdited !== 'undefined';
 
 	return (
 		<div className={classes['learn-module']}>
@@ -70,8 +69,8 @@ const LearnModuleSection: React.FC<props> = (props) => {
 				{isEdit && (
 					<Button
 						styling="card"
-						onClick={toggleAddingNewLearnModule.bind(null, true)}
-						selected={isAddingNewLearnModule}
+						onClick={addingLearnModuleHandler}
+						selected={isEditingLearnModule}
 						className={classes.button}
 					>
 						Add
@@ -94,9 +93,9 @@ const LearnModuleSection: React.FC<props> = (props) => {
 				})}
 			</Carousel>
 
-			{isAddingNewLearnModule && (
-				<AddLearnModule
-					type={learnModuleType}
+			{isEditingLearnModule && (
+				<EditLearnModule
+					learnModuleType={learnModuleType}
 					onAdded={editedLearnModuleHandler}
 					parentId={selectedParent}
 					learnModule={learnModuleInEdition}

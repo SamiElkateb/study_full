@@ -4,37 +4,39 @@ import Form from '../../UserEvents/Form/Form';
 import useInput from '../../../hooks/useInput';
 import IconSelect from '../../UserEvents/IconSelect/IconSelect';
 import { iconNamesType } from '../../../types/types';
-import { addCourse, updateCourse } from '../../../API/courses';
-import { addLesson, updateLesson } from '../../../API/lessons';
-import { addChapter, updateChapter } from '../../../API/chapters';
-import { learnModule, learnModuleWithIcon } from '../../../types/learnModules';
-import { Course } from '../../../DataStructures/LearnModule';
-import { learnModulesIconNames } from '../../../constants/IconNames';
+import {
+	learnModule,
+	learnModuleType,
+	learnModuleWithIcon,
+} from '../../../types/learnModules';
 import learnModuleHasIcon from '../../../helpers/data_testing/learnModuleHasIcon';
+import { addLearnModule, updateLearnModule } from '../../../API/learnModule';
 
 interface props {
-	type: 'course' | 'chapter' | 'lesson';
+	learnModuleType: learnModuleType;
 	parentId?: number;
 	onAdded?: () => void;
 	learnModule?: learnModule;
 }
 
-const AddLearnModule: React.FC<props> = (props) => {
-	const { type, parentId = 0, onAdded = () => {}, learnModule } = props;
+const EditLearnModule: React.FC<props> = (props) => {
+	const {
+		learnModuleType,
+		parentId = 0,
+		onAdded = () => {},
+		learnModule,
+	} = props;
 
 	let moduleWithIcon;
+	const hasIcon = learnModuleHasIcon(learnModuleType);
 	if (learnModuleHasIcon(learnModule)) {
 		moduleWithIcon = learnModule as learnModuleWithIcon;
 	}
-	const isUpdate = Boolean(learnModule);
+
 	const initialIcon =
 		moduleWithIcon?.iconName || ('javascript' as iconNamesType);
 	const initialTitle = learnModule?.title || ('' as string);
 	const initialColor = moduleWithIcon?.color || ('#000000' as string);
-	const isCourse = type === 'course';
-	const isChapter = type === 'chapter';
-	const isLesson = type === 'lesson';
-	const hasIcon = isCourse || isChapter;
 	const validatorString = (toValidate: string) =>
 		toValidate.trim().length > 0;
 
@@ -53,10 +55,14 @@ const AddLearnModule: React.FC<props> = (props) => {
 
 	const submitHandler = (event: React.FormEvent) => {
 		event.preventDefault();
+
 		const visibility = learnModule?.visibility || 1;
 		const creatorId = learnModule?.creatorId || 1;
 		const rank = learnModule?.rank || 1;
 		const id = learnModule?.id;
+
+		const isChapter = learnModuleType === 'chapter';
+		const isLesson = learnModuleType === 'lesson';
 		const courseId = isChapter ? parentId : undefined;
 		const chapterId = isLesson ? parentId : undefined;
 
@@ -72,14 +78,11 @@ const AddLearnModule: React.FC<props> = (props) => {
 			chapterId,
 		};
 
-		if (isUpdate && isCourse) updateCourse(data).then(onAdded);
-		if (isUpdate && isChapter) updateChapter(data).then(onAdded);
-		if (isUpdate && isLesson) updateLesson(data).then(onAdded);
-
-		if (!isUpdate && isCourse) addCourse(data).then(onAdded);
-		if (!isUpdate && isChapter) addChapter(data).then(onAdded);
-		if (!isUpdate && isLesson) addLesson(data).then(onAdded);
+		const isUpdate = Boolean(learnModule);
+		if (isUpdate) updateLearnModule(data, learnModuleType).then(onAdded);
+		if (!isUpdate) addLearnModule(data, learnModuleType).then(onAdded);
 	};
+
 	return (
 		<Form onSubmit={submitHandler}>
 			<Input
@@ -112,4 +115,4 @@ const AddLearnModule: React.FC<props> = (props) => {
 	);
 };
 
-export default AddLearnModule;
+export default EditLearnModule;

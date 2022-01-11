@@ -63,8 +63,8 @@ export interface cardData {
 
 export interface coursePost {
 	title: string;
-	iconName: iconNamesType;
-	color: string;
+	iconName?: iconNamesType;
+	color?: string;
 	creatorId: number;
 	rank: number;
 	visibility: number;
@@ -72,8 +72,8 @@ export interface coursePost {
 
 export interface chapterPost {
 	title: string;
-	iconName: iconNamesType;
-	color: string;
+	iconName?: iconNamesType;
+	color?: string;
 	courseId?: number;
 	creatorId: number;
 	rank: number;
@@ -87,7 +87,7 @@ export interface lessonPost {
 	rank: number;
 	visibility: number;
 }
-export interface anyLearnModulePost {
+export interface anyLearnModuleAdd {
 	title: string;
 	creatorId: number;
 	iconName?: iconNamesType;
@@ -98,17 +98,17 @@ export interface anyLearnModulePost {
 	chapterId?: number;
 }
 
-export type learnModulePost =
+export type learnModuleAdd =
 	| coursePost
 	| chapterPost
 	| lessonPost
-	| anyLearnModulePost;
+	| anyLearnModuleAdd;
 
 export interface coursePut {
 	id?: number;
 	title: string;
-	iconName: iconNamesType;
-	color: string;
+	iconName?: iconNamesType;
+	color?: string;
 	creatorId: number;
 	rank: number;
 	visibility: number;
@@ -117,8 +117,8 @@ export interface coursePut {
 export interface chapterPut {
 	id?: number;
 	title: string;
-	iconName: iconNamesType;
-	color: string;
+	iconName?: iconNamesType;
+	color?: string;
 	courseId?: number;
 	creatorId: number;
 	rank: number;
@@ -133,8 +133,8 @@ export interface lessonPut {
 	rank: number;
 	visibility: number;
 }
-export interface anyLearnModulePut {
-	id: number;
+export interface anyLearnModuleUpdate {
+	id?: number;
 	title: string;
 	creatorId: number;
 	iconName?: iconNamesType;
@@ -145,8 +145,8 @@ export interface anyLearnModulePut {
 	chapterId?: number;
 }
 
-export type learnModulePut =
+export type learnModuleUpdate =
 	| coursePost
 	| chapterPost
 	| lessonPost
-	| anyLearnModulePost;
+	| anyLearnModuleAdd;

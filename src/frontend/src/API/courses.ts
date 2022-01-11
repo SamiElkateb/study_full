@@ -38,6 +38,7 @@ export async function addCourse(
 	postData: coursePost
 ): Promise<apiPostResponse> {
 	const { title, iconName, color, visibility, rank, creatorId } = postData;
+	if (!iconName || !color) throw 'Missing data';
 	const formData = new FormData();
 	formData.append('title', title);
 	formData.append('icon_name', iconName);
@@ -61,8 +62,8 @@ export async function addCourse(
 export async function updateCourse(
 	postData: coursePut
 ): Promise<apiPostResponse> {
-	const { id, iconName, creatorId } = postData;
-	if (!id) throw 'update id undefined';
+	const { id, iconName, creatorId, color } = postData;
+	if (!id || !iconName || !color) throw 'Missing data';
 
 	const params = new URLSearchParams({
 		id: id.toString(),

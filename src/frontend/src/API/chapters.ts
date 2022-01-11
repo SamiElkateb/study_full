@@ -58,7 +58,7 @@ export async function addChapter(
 ): Promise<apiPostResponse> {
 	const { title, iconName, color, courseId, creatorId, visibility, rank } =
 		postData;
-	if (!courseId) throw 'courseId undefined';
+	if (!courseId || !iconName || !color) throw 'Missing data';
 	const formData = new FormData();
 	formData.append('title', title);
 	formData.append('icon_name', iconName);
@@ -83,9 +83,8 @@ export async function addChapter(
 export async function updateChapter(
 	postData: chapterPut
 ): Promise<apiPostResponse> {
-	const { id, iconName, courseId, creatorId } = postData;
-	if (!id) throw 'update id undefined';
-	if (!courseId) throw 'courseId undefined';
+	const { id, iconName, courseId, creatorId, color } = postData;
+	if (!id || !courseId || !iconName || !color) throw 'Missing data';
 
 	const params = new URLSearchParams({
 		id: id.toString(),
