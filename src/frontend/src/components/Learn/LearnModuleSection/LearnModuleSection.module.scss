@@ -1,0 +1,16 @@
+.title {
+	text-transform: capitalize;
+}
+
+.learn-module {
+	animation: show 250ms ease-in;
+}
+
+@keyframes show {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}

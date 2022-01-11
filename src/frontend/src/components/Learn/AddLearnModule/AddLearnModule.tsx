@@ -15,20 +15,19 @@ import { addChapter } from '../../../API/chapters';
 
 interface props {
 	type: 'course' | 'chapter' | 'lesson';
-	courseId?: number;
-	chapterId?: number;
+	parentId?: number;
 	onAdded?: () => void;
 }
 
 const AddLearnModule: React.FC<props> = (props) => {
-	const { type, courseId = 0, chapterId = 0, onAdded = () => {} } = props;
+	const { type, parentId = 0, onAdded = () => {} } = props;
 	const initialIcon = 'javascript' as iconNamesType;
 	const initialTitle = '' as string;
 	const initialColor = '#000000' as string;
 	const isCourse = type === 'course';
 	const isChapter = type === 'chapter';
 	const isLesson = type === 'lesson';
-	const showIcon = isCourse || isChapter;
+	const hasIcon = isCourse || isChapter;
 	const validatorString = (toValidate: string) =>
 		toValidate.trim().length > 0;
 
@@ -58,14 +57,13 @@ const AddLearnModule: React.FC<props> = (props) => {
 			rank,
 			iconName: enteredIcon,
 			color: enteredColor,
-			courseId,
-			chapterId,
+			courseId: parentId,
+			chapterId: parentId,
 		};
 
-		if (isCourse) addCourse(data);
-		if (isChapter) addChapter(data);
-		if (isLesson) addLesson(data);
-		onAdded();
+		if (isCourse) addCourse(data).then(onAdded);
+		if (isChapter) addChapter(data).then(onAdded);
+		if (isLesson) addLesson(data).then(onAdded);
 	};
 	return (
 		<Form onSubmit={submitHandler}>
@@ -76,20 +74,23 @@ const AddLearnModule: React.FC<props> = (props) => {
 				placeholder="Title"
 				onChange={titleInputChangeHandler}
 			/>
-			<Input
-				type="color"
-				name="color"
-				value={enteredColor}
-				placeholder="Color"
-				onChange={colorInputChangeHandler}
-			/>
-			{showIcon && (
-				<IconSelect
-					name="icon_name"
-					value={enteredIcon}
-					iconColor={enteredColor}
-					onChange={iconInputChangeHandler}
-				/>
+
+			{hasIcon && (
+				<>
+					<Input
+						type="color"
+						name="color"
+						value={enteredColor}
+						placeholder="Color"
+						onChange={colorInputChangeHandler}
+					/>
+					<IconSelect
+						name="icon_name"
+						value={enteredIcon}
+						iconColor={enteredColor}
+						onChange={iconInputChangeHandler}
+					/>
+				</>
 			)}
 			<Button type="submit">Submit</Button>
 		</Form>
