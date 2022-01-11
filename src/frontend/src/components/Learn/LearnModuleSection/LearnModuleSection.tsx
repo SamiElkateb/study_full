@@ -52,6 +52,7 @@ const LearnModuleSection: React.FC<props> = (props) => {
 						styling="card"
 						onClick={toggleAddingNewLearnModule.bind(null, true)}
 						selected={isAddingNewLearnModule}
+						className={classes.button}
 					>
 						Add
 					</Button>

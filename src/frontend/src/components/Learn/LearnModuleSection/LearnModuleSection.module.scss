@@ -1,11 +1,18 @@
+@use '../../../constants/style/themify.scss' as *;
 .title {
 	text-transform: capitalize;
+	@include themify($themes) {
+		color: themed('on-background');
+	}
 }
 
 .learn-module {
 	animation: show 250ms ease-in;
 }
 
+.button {
+	min-height: 5.5rem;
+}
 @keyframes show {
 	from {
 		opacity: 0;

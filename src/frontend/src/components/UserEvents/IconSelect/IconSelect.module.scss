@@ -53,6 +53,9 @@
 .icon-options button {
 	padding: 0.5rem;
 	font-size: 1.5rem;
+	@include themify($themes) {
+		color: themed('on-background');
+	}
 	&:hover {
 		cursor: pointer;
 	}
@@ -68,6 +71,9 @@
 	pointer-events: none;
 	font-size: 1.5rem;
 	width: 100%;
+	@include themify($themes) {
+		color: themed('on-surface');
+	}
 	&::placeholder {
 		color: rgba(0, 0, 0, 0.3);
 	}

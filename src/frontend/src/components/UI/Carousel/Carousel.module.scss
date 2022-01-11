@@ -30,12 +30,6 @@
 .left {
 	left: 0;
 	justify-content: flex-start;
-	background: linear-gradient(
-		to left,
-		rgba($color: rgb(240, 244, 253), $alpha: 0),
-		rgb(240, 244, 253),
-		rgb(240, 244, 253)
-	);
 }
 .left button,
 .right button {
@@ -48,19 +42,49 @@
 .right {
 	right: 0;
 	justify-content: flex-end;
-	background: linear-gradient(
-		to left,
-		rgb(240, 244, 253),
-		rgb(240, 244, 253),
-		rgba($color: rgb(240, 244, 253), $alpha: 0)
-	);
 }
 
 .left button,
 .right button {
 	font-size: 20pt;
 	font-weight: 900;
+	@include themify($themes) {
+		color: themed('on-background');
+	}
 	&:hover {
 		cursor: pointer;
 	}
+}
+
+:global(.theme-light) .left {
+	background: linear-gradient(
+		to left,
+		rgba($color: getColorInTheme('light', 'background'), $alpha: 0),
+		getColorInTheme('light', 'background'),
+		getColorInTheme('light', 'background')
+	);
+}
+:global(.theme-dark) .left {
+	background: linear-gradient(
+		to left,
+		rgba($color: getColorInTheme('dark', 'background'), $alpha: 0),
+		getColorInTheme('dark', 'background'),
+		getColorInTheme('dark', 'background')
+	);
+}
+:global(.theme-light) .right {
+	background: linear-gradient(
+		to left,
+		getColorInTheme('light', 'background'),
+		getColorInTheme('light', 'background'),
+		rgba($color: getColorInTheme('light', 'background'), $alpha: 0)
+	);
+}
+:global(.theme-dark) .right {
+	background: linear-gradient(
+		to left,
+		getColorInTheme('dark', 'background'),
+		getColorInTheme('dark', 'background'),
+		rgba($color: getColorInTheme('dark', 'background'), $alpha: 0)
+	);
 }

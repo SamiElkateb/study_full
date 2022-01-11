@@ -21,7 +21,7 @@ const LearnCard: React.FC<props> = (props) => {
 			<Icon
 				name={iconName}
 				color={color}
-				size="small"
+				size="med"
 				className={classes.icon}
 			/>
 		);

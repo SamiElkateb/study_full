@@ -41,3 +41,7 @@
 @function isMap($var) {
 	@return type-of($var) == 'map';
 }
+
+@function getColorInTheme($theme, $key) {
+	@return map-get(map-get(t.$themes, $theme), $key);
+}

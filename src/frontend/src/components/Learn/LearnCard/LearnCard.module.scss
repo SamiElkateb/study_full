@@ -4,6 +4,7 @@
 .button {
 	display: flex;
 	align-items: center;
-	font-size: 20px;
-	padding: 1.25rem;
+	white-space: nowrap;
+	font-size: 1.25rem;
+	padding: 1rem 1.25rem;
 }
