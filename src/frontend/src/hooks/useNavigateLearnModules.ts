@@ -17,7 +17,8 @@ interface action {
 		| 'SET_CHAPTERS'
 		| 'SET_LESSONS'
 		| 'UPDATE_CHAPTERS'
-		| 'UPDATE_LESSONS';
+		| 'UPDATE_LESSONS'
+		| 'SELECT_LESSON';
 	courses?: Course[];
 	chapters?: Chapter[];
 	lessons?: Lesson[];
@@ -84,10 +85,16 @@ const learnModuleReducer: Reducer<learnModuleState, action> = (
 		const selectedLesson = undefined;
 		return { ...prevState, lessons, selectedChapter, selectedLesson };
 	}
+
 	if (action.type === 'UPDATE_LESSONS') {
 		if (typeof action.lessons === 'undefined') return prevState;
 		const lessons: Lesson[] = action.lessons;
 		return { ...prevState, lessons };
+	}
+	if (action.type === 'SELECT_LESSON') {
+		if (typeof action.selectedLesson === 'undefined') return prevState;
+		const selectedLesson = action.selectedLesson;
+		return { ...prevState, selectedLesson };
 	}
 
 	return prevState;
@@ -180,6 +187,13 @@ const useNavigateLearnModules = () => {
 		});
 	};
 
+	const selectLessonHandler = (id: number) => {
+		dispatch({
+			type: 'SELECT_LESSON',
+			selectedLesson: id,
+		});
+	};
+
 	return {
 		showChapters,
 		showLessons,
@@ -194,6 +208,7 @@ const useNavigateLearnModules = () => {
 		updateCoursesHandler,
 		updateChaptersHandler,
 		updateLessonsHandler,
+		selectLessonHandler,
 	};
 };
 

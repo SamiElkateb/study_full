@@ -11,6 +11,10 @@
 	}
 }
 
+.big {
+	font-size: 1rem;
+}
+
 .button-primary {
 	@include themify($themes) {
 		color: themed('on-primary');

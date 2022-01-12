@@ -7,6 +7,7 @@ type props = {
 	type?: 'submit' | 'button';
 	className?: string;
 	selected?: boolean;
+	size?: 'med' | 'big';
 };
 
 const Button: React.FC<props> = (props) => {
@@ -17,11 +18,12 @@ const Button: React.FC<props> = (props) => {
 		disabled = false,
 		styling = 'primary',
 		selected = false,
+		size = 'med',
 	} = props;
 
 	const style = classes['button-' + styling];
 	const selectedStyle = selected ? classes.selected : '';
-	const classNames = `${classes.button} ${style} ${className} ${selectedStyle}`;
+	const classNames = `${classes.button} ${classes[size]} ${style} ${className} ${selectedStyle}`;
 	return (
 		<button className={classNames} onClick={onClick} disabled={disabled}>
 			{children}

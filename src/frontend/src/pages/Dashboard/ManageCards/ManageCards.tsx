@@ -1,4 +1,5 @@
 import LearnModuleSection from '../../../components/Learn/LearnModuleSection/LearnModuleSection';
+import Button from '../../../components/UserEvents/Button/Button';
 import useNavigateLearnModules from '../../../hooks/useNavigateLearnModules';
 import classes from './ManageCards.module.scss';
 
@@ -17,6 +18,7 @@ const ManageCards: React.FC = (props) => {
 		updateCoursesHandler,
 		updateChaptersHandler,
 		updateLessonsHandler,
+		selectLessonHandler,
 	} = useNavigateLearnModules();
 
 	return (
@@ -45,9 +47,15 @@ const ManageCards: React.FC = (props) => {
 					learnModuleType="lesson"
 					learnModules={lessons}
 					selectedLearnModule={selectedLesson}
+					onNavigate={selectLessonHandler}
 					selectedParent={selectedChapter}
 					onEdited={updateLessonsHandler}
 				/>
+			)}
+			{selectedLesson && (
+				<Button className={classes.button} size="big">
+					Go to lesson
+				</Button>
 			)}
 		</>
 	);

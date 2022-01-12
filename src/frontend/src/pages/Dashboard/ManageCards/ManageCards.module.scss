@@ -1,18 +1,4 @@
-.study-section {
-	min-height: 100%;
-	flex: 5;
-}
-
-.chapters,
-.lessons {
-	animation: show 250ms ease-in;
-}
-
-@keyframes show {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
+.button {
+	display: block;
+	margin: auto;
 }

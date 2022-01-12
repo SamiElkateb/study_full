@@ -1,4 +1,5 @@
 import LearnModuleSection from '../../../components/Learn/LearnModuleSection/LearnModuleSection';
+import Button from '../../../components/UserEvents/Button/Button';
 import useNavigateLearnModules from '../../../hooks/useNavigateLearnModules';
 import classes from './Learn.module.scss';
 
@@ -14,6 +15,7 @@ const Learn: React.FC = (props) => {
 		selectedLesson,
 		navigateToChapterHandler,
 		navigateToLessonHandler,
+		selectLessonHandler,
 	} = useNavigateLearnModules();
 
 	return (
@@ -38,8 +40,14 @@ const Learn: React.FC = (props) => {
 				<LearnModuleSection
 					learnModuleType="lesson"
 					learnModules={lessons}
+					onNavigate={selectLessonHandler}
 					selectedLearnModule={selectedLesson}
 				/>
+			)}
+			{selectedLesson && (
+				<Button className={classes.button} size="big">
+					Go to lesson
+				</Button>
 			)}
 		</>
 	);
