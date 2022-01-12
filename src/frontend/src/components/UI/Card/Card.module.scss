@@ -1,9 +1,9 @@
 @use '../../../constants/style/themify.scss' as *;
 
 .card {
-	box-shadow: rgb(0 0 0 / 10%) 0px 3px 5px 5px;
+	box-shadow: rgba(5, 25, 45, 0.25) 0px 0px 2px 0px;
 	padding: 0.5rem;
-	border-radius: 1rem;
+	border-radius: 0.25rem;
 	@include themify($themes) {
 		background-color: themed('surface');
 	}

@@ -36,7 +36,7 @@ const Select: React.FC<InputProps> = (props) => {
 			className={classes.select}
 			onChange={onChange}
 		>
-			<option value="">{placeholder}</option>
+			<option value="placeholder">{placeholder}</option>
 			{items.map((value, index) => (
 				<option key={`${index}_${value}`} value={value}>
 					{value}

@@ -14,13 +14,15 @@ interface props {
 
 const Answer: React.FC<props> = (props) => {
 	const { answer, answerType, isVisible = true } = props;
-	const {themeStyle} = useCustomTheme();
+	const { themeStyle } = useCustomTheme();
 
-	if(!isVisible) return null
+	if (!isVisible) return null;
 
 	return (
 		<View style={styles.answer_container}>
-			{answerType === 'text' && <Text style={themeStyle.text}>{answer}</Text>}
+			{answerType === 'text' && (
+				<Text style={themeStyle.text}>{answer}</Text>
+			)}
 			{answerType === 'terminal' && <Terminal code={answer} />}
 			{answerType === 'javascript' && <Javascript code={answer} />}
 			{answerType === 'yaml' && <Yaml code={answer} />}

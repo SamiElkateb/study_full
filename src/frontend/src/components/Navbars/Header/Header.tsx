@@ -1,33 +1,8 @@
 import classes from './Header.module.scss';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import { GiGraduateCap } from 'react-icons/gi';
 
 const Header: React.FC = () => {
-	const [scrolled, setScrolled] = useState(false);
-
-	const headerClasses = [classes.header];
-
-	const handleScroll = () => {
-		const offset = window.scrollY;
-		if (offset > 10) {
-			setScrolled(true);
-		} else {
-			setScrolled(false);
-		}
-	};
-
-	useEffect(() => {
-		window.addEventListener('scroll', handleScroll);
-		return () => {
-			window.removeEventListener('scroll', handleScroll, true);
-		};
-	}, []);
-
-	if (scrolled) {
-		headerClasses.push(classes.sticky);
-	}
-
 	let authElements = (
 		<li className={classes.auth}>
 			<ul>
@@ -41,7 +16,7 @@ const Header: React.FC = () => {
 		</li>
 	);
 	return (
-		<header className={headerClasses.join(' ')}>
+		<header className={`${classes.header} ${classes.sticky}`}>
 			<nav>
 				<ul>
 					<li className={classes['brand-name']}>

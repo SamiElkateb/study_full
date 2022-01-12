@@ -55,7 +55,7 @@ export interface cardData {
 	id: number;
 	question: string;
 	answer: string;
-	answerType: string;
+	answer_type: string;
 	lesson_id: number;
 	created: string;
 	modified: string;
@@ -87,6 +87,14 @@ export interface lessonPost {
 	rank: number;
 	visibility: number;
 }
+
+export interface cardAdd {
+	question: string;
+	answer: string;
+	answerType: string;
+	lessonId?: number;
+}
+
 export interface anyLearnModuleAdd {
 	title: string;
 	creatorId: number;
@@ -132,6 +140,14 @@ export interface lessonPut {
 	creatorId: number;
 	rank: number;
 	visibility: number;
+}
+
+export interface cardUpdate {
+	id?: number;
+	question: string;
+	answer: string;
+	answerType: string;
+	lessonId?: number;
 }
 export interface anyLearnModuleUpdate {
 	id?: number;

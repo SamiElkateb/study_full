@@ -6,7 +6,7 @@ interface card {
 	question: string;
 	answer: string;
 	streak?: number;
-	answerType: string;
+	answer_type: string;
 	id: number;
 }
 class StudyCard {
@@ -16,17 +16,17 @@ class StudyCard {
 	readonly id: number;
 	private streak: number;
 	constructor(props: card) {
-		const { question, answer, answerType, streak = 0, id } = props;
+		const { question, answer, answer_type, streak = 0, id } = props;
 		this.id = id;
 		this.question = question;
 		this.answer = answer;
 		this.streak = streak;
 		if (
-			answerType === 'terminal' ||
-			answerType === 'yaml' ||
-			answerType === 'javascript'
+			answer_type === 'terminal' ||
+			answer_type === 'yaml' ||
+			answer_type === 'javascript'
 		) {
-			this.answerType = answerType;
+			this.answerType = answer_type;
 		} else {
 			this.answerType = 'text';
 		}

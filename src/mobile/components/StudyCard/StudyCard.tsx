@@ -5,12 +5,12 @@ import Answer from './Answer';
 import RoundButton from '../UserEvents/RoundButton';
 import Card from '../UI/Card';
 import Swiper from './Swiper';
-import StudyCardData from '../../DataStructures/StudyCard';
+import StudyCardClass from '../../DataStructures/StudyCard';
 import useLinkSwipeBtn from '../../hooks/useLinkSwipeBtn';
 import Question from './Question';
 
 interface props {
-	studyCard: StudyCardData;
+	studyCard: StudyCardClass;
 	index: number;
 }
 const StudyCard: React.FC<props> = (props) => {
@@ -33,7 +33,7 @@ const StudyCard: React.FC<props> = (props) => {
 			falseButtonHook={falseButtonHook}
 			correctButtonHook={correctButtonHook}
 			showAnswerButtonHook={showAnswerButtonHook}
-            index={index}
+			index={index}
 		>
 			<Card index={index}>
 				<Question question={question} />

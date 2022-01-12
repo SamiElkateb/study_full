@@ -19,8 +19,8 @@ const LeftNav: React.FC = () => {
 					</Link>
 				</li>
 				<li>
-					<Link to="/study/manage-cards">
-						<BsFileEarmarkDiff /> Manage Cards
+					<Link to="/study/manage">
+						<BsFileEarmarkDiff /> Manage
 					</Link>
 				</li>
 				<li>

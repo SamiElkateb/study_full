@@ -5,7 +5,7 @@ const DailyCards: React.FC = (props) => {
 	const { children } = props;
 	return (
 		<>
-			<h1>DailyCards</h1> <EditStudyCard />
+			<h1>Daily Cards</h1>
 		</>
 	);
 };

@@ -14,6 +14,17 @@ function App() {
 				<Route path="study" element={<Dashboard />}>
 					<Route path=":section" element={<Dashboard />} />
 				</Route>
+
+				<Route
+					path="study/manage-cards"
+					element={<Dashboard manageCards={true} />}
+				>
+					<Route
+						path=":lesson_id"
+						element={<Dashboard manageCards={true} />}
+					/>
+				</Route>
+
 				<Route path="about" element={<h1>about</h1>} />
 			</Routes>
 			{/* <Footer /> */}

@@ -9,7 +9,6 @@ const CardStack: React.FC = (props) => {
 	const studyCtx = useContext(StudyContext);
 	const { studyDeck, progress } = studyCtx;
 	const { themeStyle } = useCustomTheme();
-
 	return (
 		<View style={[themeStyle.background, styles.container]}>
 			<ProgressBar progress={progress} />

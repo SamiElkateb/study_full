@@ -47,7 +47,7 @@ export interface cardData {
 	id: number;
 	question: string;
 	answer: string;
-	answerType: string;
+	answer_type: string;
 	lesson_id: number;
 	created: string;
 	modified: string;

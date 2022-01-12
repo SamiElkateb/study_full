@@ -5,10 +5,16 @@ import DashboardSection from './DashboardSection/DashboardSection';
 import DailyCards from './DailyCards/DailyCards';
 import Learn from './Learn/Learn';
 import Stats from './Stats/Stats';
+import Manage from './Manage/Manage';
 import ManageCards from './ManageCards/ManageCards';
 
-const Dashboard: React.FC = (props) => {
-	let { section = 'daily-cards' } = useParams();
+interface props {
+	manageCards?: boolean;
+}
+const Dashboard: React.FC<props> = (props) => {
+	const { manageCards } = props;
+	let { section } = useParams();
+	section = manageCards ? undefined : section;
 	return (
 		<main className={classes['study-panel']}>
 			<LeftNav />
@@ -16,7 +22,8 @@ const Dashboard: React.FC = (props) => {
 				{section === 'daily-cards' && <DailyCards />}
 				{section === 'learn' && <Learn />}
 				{section === 'stats' && <Stats />}
-				{section === 'manage-cards' && <ManageCards />}
+				{section === 'manage' && <Manage />}
+				{manageCards && <ManageCards />}
 			</DashboardSection>
 		</main>
 	);
