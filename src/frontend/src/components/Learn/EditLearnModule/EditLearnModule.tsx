@@ -22,7 +22,7 @@ interface props {
 const EditLearnModule: React.FC<props> = (props) => {
 	const {
 		learnModuleType,
-		parentId = 0,
+		parentId,
 		onAdded = () => {},
 		learnModule,
 	} = props;

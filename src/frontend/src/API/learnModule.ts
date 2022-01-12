@@ -12,6 +12,7 @@ export async function updateLearnModule(
 	learnModule: anyLearnModuleUpdate | learnModule,
 	type: learnModuleType
 ) {
+	console.log(learnModule);
 	if (learnModule instanceof Course) return updateCourse(learnModule);
 	if (learnModule instanceof Chapter) return updateChapter(learnModule);
 	if (learnModule instanceof Lesson) return updateLesson(learnModule);

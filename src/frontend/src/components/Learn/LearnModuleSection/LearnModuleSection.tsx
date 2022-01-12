@@ -23,9 +23,10 @@ const LearnModuleSection: React.FC<props> = (props) => {
 		learnModules,
 		selectedLearnModule,
 		onNavigate = () => {},
-		onEdited = () => {},
+		onEdited,
 		selectedParent,
 	} = props;
+	const isEdit = typeof onEdited !== 'undefined';
 
 	const [learnModuleInEdition, setLearnModuleInEdition] =
 		useState<learnModule>();
@@ -35,32 +36,38 @@ const LearnModuleSection: React.FC<props> = (props) => {
 		toggleIsVisible: toggleEditingLearnModule,
 	} = useToggleVisible();
 
-	const editedLearnModuleHandler = () => {
-		onEdited();
-		setLearnModuleInEdition(undefined);
-		toggleEditingLearnModule(false);
-	};
+	const editedLearnModuleHandler = isEdit
+		? () => {
+				onEdited();
+				setLearnModuleInEdition(undefined);
+				toggleEditingLearnModule(false);
+		  }
+		: undefined;
 
-	const addingLearnModuleHandler = () => {
-		toggleEditingLearnModule(true);
-		setLearnModuleInEdition(undefined);
-	};
+	const addingLearnModuleHandler = isEdit
+		? () => {
+				toggleEditingLearnModule(true);
+				setLearnModuleInEdition(undefined);
+		  }
+		: undefined;
 
-	const deleteLearnModuleHandler = (learnModule: learnModule) => {
-		deleteLearnModule(learnModule).then(editedLearnModuleHandler);
-	};
+	const deleteLearnModuleHandler = isEdit
+		? (learnModule: learnModule) => {
+				deleteLearnModule(learnModule).then(editedLearnModuleHandler);
+		  }
+		: undefined;
 
-	const editingLearnModuleHandler = (learnModule: learnModule) => {
-		toggleEditingLearnModule(true);
-		setLearnModuleInEdition(learnModule);
-	};
+	const editingLearnModuleHandler = isEdit
+		? (learnModule: learnModule) => {
+				toggleEditingLearnModule(true);
+				setLearnModuleInEdition(learnModule);
+		  }
+		: undefined;
 
 	const navigateHandler = (learnModuleId: number) => {
 		toggleEditingLearnModule(false);
 		onNavigate(learnModuleId);
 	};
-
-	const isEdit = typeof onEdited !== 'undefined';
 
 	return (
 		<div className={classes['learn-module']}>

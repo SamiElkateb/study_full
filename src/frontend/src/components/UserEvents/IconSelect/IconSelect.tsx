@@ -48,8 +48,7 @@ const IconSelect: React.FC<InputProps> = (props) => {
 				onClick={showIconsHandler}
 			>
 				<div className={classes['selected-icon']}>
-					<Icon name={value} color={iconColor} /> Icon:
-					{value}
+					<Icon name={value} color={iconColor} /> icon_{value}
 				</div>
 				<input name={name} hidden={true} />
 			</button>

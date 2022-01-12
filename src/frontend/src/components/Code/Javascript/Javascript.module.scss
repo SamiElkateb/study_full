@@ -1,0 +1,53 @@
+.window {
+	background-color: #1e1e1e;
+	padding: 1rem 0;
+	border-radius: 0.25rem;
+	margin: 1rem 0rem;
+}
+.title {
+	margin-bottom: 1rem;
+	padding: 0 1rem;
+	padding-bottom: 0.5rem;
+	border-bottom: white solid 2px;
+	color: white;
+	font-weight: bold;
+	font-family: Menlo;
+}
+.code-container {
+	padding: 0 1rem;
+	font-family: Menlo;
+}
+
+.default-text {
+	color: white;
+	padding-bottom: 0.5rem;
+}
+.declaration {
+	color: #508fc3;
+	padding-bottom: 0.5rem;
+}
+.statement {
+	color: #c586c0;
+	padding-bottom: 0.5rem;
+}
+.string {
+	color: #ce9178;
+	padding-bottom: 0.5rem;
+}
+.variable {
+	color: #9cdcfe;
+	padding-bottom: 0.5rem;
+}
+.function {
+	color: #dcdcaa;
+	padding-bottom: 0.5rem;
+}
+.comment {
+	color: #6a9955;
+	padding-bottom: 0.5rem;
+}
+.line-break {
+	width: 100%;
+	height: 0;
+	padding: 0;
+}

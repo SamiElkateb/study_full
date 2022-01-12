@@ -19,11 +19,13 @@ const LearnCard: React.FC<props> = (props) => {
 		onNavigate,
 		progress = 0,
 		selected = false,
-		onEdit = () => {},
-		onDelete = () => {},
+		onEdit,
+		onDelete,
 	} = props;
 	const { title } = learningModule;
 	let icon = null;
+	const isEdit = typeof onEdit !== 'undefined';
+	const hasDelete = typeof onDelete !== 'undefined';
 
 	if (learningModule instanceof Course || learningModule instanceof Chapter) {
 		const { iconName, color } = learningModule;
@@ -36,12 +38,31 @@ const LearnCard: React.FC<props> = (props) => {
 			/>
 		);
 	}
-	const editingHandler = () => {
-		onEdit(learningModule);
-	};
-	const deletingHandler = () => {
-		onDelete(learningModule);
-	};
+
+	const editingHandler = isEdit
+		? () => {
+				onEdit(learningModule);
+		  }
+		: undefined;
+
+	const deletingHandler = hasDelete
+		? () => {
+				onDelete(learningModule);
+		  }
+		: undefined;
+
+	if (!isEdit) {
+		return (
+			<Button
+				styling="card"
+				onClick={onNavigate}
+				className={classes.button}
+				selected={selected}
+			>
+				{icon} {title}
+			</Button>
+		);
+	}
 
 	return (
 		<EditToolbox

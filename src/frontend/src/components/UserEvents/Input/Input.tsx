@@ -29,7 +29,7 @@ const Input: React.FC<InputProps> = (props) => {
 		readOnly = false,
 		Icon,
 	} = props;
-	const id = Math.random() + type + name;
+	const id = type + name;
 
 	let iconElement: JSX.Element | '' = '';
 	if (typeof Icon != 'undefined') {

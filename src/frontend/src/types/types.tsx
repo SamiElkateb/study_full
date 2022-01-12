@@ -1,5 +1,6 @@
 /** @format */
 
+import { answerTypes } from '../constants/AnswerTypes';
 import { iconNames } from '../constants/IconNames';
 
 export type javascriptCodeType =
@@ -19,7 +20,7 @@ export type yamlCodeType =
 	| 'linebreak';
 export type indexAndLengthArray = { index: number; length: number }[];
 
-export type answerType = 'text' | 'javascript' | 'terminal' | 'yaml';
+export type answerType = typeof answerTypes[number];
 
 export interface toggleButton {
 	isActive: boolean;

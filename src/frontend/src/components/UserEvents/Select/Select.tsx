@@ -26,7 +26,7 @@ const Select: React.FC<InputProps> = (props) => {
 		onBlur = () => {},
 		readOnly = false,
 	} = props;
-	const id = Math.random() + name;
+	const id = name;
 
 	return (
 		<select

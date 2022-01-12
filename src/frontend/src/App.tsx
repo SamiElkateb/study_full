@@ -16,7 +16,7 @@ function App() {
 				</Route>
 				<Route path="about" element={<h1>about</h1>} />
 			</Routes>
-			<Footer />
+			{/* <Footer /> */}
 		</Theme>
 	);
 }
