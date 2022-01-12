@@ -1,0 +1,53 @@
+.window {
+	background-color: #1e1e1e;
+	padding: 1rem 0;
+	border-radius: 0.25rem;
+	margin: 1rem 0rem;
+}
+.title {
+	margin-bottom: 1rem;
+	padding: 0 1rem;
+	padding-bottom: 0.5rem;
+	border-bottom: white solid 2px;
+	color: white;
+	font-weight: bold;
+	font-family: Menlo;
+}
+.code-container {
+	padding: 0 1rem;
+	font-family: Menlo;
+}
+
+.default-text {
+	color: white;
+	padding-bottom: 0.5rem;
+}
+
+.variable {
+	background-color: #2b4e6b;
+	color: #000000;
+	font-weight: bold;
+	padding: 0.25rem;
+	border-radius: 0.25rem;
+	overflow: hidden;
+	font-family: Menlo;
+}
+.string {
+	color: #ce9178;
+}
+.object {
+	color: #9cdcfe;
+}
+.comment {
+	color: #6a9955;
+}
+.linebreak {
+	width: 100%;
+	height: 0;
+	padding: 0;
+	display: inline-block;
+}
+.tab {
+	width: 1rem;
+	display: inline-block;
+}

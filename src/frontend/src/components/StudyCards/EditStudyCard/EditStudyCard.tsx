@@ -3,6 +3,7 @@ import useInput from '../../../hooks/useInput';
 import { answerType } from '../../../types/types';
 import Javascript from '../../Code/Javascript/Javascript';
 import Terminal from '../../Code/Terminal/Terminal';
+import Yaml from '../../Code/Yaml/Yaml';
 import Button from '../../UserEvents/Button/Button';
 import Form from '../../UserEvents/Form/Form';
 import Input from '../../UserEvents/Input/Input';
@@ -56,6 +57,7 @@ const EditStudyCard: React.FC = () => {
 			{enteredAnswerType === 'terminal' && (
 				<Terminal code={enteredAnswer} />
 			)}
+			{enteredAnswerType === 'yaml' && <Yaml code={enteredAnswer} />}
 			<Button type="submit">Submit</Button>
 		</Form>
 	);
