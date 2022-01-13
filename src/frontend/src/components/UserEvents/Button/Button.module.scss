@@ -25,6 +25,14 @@
 			background-color: themed('primary-hover');
 		}
 	}
+	:global(.theme-light) &:focus-visible {
+		box-shadow: 0 0 0 5px getColorInTheme('light', 'surface'),
+			0 0 0 10px getColor('primary');
+	}
+	:global(.dark-light) &:focus-visible {
+		box-shadow: 0 0 0 5px getColorInTheme('dark', 'surface'),
+			0 0 0 10px getColor('primary');
+	}
 }
 
 .button-secondary {
@@ -33,10 +41,12 @@
 		color: themed('primary');
 		border-color: themed('primary');
 	}
-	&:hover {
+	&:hover,
+	&:focus-visible {
 		@include themify($themes) {
-			color: themed('primary-hover');
-			border-color: themed('primary-hover');
+			color: themed('on-hover');
+			background-color: themed('primary');
+			border-color: themed('primary');
 		}
 	}
 }
@@ -57,5 +67,13 @@
 			color: themed('surface');
 			background-color: themed('on-surface');
 		}
+	}
+	:global(.theme-light) &:focus-visible {
+		box-shadow: 0 0 0 5px getColorInTheme('light', 'background'),
+			0 0 0 10px getColorInTheme('light', 'on-background');
+	}
+	:global(.dark-light) &:focus-visible {
+		box-shadow: 0 0 0 5px getColorInTheme('dark', 'background'),
+			0 0 0 10px getColorInTheme('dark', 'on-background');
 	}
 }

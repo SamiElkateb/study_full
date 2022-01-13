@@ -49,9 +49,15 @@
 }
 
 .header a:hover,
-.header a.selected {
+.header a.selected,
+.header a:focus {
 	@include themify($themes) {
 		color: themed('primary');
+	}
+}
+.header a:focus-visible {
+	@include themify($themes) {
+		outline: 2px solid themed('primary');
 	}
 }
 .signup a {
@@ -71,7 +77,8 @@
 		border-color: themed('primary');
 	}
 }
-.signup:hover a {
+.signup a:hover,
+.signup a:focus {
 	color: white !important;
 	@include themify($themes) {
 		background-color: themed('primary');

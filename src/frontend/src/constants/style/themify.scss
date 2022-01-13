@@ -15,14 +15,14 @@
 						)
 					) !global;
 				}
-
 				@content;
 				$theme-map: null !global;
 			}
 		} @else {
 			$key: $theme !global;
 			$value: $map !global;
-			:global(#root) & {
+			:global(#root) &,
+			:global(#overlays) & {
 				$theme-map: () !global;
 				$theme-map: (
 					$key: $value,
@@ -44,4 +44,7 @@
 
 @function getColorInTheme($theme, $key) {
 	@return map-get(map-get(t.$themes, $theme), $key);
+}
+@function getColor($key) {
+	@return map-get(t.$themes, $key);
 }
