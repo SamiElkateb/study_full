@@ -1,3 +1,4 @@
 {
-	"cSpell.words": ["themify"]
+	"cSpell.words": ["themify"],
+	"intelephense.diagnostics.undefinedTypes": false
 }
