@@ -67,9 +67,10 @@ export async function updateCard(
 		id: id.toString(),
 	});
 
-	const url = `http://${API_URL}/api/chapters?${params}`;
+	const url = `http://${API_URL}/api/cards?${params}`;
 	const bodyObject = {
 		...postData,
+		answer_type: answerType,
 	};
 
 	const requestOptions = {
@@ -88,7 +89,7 @@ export async function deleteCard(id: number): Promise<apiPostResponse> {
 		id: id.toString(),
 	});
 
-	const url = `http://${API_URL}/api/chapters?${params}`;
+	const url = `http://${API_URL}/api/cards?${params}`;
 
 	const requestOptions = {
 		method: 'DELETE',

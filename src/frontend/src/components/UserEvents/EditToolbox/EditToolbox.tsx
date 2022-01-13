@@ -48,7 +48,7 @@ const EditToolbox: React.FC<props> = (props) => {
 			{showModal && (
 				<Modal onHideModal={hideModalHandler}>
 					<h3>
-						Are You sure you want to delete this module and all its
+						Are You sure you want to delete this element and all its
 						children?
 					</h3>
 					<div>

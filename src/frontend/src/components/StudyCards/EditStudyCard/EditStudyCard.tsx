@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { addCard, updateCard } from '../../../API/cards';
 import { answerTypes } from '../../../constants/AnswerTypes';
@@ -21,6 +22,7 @@ interface props {
 const EditStudyCard: React.FC<props> = (props) => {
 	const { lessonId, studyCard, onEdited } = props;
 	const answerTypeArray = [...answerTypes];
+
 	const {
 		inputChangeHandler: questionInputChangeHandler,
 		inputValue: enteredQuestion,
@@ -35,6 +37,18 @@ const EditStudyCard: React.FC<props> = (props) => {
 		inputValue: enteredAnswerType,
 	} = useInput(() => true, 'text' as answerType);
 
+	useEffect(() => {
+		if (!studyCard) return;
+		questionInputChangeHandler(studyCard.question);
+		answerInputChangeHandler(studyCard.answer);
+		answerTypeInputChangeHandler(studyCard.answerType);
+	}, [studyCard]);
+
+	const clearInputsHandler = () => {
+		questionInputChangeHandler('');
+		answerInputChangeHandler('');
+	};
+
 	const isUpdate = Boolean(studyCard);
 	const submitHandler = (event: React.FormEvent) => {
 		event.preventDefault();
@@ -48,14 +62,24 @@ const EditStudyCard: React.FC<props> = (props) => {
 			lessonId: lessonId,
 		};
 
-		if (isUpdate) updateCard(data).then(onEdited?.bind(null, lessonId));
-		if (!isUpdate) addCard(data).then(onEdited?.bind(null, lessonId));
+		if (isUpdate) {
+			console.log(data);
+			updateCard(data)
+				.then(onEdited?.bind(null, lessonId))
+				.then(clearInputsHandler);
+		}
+		if (!isUpdate) {
+			addCard(data)
+				.then(onEdited?.bind(null, lessonId))
+				.then(clearInputsHandler);
+		}
 	};
 	const isAnswerTypeText = enteredAnswerType === 'text';
 
 	const submitText = isUpdate ? 'Update Card' : 'Add Card';
+	const formTitle = isUpdate ? 'Update Card' : 'Add New Card';
 	return (
-		<Form onSubmit={submitHandler}>
+		<Form onSubmit={submitHandler} title={formTitle}>
 			<Input
 				type="text"
 				name="question"
