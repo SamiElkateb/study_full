@@ -121,6 +121,7 @@ const useNavigateLearnModules = () => {
 	const showLessons = lessons.length > 0 || selectedChapter;
 
 	useEffect(() => {
+		if (!authToken) return;
 		getCourses(authToken).then((response) => {
 			const coursesMap = response.data.map((courseResponse) => {
 				return new Course(courseResponse);
@@ -130,6 +131,7 @@ const useNavigateLearnModules = () => {
 	}, []);
 
 	const updateCoursesHandler = () => {
+		if (!authToken) return;
 		getCourses(authToken).then((response) => {
 			const coursesMap = response.data.map((courseResponse) => {
 				return new Course(courseResponse);
@@ -140,6 +142,7 @@ const useNavigateLearnModules = () => {
 
 	const updateChaptersHandler = () => {
 		if (!selectedCourse) return;
+		if (!authToken) return;
 		getChapterByCourseId(selectedCourse, authToken).then((response) => {
 			const chaptersMap = response.data.map((chapterResponse) => {
 				return new Chapter(chapterResponse);
@@ -152,6 +155,7 @@ const useNavigateLearnModules = () => {
 	};
 	const updateLessonsHandler = () => {
 		if (!selectedChapter) return;
+		if (!authToken) return;
 		getLessonByChapterId(selectedChapter, authToken).then((response) => {
 			const lessonsMap = response.data.map((lessonResponse) => {
 				return new Lesson(lessonResponse);
@@ -164,6 +168,7 @@ const useNavigateLearnModules = () => {
 	};
 
 	const navigateToChapterHandler = (id: number) => {
+		if (!authToken) return;
 		getChapterByCourseId(id, authToken).then((response) => {
 			const chaptersMap = response.data.map((chapterResponse) => {
 				return new Chapter(chapterResponse);
@@ -177,6 +182,7 @@ const useNavigateLearnModules = () => {
 	};
 
 	const navigateToLessonHandler = (id: number) => {
+		if (!authToken) return;
 		getLessonByChapterId(id, authToken).then((response) => {
 			const lessonsMap = response.data.map((lessonResponse) => {
 				return new Lesson(lessonResponse);

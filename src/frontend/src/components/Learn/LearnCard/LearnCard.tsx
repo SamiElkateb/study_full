@@ -4,6 +4,7 @@ import Icon from '../../UI/Icons/Icon';
 import Button from '../../UserEvents/Button/Button';
 import EditToolbox from '../../UserEvents/EditToolbox/EditToolbox';
 import { learnModule } from '../../../types/learnModules';
+import useAuth from '../../../hooks/useAuth';
 interface props {
 	learningModule: learnModule;
 	onNavigate: () => void;
@@ -23,9 +24,11 @@ const LearnCard: React.FC<props> = (props) => {
 		onDelete,
 	} = props;
 	const { title } = learningModule;
+	const { userId } = useAuth();
 	let icon = null;
 	const isEdit = typeof onEdit !== 'undefined';
 	const hasDelete = typeof onDelete !== 'undefined';
+	const isCreator = userId === learningModule.creatorId;
 
 	if (learningModule instanceof Course || learningModule instanceof Chapter) {
 		const { iconName, color } = learningModule;
@@ -51,7 +54,7 @@ const LearnCard: React.FC<props> = (props) => {
 		  }
 		: undefined;
 
-	if (!isEdit) {
+	if (!isEdit || !isCreator) {
 		return (
 			<Button
 				styling="card"

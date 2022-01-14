@@ -28,7 +28,7 @@ const Header: React.FC = () => {
 					styling="secondary"
 					className={classes.logout}
 				>
-					Se Déconnecter
+					Log Out
 				</Button>
 			</li>
 		);

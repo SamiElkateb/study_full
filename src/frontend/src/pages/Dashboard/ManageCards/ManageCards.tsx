@@ -3,11 +3,14 @@ import { useParams } from 'react-router-dom';
 import { deleteCard } from '../../../API/cards';
 import EditStudyCard from '../../../components/StudyCards/EditStudyCard/EditStudyCard';
 import StudyCard from '../../../components/StudyCards/StudyCard/StudyCard';
+import Wrapper from '../../../components/UI/Wrapper/Wrapper';
 import EditToolbox from '../../../components/UserEvents/EditToolbox/EditToolbox';
 import StudyCardClass from '../../../DataStructures/StudyCard';
 import useAuth from '../../../hooks/useAuth';
 import useCardStack from '../../../hooks/useCardStack';
+import SectionTitle from '../SectionTitle/SectionTitle';
 import classes from './ManageCards.module.scss';
+import sectionTitlesData from '../../../data/sectionTitlesData.json';
 
 const ManageCards: React.FC = (props) => {
 	const { authToken } = useAuth();
@@ -15,8 +18,10 @@ const ManageCards: React.FC = (props) => {
 	const lessonId = lesson_id ? +lesson_id : undefined;
 	const { cards, updateCardsHandler } = useCardStack(lessonId);
 	const [cardToEdit, setCardToEdit] = useState<StudyCardClass>();
+	const { title, description } = sectionTitlesData.manageCards;
 
 	const deleteCardHandler = (id: number) => {
+		if (!authToken) return;
 		const lessonIdToUpdate = lessonId ? lessonId : 0;
 		deleteCard(id, authToken).then(
 			updateCardsHandler.bind(null, lessonIdToUpdate)
@@ -34,8 +39,12 @@ const ManageCards: React.FC = (props) => {
 	};
 
 	return (
-		<>
-			<h1>Manage Cards</h1>
+		<Wrapper>
+			<SectionTitle
+				title={title}
+				description={description}
+				iconName="edit"
+			/>
 			<EditStudyCard
 				lessonId={lessonId}
 				onEdited={editedHandler}
@@ -61,7 +70,7 @@ const ManageCards: React.FC = (props) => {
 					})
 					.reverse()}
 			</div>
-		</>
+		</Wrapper>
 	);
 };
 

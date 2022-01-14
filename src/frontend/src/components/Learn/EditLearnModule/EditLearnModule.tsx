@@ -57,7 +57,7 @@ const EditLearnModule: React.FC<props> = (props) => {
 
 	const submitHandler = (event: React.FormEvent) => {
 		event.preventDefault();
-
+		if (!authToken) return;
 		const visibility = learnModule?.visibility || 1;
 		const creatorId = learnModule?.creatorId || 1;
 		const rank = learnModule?.rank || 1;

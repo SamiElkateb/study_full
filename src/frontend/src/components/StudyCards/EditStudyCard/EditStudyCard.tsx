@@ -24,7 +24,6 @@ const EditStudyCard: React.FC<props> = (props) => {
 	const { lessonId, studyCard, onEdited } = props;
 	const answerTypeArray = [...answerTypes];
 	const { authToken } = useAuth();
-
 	const {
 		inputChangeHandler: questionInputChangeHandler,
 		inputValue: enteredQuestion,
@@ -54,6 +53,7 @@ const EditStudyCard: React.FC<props> = (props) => {
 	const isUpdate = Boolean(studyCard);
 	const submitHandler = (event: React.FormEvent) => {
 		event.preventDefault();
+		if (!authToken) return;
 		if (!lessonId) return;
 		const id = studyCard?.id;
 		const data = {
@@ -65,7 +65,6 @@ const EditStudyCard: React.FC<props> = (props) => {
 		};
 
 		if (isUpdate) {
-			console.log(data);
 			updateCard(data, authToken)
 				.then(onEdited?.bind(null, lessonId))
 				.then(clearInputsHandler);

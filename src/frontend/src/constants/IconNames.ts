@@ -1,4 +1,5 @@
 const iconNames = [
+	'edit',
 	'close',
 	'options',
 	'question',

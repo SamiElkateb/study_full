@@ -14,6 +14,7 @@ const useCardStack = (lessonId?: number) => {
 	}, [lessonId]);
 
 	const updateCardsHandler = (lessonId: number) => {
+		if (!authToken) return;
 		getCardsByLessonId(lessonId, authToken).then((response) => {
 			const cardsMap = response.data.map((courseResponse) => {
 				return new StudyCard(courseResponse);

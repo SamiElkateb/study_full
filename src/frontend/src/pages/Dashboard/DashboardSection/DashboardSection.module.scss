@@ -1,6 +1,9 @@
 .study-section {
 	padding: 5rem 2rem;
 	flex: 1;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 	min-height: 100%;
 	min-width: 0;
 }

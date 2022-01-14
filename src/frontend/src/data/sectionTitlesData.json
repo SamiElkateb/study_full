@@ -1,0 +1,22 @@
+{
+	"learn": {
+		"title": "Learn",
+		"description": "Start a lesson, learn the flashcards and optimize your learning by repeating concepts at the perfect interval for maximum memory retention."
+	},
+	"dailyCards": {
+		"title": "Daily Cards",
+		"description": "Study your flashcards daily and optimize your learning by repeating concepts at the perfect time interval for maximum memory retention."
+	},
+	"manage": {
+		"title": "Manage",
+		"description": "Start a lesson, learn the flashcards and optimize your learning by repeating concepts at the perfect interval for maximum memory retention."
+	},
+	"manageCards": {
+		"title": "Manage Cards",
+		"description": "Start a lesson, learn the flashcards and optimize your learning by repeating concepts at the perfect interval for maximum memory retention."
+	},
+	"stats": {
+		"title": "Stats",
+		"description": "Start a lesson, learn the flashcards and optimize your learning by repeating concepts at the perfect interval for maximum memory retention."
+	}
+}

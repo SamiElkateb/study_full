@@ -49,7 +49,8 @@ function login()
                 'ok' => true,
                 'status' => 200,
                 'message' => 'Login successful.',
-                'jwt' => $jwt
+                'jwt' => $jwt,
+                'id' => $id
             );
             header('Content-Type: application/json');
             echo json_encode($response, JSON_PRETTY_PRINT);

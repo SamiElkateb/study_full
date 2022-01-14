@@ -1,8 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import LearnModuleSection from '../../../components/Learn/LearnModuleSection/LearnModuleSection';
+import Wrapper from '../../../components/UI/Wrapper/Wrapper';
 import Button from '../../../components/UserEvents/Button/Button';
 import useNavigateLearnModules from '../../../hooks/useNavigateLearnModules';
+import SectionTitle from '../SectionTitle/SectionTitle';
 import classes from './Manage.module.scss';
+import sectionTitlesData from '../../../data/sectionTitlesData.json';
 
 const Manage: React.FC = (props) => {
 	const {
@@ -21,6 +24,7 @@ const Manage: React.FC = (props) => {
 		updateLessonsHandler,
 		selectLessonHandler,
 	} = useNavigateLearnModules();
+	const { title, description } = sectionTitlesData.manage;
 
 	const navigate = useNavigate();
 	const goToLessonHandler = () => {
@@ -28,8 +32,12 @@ const Manage: React.FC = (props) => {
 	};
 
 	return (
-		<>
-			<h1>Manage</h1>
+		<Wrapper>
+			<SectionTitle
+				title={title}
+				description={description}
+				iconName="edit"
+			/>
 			<LearnModuleSection
 				learnModuleType="course"
 				learnModules={courses}
@@ -67,7 +75,7 @@ const Manage: React.FC = (props) => {
 					Manage lesson cards
 				</Button>
 			)}
-		</>
+		</Wrapper>
 	);
 };
 

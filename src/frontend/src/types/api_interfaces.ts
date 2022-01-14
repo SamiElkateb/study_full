@@ -180,4 +180,5 @@ export interface loginResponse {
 	status: number;
 	message: string;
 	jwt: string;
+	id: number;
 }

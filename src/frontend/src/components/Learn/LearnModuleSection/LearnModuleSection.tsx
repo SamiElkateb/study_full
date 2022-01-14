@@ -54,6 +54,7 @@ const LearnModuleSection: React.FC<props> = (props) => {
 
 	const deleteLearnModuleHandler = isEdit
 		? (learnModule: learnModule) => {
+				if (!authToken) return;
 				const deleteData = { learnModule, token: authToken };
 				deleteLearnModule(deleteData).then(editedLearnModuleHandler);
 		  }

@@ -3,15 +3,17 @@ import { loginData, registerData } from '../types/api_interfaces';
 import { loginAPI, registerAPI } from '../API/auth';
 
 interface AuthContextInterface {
-	authToken: string;
+	authToken?: string;
 	isLoggedIn: boolean;
+	userId?: number;
 	login: (loginData: loginData) => void;
 	register: (registerData: registerData) => void;
 	logout: () => void;
 }
 const AuthContext = React.createContext<AuthContextInterface>({
 	isLoggedIn: false,
-	authToken: '',
+	userId: undefined,
+	authToken: undefined,
 	login: (loginData: loginData) => {},
 	register: (registerData: registerData) => {},
 	logout: () => {},
@@ -19,18 +21,23 @@ const AuthContext = React.createContext<AuthContextInterface>({
 
 const AuthContextProvider: React.FC = (props) => {
 	const { children } = props;
-	const [authToken, setAuthToken] = useState('');
+	const [authToken, setAuthToken] = useState<string>();
+	const [userId, setUserId] = useState<number>();
 	useEffect(() => {
-		const authToken = localStorage.getItem('session');
-		authToken && setAuthToken(authToken);
+		const token = localStorage.getItem('session');
+		const id = localStorage.getItem('user_id');
+		token && setAuthToken(token);
+		id && setUserId(+id);
 	}, []);
 
-	const isLoggedIn = authToken.trim().length > 1;
+	const isLoggedIn = Boolean(authToken);
 
 	const login = (loginData: loginData) => {
 		loginAPI(loginData).then((response) => {
 			if (!response.ok) return;
 			localStorage.setItem('session', response.jwt);
+			localStorage.setItem('user_id', response.id.toString());
+			setUserId(response.id);
 			setAuthToken(response.jwt);
 		});
 	};
@@ -39,10 +46,13 @@ const AuthContextProvider: React.FC = (props) => {
 	};
 	const logout = () => {
 		localStorage.removeItem('session');
-		setAuthToken('');
+		localStorage.removeItem('user_id');
+		setUserId(undefined);
+		setAuthToken(undefined);
 	};
 	const authContext = {
 		isLoggedIn,
+		userId,
 		authToken,
 		login,
 		register,

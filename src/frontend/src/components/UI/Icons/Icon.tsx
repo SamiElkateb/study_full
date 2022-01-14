@@ -13,7 +13,7 @@ import { IoMdCalendar } from 'react-icons/io';
 import { AiTwotoneTrophy } from 'react-icons/ai';
 import { FaDatabase, FaGit, FaSass, FaServer } from 'react-icons/fa';
 import { DiCss3 } from 'react-icons/di';
-import { BsGithub, BsSquareFill } from 'react-icons/bs';
+import { BsFileEarmarkDiff, BsGithub, BsSquareFill } from 'react-icons/bs';
 import { FiCheckCircle } from 'react-icons/fi';
 import { GrClose } from 'react-icons/gr';
 import { HiDotsHorizontal } from 'react-icons/hi';
@@ -35,6 +35,15 @@ const Icon: React.FC<props> = (props) => {
 	if (name === 'options') {
 		return (
 			<HiDotsHorizontal
+				size={iconSize}
+				color={color}
+				className={className}
+			/>
+		);
+	}
+	if (name === 'edit') {
+		return (
+			<BsFileEarmarkDiff
 				size={iconSize}
 				color={color}
 				className={className}
