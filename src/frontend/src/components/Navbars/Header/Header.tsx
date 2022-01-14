@@ -25,7 +25,7 @@ const Header: React.FC = () => {
 			<li className={classes.auth}>
 				<Button
 					onClick={authCtx.logout}
-					styling="secondary"
+					styling="error-secondary"
 					className={classes.logout}
 				>
 					Log Out
@@ -41,9 +41,6 @@ const Header: React.FC = () => {
 						<Link to="/">
 							<GiGraduateCap /> StudyApp
 						</Link>
-					</li>
-					<li>
-						<Link to="/study">Study</Link>
 					</li>
 					{authElements}
 				</ul>

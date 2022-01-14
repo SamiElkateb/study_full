@@ -56,6 +56,48 @@
 	}
 }
 
+.button-error {
+	@include themify($themes) {
+		color: themed('on-error');
+		background-color: themed('error');
+	}
+	&:hover {
+		@include themify($themes) {
+			background-color: themed('error-hover');
+		}
+	}
+	:global(.theme-light) &:focus-visible {
+		box-shadow: 0 0 0 5px getColorInTheme('light', 'surface'),
+			0 0 0 10px getColor('error');
+	}
+	:global(.dark-light) &:focus-visible {
+		box-shadow: 0 0 0 5px getColorInTheme('dark', 'surface'),
+			0 0 0 10px getColor('error');
+	}
+}
+
+.button-error-secondary {
+	box-shadow: none;
+	@include themify($themes) {
+		color: themed('error');
+		border-color: themed('error');
+	}
+	&:hover {
+		@include themify($themes) {
+			color: white;
+			background-color: themed('error');
+			border-color: themed('error');
+		}
+	}
+	&:focus-visible {
+		@include themify($themes) {
+			color: white;
+			background-color: themed('error');
+			border-color: themed('error');
+		}
+	}
+}
+
 .button-card {
 	@include themify($themes) {
 		color: themed('on-surface');

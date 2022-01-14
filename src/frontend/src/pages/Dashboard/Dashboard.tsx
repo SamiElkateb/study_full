@@ -14,6 +14,7 @@ interface props {
 const Dashboard: React.FC<props> = (props) => {
 	const { manageCards } = props;
 	let { section } = useParams();
+	section = section ? section : 'daily-cards';
 	section = manageCards ? undefined : section;
 	return (
 		<main className={classes['study-panel']}>

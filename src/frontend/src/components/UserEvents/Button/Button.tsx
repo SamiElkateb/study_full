@@ -3,7 +3,7 @@ import classes from './Button.module.scss';
 type props = {
 	onClick?: (event: React.FormEvent) => void;
 	disabled?: boolean;
-	styling?: 'primary' | 'secondary' | 'card';
+	styling?: 'primary' | 'secondary' | 'card' | 'error' | 'error-secondary';
 	type?: 'submit' | 'button';
 	className?: string;
 	selected?: boolean;

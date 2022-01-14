@@ -64,13 +64,13 @@
 	padding: 0.5rem 1rem;
 	display: inline-block;
 	transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-	border-width: 1px;
+	border-width: 2px;
 	border-style: solid;
 	font-size: 1rem;
 	background-color: transparent;
 	font-weight: bold;
 	margin: 0.5rem 0px;
-	border-radius: 2rem;
+	border-radius: 0.25rem;
 	padding: 0.5rem 1rem;
 	@include themify($themes) {
 		color: themed('primary');
@@ -117,6 +117,7 @@
 }
 .logout {
 	margin: 0.5rem 0px;
+	text-transform: uppercase;
 }
 .brand-name a {
 	display: flex;
@@ -136,10 +137,6 @@
 
 @media (max-width: 769px) {
 	.header ul {
-		padding: 1rem;
-	}
-	.brand-name,
-	.auth {
-		display: none;
+		padding: 0.5rem;
 	}
 }

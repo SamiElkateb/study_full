@@ -1,7 +1,12 @@
 //import classes from './Home.module.scss';
+import Footer from '../../components/Navbars/Footer/Footer';
 
 const Home: React.FC = (props) => {
-	return <h1>Home</h1>;
+	return (
+		<>
+			<Footer />
+		</>
+	);
 };
 
 export default Home;
