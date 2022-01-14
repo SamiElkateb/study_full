@@ -14,18 +14,30 @@ const Button: React.FC<props> = (props) => {
 	const {
 		children,
 		onClick,
-		className = '',
+		className,
 		disabled = false,
 		styling = 'primary',
 		selected = false,
 		size = 'med',
+		type = 'button',
 	} = props;
 
-	const style = classes['button-' + styling];
-	const selectedStyle = selected ? classes.selected : '';
-	const classNames = `${classes.button} ${classes[size]} ${style} ${className} ${selectedStyle}`;
+	const classNames = [
+		classes.button,
+		classes[size],
+		classes['button-' + styling],
+	];
+
+	className && classNames.push(className);
+	selected && classNames.push(classes.selected);
+
 	return (
-		<button className={classNames} onClick={onClick} disabled={disabled}>
+		<button
+			className={classNames.join(' ')}
+			onClick={onClick}
+			disabled={disabled}
+			type={type}
+		>
 			{children}
 		</button>
 	);

@@ -10,7 +10,6 @@
 		cursor: pointer;
 	}
 }
-
 .big {
 	font-size: 1rem;
 }
@@ -41,10 +40,16 @@
 		color: themed('primary');
 		border-color: themed('primary');
 	}
-	&:hover,
+	&:hover {
+		@include themify($themes) {
+			color: white;
+			background-color: themed('primary');
+			border-color: themed('primary');
+		}
+	}
 	&:focus-visible {
 		@include themify($themes) {
-			color: themed('on-hover');
+			color: white;
 			background-color: themed('primary');
 			border-color: themed('primary');
 		}
@@ -76,4 +81,13 @@
 		box-shadow: 0 0 0 5px getColorInTheme('dark', 'background'),
 			0 0 0 10px getColorInTheme('dark', 'on-background');
 	}
+}
+
+.button:disabled,
+.button:disabled:hover {
+	@include themify($themes) {
+		color: themed('on-background') !important;
+		background-color: themed('background') !important;
+	}
+	cursor: default;
 }

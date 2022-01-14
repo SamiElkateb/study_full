@@ -9,25 +9,29 @@ type InputProps = {
 	value: string;
 	onChange: (event: React.FormEvent<HTMLInputElement>) => void;
 	onBlur?: (event: React.FormEvent<HTMLInputElement>) => void;
+	onFocus?: (event: React.FormEvent<HTMLInputElement>) => void;
 	autoComplete?: string;
 	placeholder?: string;
 	readOnly?: boolean;
 	defaultValue?: string;
 	Icon?: IconType;
+	invalid?: boolean;
 };
 
 const Input: React.FC<InputProps> = (props) => {
 	const {
-		className = '',
+		className,
 		type,
 		name,
 		value,
 		onChange,
 		onBlur = () => {},
+		onFocus = () => {},
 		autoComplete = 'off',
 		placeholder = '',
 		readOnly = false,
 		Icon,
+		invalid = false,
 	} = props;
 	const id = type + name;
 
@@ -39,9 +43,12 @@ const Input: React.FC<InputProps> = (props) => {
 			</div>
 		);
 	}
+	const labelClasses = [classes.input];
+	className && labelClasses.push(className);
+	invalid && labelClasses.push(classes.invalid);
 
 	return (
-		<label className={`${classes.input} ${className}`} htmlFor={id}>
+		<label className={labelClasses.join(' ')} htmlFor={id}>
 			{iconElement}
 			<input
 				id={id}
@@ -51,6 +58,7 @@ const Input: React.FC<InputProps> = (props) => {
 				name={name}
 				onChange={onChange}
 				onBlur={onBlur}
+				onFocus={onFocus}
 				readOnly={readOnly}
 				value={value}
 			/>

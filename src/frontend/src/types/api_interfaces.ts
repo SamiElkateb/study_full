@@ -166,3 +166,18 @@ export type learnModuleUpdate =
 	| chapterPost
 	| lessonPost
 	| anyLearnModuleAdd;
+
+export interface registerData {
+	email: string;
+	password: string;
+}
+export interface loginData {
+	email: string;
+	password: string;
+}
+export interface loginResponse {
+	ok: boolean;
+	status: number;
+	message: string;
+	jwt: string;
+}

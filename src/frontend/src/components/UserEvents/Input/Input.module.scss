@@ -17,6 +17,11 @@
 			border-color: themed('primary');
 		}
 	}
+	&.invalid {
+		@include themify($themes) {
+			border-color: themed('error');
+		}
+	}
 }
 .icon {
 	display: inline-block;
