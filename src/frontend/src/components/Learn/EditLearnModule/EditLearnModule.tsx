@@ -11,6 +11,7 @@ import {
 } from '../../../types/learnModules';
 import learnModuleHasIcon from '../../../helpers/data_testing/learnModuleHasIcon';
 import { addLearnModule, updateLearnModule } from '../../../API/learnModule';
+import useAuth from '../../../hooks/useAuth';
 
 interface props {
 	learnModuleType: learnModuleType;
@@ -26,6 +27,7 @@ const EditLearnModule: React.FC<props> = (props) => {
 		onAdded = () => {},
 		learnModule,
 	} = props;
+	const { authToken } = useAuth();
 
 	let moduleWithIcon;
 	const hasIcon = learnModuleHasIcon(learnModuleType);
@@ -66,7 +68,7 @@ const EditLearnModule: React.FC<props> = (props) => {
 		const courseId = isChapter ? parentId : undefined;
 		const chapterId = isLesson ? parentId : undefined;
 
-		const data = {
+		const learnModuleData = {
 			id,
 			title: enteredTitle,
 			creatorId,
@@ -78,9 +80,14 @@ const EditLearnModule: React.FC<props> = (props) => {
 			chapterId,
 		};
 
+		const apiData = {
+			learnModule: learnModuleData,
+			type: learnModuleType,
+			token: authToken,
+		};
 		const isUpdate = Boolean(learnModule);
-		if (isUpdate) updateLearnModule(data, learnModuleType).then(onAdded);
-		if (!isUpdate) addLearnModule(data, learnModuleType).then(onAdded);
+		if (isUpdate) updateLearnModule(apiData).then(onAdded);
+		if (!isUpdate) addLearnModule(apiData).then(onAdded);
 	};
 
 	return (

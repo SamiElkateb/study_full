@@ -6,6 +6,8 @@ $q = $db->prepare(
         answer mediumtext NOT NULL, 
         answer_type varchar(255) NOT NULL, 
         lesson_id int(11) NOT NULL, 
+        creator_id int(11) NOT NULL,
+        visibility int(11) NOT NULL, 
         created timestamp NOT NULL DEFAULT current_timestamp(), 
         modified timestamp NOT NULL DEFAULT "0000-00-00 00:00:00"
     )'

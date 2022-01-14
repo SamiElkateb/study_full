@@ -1,9 +1,10 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/database/db_connect.php');
-include_once($_SERVER['DOCUMENT_ROOT'] . '/lessons/get.php');
-include_once($_SERVER['DOCUMENT_ROOT'] . '/lessons/post.php');
-include_once($_SERVER['DOCUMENT_ROOT'] . '/lessons/put.php');
-include_once($_SERVER['DOCUMENT_ROOT'] . '/lessons/delete.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/database/db_connect.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/helpers/verify_jwt.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/lessons/get.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/lessons/post.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/lessons/put.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/lessons/delete.php');
 $request_method = $_SERVER["REQUEST_METHOD"];
 
 switch ($request_method) {
@@ -30,6 +31,7 @@ switch ($request_method) {
         deleteLesson($id);
         break;
     case 'OPTIONS':
+        verify_jwt();
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
         break;
     default:

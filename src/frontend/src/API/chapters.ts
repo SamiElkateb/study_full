@@ -7,10 +7,15 @@ import {
 	chapterPut,
 } from '../types/api_interfaces';
 
-export async function getChapters(): Promise<apiResponse<chapterData>> {
+export async function getChapters(
+	token: string
+): Promise<apiResponse<chapterData>> {
 	const url = `http://${API_URL}/api/chapters`;
 	const requestOptions = {
 		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
 	};
 
 	return fetch(url, requestOptions)
@@ -19,7 +24,8 @@ export async function getChapters(): Promise<apiResponse<chapterData>> {
 }
 
 export async function getChapter(
-	id: number
+	id: number,
+	token: string
 ): Promise<apiResponse<chapterData>> {
 	const params = new URLSearchParams({
 		id: id.toString(),
@@ -29,6 +35,9 @@ export async function getChapter(
 
 	const requestOptions = {
 		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
 	};
 
 	return fetch(url, requestOptions)
@@ -37,7 +46,8 @@ export async function getChapter(
 }
 
 export async function getChapterByCourseId(
-	courseId: number
+	courseId: number,
+	token: string
 ): Promise<apiResponse<chapterData>> {
 	const params = new URLSearchParams({
 		course_id: courseId.toString(),
@@ -46,6 +56,9 @@ export async function getChapterByCourseId(
 
 	const requestOptions = {
 		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
 	};
 
 	return fetch(url, requestOptions)
@@ -54,7 +67,8 @@ export async function getChapterByCourseId(
 }
 
 export async function addChapter(
-	postData: chapterPost
+	postData: chapterPost,
+	token: string
 ): Promise<apiPostResponse> {
 	const { title, iconName, color, courseId, creatorId, visibility, rank } =
 		postData;
@@ -73,6 +87,9 @@ export async function addChapter(
 	const requestOptions = {
 		method: 'POST',
 		body: formData,
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
 	};
 
 	return fetch(url, requestOptions)
@@ -81,7 +98,8 @@ export async function addChapter(
 }
 
 export async function updateChapter(
-	postData: chapterPut
+	postData: chapterPut,
+	token: string
 ): Promise<apiPostResponse> {
 	const { id, iconName, courseId, creatorId, color } = postData;
 	if (!id || !courseId || !iconName || !color) throw 'Missing data';
@@ -100,7 +118,10 @@ export async function updateChapter(
 
 	const requestOptions = {
 		method: 'PUT',
-		headers: { 'Content-Type': 'application/json' },
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${token}`,
+		},
 		body: JSON.stringify(bodyObject),
 	};
 
@@ -109,7 +130,10 @@ export async function updateChapter(
 		.catch((error) => console.log(error));
 }
 
-export async function deleteChapter(id: number): Promise<apiPostResponse> {
+export async function deleteChapter(
+	id: number,
+	token: string
+): Promise<apiPostResponse> {
 	const params = new URLSearchParams({
 		id: id.toString(),
 	});
@@ -118,6 +142,9 @@ export async function deleteChapter(id: number): Promise<apiPostResponse> {
 
 	const requestOptions = {
 		method: 'DELETE',
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
 	};
 
 	return fetch(url, requestOptions)

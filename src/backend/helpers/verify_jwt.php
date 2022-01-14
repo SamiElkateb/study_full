@@ -5,38 +5,50 @@ header('Access-Control-Allow-Origin: http://' . getenv('HOST_IP') . ':3000');
 
 use \Firebase\JWT\JWT;
 
+function verify_jwt()
+{
+    $secret_key = getenv("JWT_SECRET");
+    $jwt = null;
 
-$secret_key = getenv("JWT_SECRET");
-$jwt = null;
+    $authHeader = $_SERVER['HTTP_AUTHORIZATION'];
 
-$data = json_decode(file_get_contents("php://input"));
+    $arr = explode(" ", $authHeader);
 
-$authHeader = $_SERVER['HTTP_AUTHORIZATION'];
+    $jwt = $arr[1];
+    if ($jwt) {
 
-$arr = explode(" ", $authHeader);
+        try {
 
-/*echo json_encode(array(
-    "message" => "sd" .$arr[1]
-));*/
+            $decoded = JWT::decode($jwt, $secret_key, array('HS256'));
 
-$jwt = $arr[0];
+            /* $response = array(
+                'ok' => true,
+                'status' => 200,
+                'message' => 'Access granted.',
+                'jwt' => $jwt
+            );
+            echo json_encode($response, JSON_PRETTY_PRINT); */
+            return $decoded;
+        } catch (Exception $e) {
 
-if ($jwt) {
-
-    try {
-
-        $decoded = JWT::decode($jwt, $secret_key, array('HS256'));
-
-        echo json_encode(array(
-            "message" => "Access granted: " . $jwt
-        ));
-    } catch (Exception $e) {
-
-        http_response_code(401);
-
-        echo json_encode(array(
-            "message" => "Access denied.",
-            "error" => $e->getMessage()
-        ));
+            http_response_code(401);
+            $response = array(
+                'ok' => false,
+                'status' => 401,
+                'message' => 'Access denied.',
+                "error" => $e->getMessage()
+            );
+            echo json_encode($response, JSON_PRETTY_PRINT);
+            exit;
+        }
     }
+
+    http_response_code(401);
+    $response = array(
+        'ok' => false,
+        'status' => 401,
+        'message' => 'Access denied.'
+    );
+    echo json_encode($response, JSON_PRETTY_PRINT);
+    exit;
 }

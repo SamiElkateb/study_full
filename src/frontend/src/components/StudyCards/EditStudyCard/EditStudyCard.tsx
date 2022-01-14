@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { addCard, updateCard } from '../../../API/cards';
 import { answerTypes } from '../../../constants/AnswerTypes';
 import StudyCard from '../../../DataStructures/StudyCard';
+import useAuth from '../../../hooks/useAuth';
 import useInput from '../../../hooks/useInput';
 import { answerType } from '../../../types/types';
 import Javascript from '../../Code/Javascript/Javascript';
@@ -22,6 +23,7 @@ interface props {
 const EditStudyCard: React.FC<props> = (props) => {
 	const { lessonId, studyCard, onEdited } = props;
 	const answerTypeArray = [...answerTypes];
+	const { authToken } = useAuth();
 
 	const {
 		inputChangeHandler: questionInputChangeHandler,
@@ -64,12 +66,12 @@ const EditStudyCard: React.FC<props> = (props) => {
 
 		if (isUpdate) {
 			console.log(data);
-			updateCard(data)
+			updateCard(data, authToken)
 				.then(onEdited?.bind(null, lessonId))
 				.then(clearInputsHandler);
 		}
 		if (!isUpdate) {
-			addCard(data)
+			addCard(data, authToken)
 				.then(onEdited?.bind(null, lessonId))
 				.then(clearInputsHandler);
 		}

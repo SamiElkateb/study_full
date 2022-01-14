@@ -36,7 +36,11 @@ const Login: React.FC = (props) => {
 		authCtx.login(data);
 	};
 	return (
-		<Form title="Welcome Back!" onSubmit={submitHandler}>
+		<Form
+			title="Welcome Back!"
+			onSubmit={submitHandler}
+			className={classes.form}
+		>
 			<Input
 				type="email"
 				name="email"

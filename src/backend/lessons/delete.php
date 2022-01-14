@@ -1,4 +1,6 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'] . '/helpers/get_user_id.php');
+
 function deleteLesson($id = 0)
 {
     if (!is_numeric($id) || $id === 0) {
@@ -6,8 +8,10 @@ function deleteLesson($id = 0)
         return;
     }
     global $db;
-    $q = $db->prepare('DELETE FROM lessons WHERE id=:id LIMIT 1');
+    $user_id = get_user_id();
+    $q = $db->prepare('DELETE FROM lessons WHERE id=:id AND creator_id=:creator_id LIMIT 1');
     $q->bindValue(':id', $id, PDO::PARAM_INT);
+    $q->bindValue(':creator_id', $user_id, PDO::PARAM_INT);
 
     if ($q->execute()) {
         $response = array(

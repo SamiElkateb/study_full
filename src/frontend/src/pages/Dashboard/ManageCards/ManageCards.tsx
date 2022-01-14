@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { deleteCard } from '../../../API/cards';
 import EditStudyCard from '../../../components/StudyCards/EditStudyCard/EditStudyCard';
 import StudyCard from '../../../components/StudyCards/StudyCard/StudyCard';
 import EditToolbox from '../../../components/UserEvents/EditToolbox/EditToolbox';
 import StudyCardClass from '../../../DataStructures/StudyCard';
+import useAuth from '../../../hooks/useAuth';
 import useCardStack from '../../../hooks/useCardStack';
 import classes from './ManageCards.module.scss';
 
 const ManageCards: React.FC = (props) => {
+	const { authToken } = useAuth();
 	const { lesson_id } = useParams();
 	const lessonId = lesson_id ? +lesson_id : undefined;
 	const { cards, updateCardsHandler } = useCardStack(lessonId);
@@ -16,7 +18,9 @@ const ManageCards: React.FC = (props) => {
 
 	const deleteCardHandler = (id: number) => {
 		const lessonIdToUpdate = lessonId ? lessonId : 0;
-		deleteCard(id).then(updateCardsHandler.bind(null, lessonIdToUpdate));
+		deleteCard(id, authToken).then(
+			updateCardsHandler.bind(null, lessonIdToUpdate)
+		);
 		if (id === cardToEdit?.id) setCardToEdit(undefined);
 	};
 

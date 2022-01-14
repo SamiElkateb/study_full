@@ -7,6 +7,7 @@ import LearnCard from '../LearnCard/LearnCard';
 import { learnModule, learnModuleArray } from '../../../types/learnModules';
 import { useState } from 'react';
 import { deleteLearnModule } from '../../../API/learnModule';
+import useAuth from '../../../hooks/useAuth';
 
 interface props {
 	learnModuleType: 'course' | 'chapter' | 'lesson';
@@ -27,7 +28,7 @@ const LearnModuleSection: React.FC<props> = (props) => {
 		selectedParent,
 	} = props;
 	const isEdit = typeof onEdited !== 'undefined';
-
+	const { authToken } = useAuth();
 	const [learnModuleInEdition, setLearnModuleInEdition] =
 		useState<learnModule>();
 
@@ -53,7 +54,8 @@ const LearnModuleSection: React.FC<props> = (props) => {
 
 	const deleteLearnModuleHandler = isEdit
 		? (learnModule: learnModule) => {
-				deleteLearnModule(learnModule).then(editedLearnModuleHandler);
+				const deleteData = { learnModule, token: authToken };
+				deleteLearnModule(deleteData).then(editedLearnModuleHandler);
 		  }
 		: undefined;
 

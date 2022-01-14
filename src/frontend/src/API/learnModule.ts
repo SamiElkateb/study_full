@@ -8,39 +8,45 @@ import { addChapter, deleteChapter, updateChapter } from './chapters';
 import { addCourse, deleteCourse, updateCourse } from './courses';
 import { addLesson, deleteLesson, updateLesson } from './lessons';
 
-export async function updateLearnModule(
-	learnModule: anyLearnModuleUpdate | learnModule,
-	type: learnModuleType
-) {
-	console.log(learnModule);
-	if (learnModule instanceof Course) return updateCourse(learnModule);
-	if (learnModule instanceof Chapter) return updateChapter(learnModule);
-	if (learnModule instanceof Lesson) return updateLesson(learnModule);
-	if (type === 'course') return updateCourse(learnModule);
-	if (type === 'chapter') return updateChapter(learnModule);
-	if (type === 'lesson') return updateLesson(learnModule);
+interface updateOrAddParams {
+	learnModule: anyLearnModuleUpdate | learnModule;
+	token: string;
+	type?: learnModuleType;
+}
+export async function addLearnModule(params: updateOrAddParams) {
+	const { learnModule, token, type } = params;
+	if (learnModule instanceof Course) return addCourse(learnModule, token);
+	if (learnModule instanceof Chapter) return addChapter(learnModule, token);
+	if (learnModule instanceof Lesson) return addLesson(learnModule, token);
+	if (type === 'course') return addCourse(learnModule, token);
+	if (type === 'chapter') return addChapter(learnModule, token);
+	if (type === 'lesson') return addLesson(learnModule, token);
 }
 
-export async function deleteLearnModule(
-	learnModule: number | learnModule,
-	type?: learnModuleType
-) {
-	if (learnModule instanceof Course) return deleteCourse(learnModule.id);
-	if (learnModule instanceof Chapter) return deleteChapter(learnModule.id);
-	if (learnModule instanceof Lesson) return deleteLesson(learnModule.id);
-	if (type === 'course') return deleteCourse(learnModule);
-	if (type === 'chapter') return deleteChapter(learnModule);
-	if (type === 'lesson') return deleteLesson(learnModule);
+export async function updateLearnModule(params: updateOrAddParams) {
+	const { learnModule, token, type } = params;
+	if (learnModule instanceof Course) return updateCourse(learnModule, token);
+	if (learnModule instanceof Chapter)
+		return updateChapter(learnModule, token);
+	if (learnModule instanceof Lesson) return updateLesson(learnModule, token);
+	if (type === 'course') return updateCourse(learnModule, token);
+	if (type === 'chapter') return updateChapter(learnModule, token);
+	if (type === 'lesson') return updateLesson(learnModule, token);
 }
-
-export async function addLearnModule(
-	learnModule: anyLearnModuleAdd | learnModule,
-	type?: learnModuleType
-) {
-	if (learnModule instanceof Course) return addCourse(learnModule);
-	if (learnModule instanceof Chapter) return addChapter(learnModule);
-	if (learnModule instanceof Lesson) return addLesson(learnModule);
-	if (type === 'course') return addCourse(learnModule);
-	if (type === 'chapter') return addChapter(learnModule);
-	if (type === 'lesson') return addLesson(learnModule);
+interface deleteParams {
+	learnModule: learnModule | number;
+	token: string;
+	type?: learnModuleType;
+}
+export async function deleteLearnModule(params: deleteParams) {
+	const { learnModule, token, type } = params;
+	if (learnModule instanceof Course)
+		return deleteCourse(learnModule.id, token);
+	if (learnModule instanceof Chapter)
+		return deleteChapter(learnModule.id, token);
+	if (learnModule instanceof Lesson)
+		return deleteLesson(learnModule.id, token);
+	if (type === 'course') return deleteCourse(learnModule, token);
+	if (type === 'chapter') return deleteChapter(learnModule, token);
+	if (type === 'lesson') return deleteLesson(learnModule, token);
 }

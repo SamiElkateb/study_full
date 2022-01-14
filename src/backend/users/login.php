@@ -26,9 +26,10 @@ function login()
             $secret_key = getenv("JWT_SECRET");
             $issuer_claim = getenv("JWT_ISSUER");
             $audience_claim = getenv("JWT_AUDIENCE");
-            $issued_at_claim = new DateTimeImmutable();
-            $expire = $issued_at_claim->modify('+6 minutes')->getTimestamp();
-            $not_before_claim = $issued_at_claim->modify('+3 seconds')->getTimestamp();
+            $now = new DateTimeImmutable();
+            $issued_at_claim = $now->getTimestamp();
+            $expire = $now->modify('+100 minutes')->getTimestamp();
+            $not_before_claim = $now->modify('+3 seconds')->getTimestamp();
             $token = array(
                 "iss" => $issuer_claim,
                 "aud" => $audience_claim,

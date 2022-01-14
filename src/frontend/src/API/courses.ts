@@ -7,18 +7,30 @@ import {
 	coursePut,
 } from '../types/api_interfaces';
 
-export async function getCourses(): Promise<apiResponse<courseData>> {
+export async function getCourses(
+	token: string
+): Promise<apiResponse<courseData>> {
 	const url = `http://${API_URL}/api/courses`;
 	const requestOptions = {
 		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
 	};
 
 	return fetch(url, requestOptions)
-		.then((response) => response.json())
+		.then((response) => response.text())
+		.then((data) => {
+			console.log(data);
+			return JSON.parse(data);
+		})
 		.catch((error) => console.log(error));
 }
 
-export async function getCourse(id: number): Promise<apiResponse<courseData>> {
+export async function getCourse(
+	id: number,
+	token: string
+): Promise<apiResponse<courseData>> {
 	const params = new URLSearchParams({
 		id: id.toString(),
 	});
@@ -27,6 +39,9 @@ export async function getCourse(id: number): Promise<apiResponse<courseData>> {
 
 	const requestOptions = {
 		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
 	};
 
 	return fetch(url, requestOptions)
@@ -35,7 +50,8 @@ export async function getCourse(id: number): Promise<apiResponse<courseData>> {
 }
 
 export async function addCourse(
-	postData: coursePost
+	postData: coursePost,
+	token: string
 ): Promise<apiPostResponse> {
 	const { title, iconName, color, visibility, rank, creatorId } = postData;
 	if (!iconName || !color) throw 'Missing data';
@@ -52,6 +68,9 @@ export async function addCourse(
 	const requestOptions = {
 		method: 'POST',
 		body: formData,
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
 	};
 
 	return fetch(url, requestOptions)
@@ -60,7 +79,8 @@ export async function addCourse(
 }
 
 export async function updateCourse(
-	postData: coursePut
+	postData: coursePut,
+	token: string
 ): Promise<apiPostResponse> {
 	const { id, iconName, creatorId, color } = postData;
 	if (!id || !iconName || !color) throw 'Missing data';
@@ -78,7 +98,10 @@ export async function updateCourse(
 
 	const requestOptions = {
 		method: 'PUT',
-		headers: { 'Content-Type': 'application/json' },
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${token}`,
+		},
 		body: JSON.stringify(bodyObject),
 	};
 
@@ -87,7 +110,10 @@ export async function updateCourse(
 		.catch((error) => console.log(error));
 }
 
-export async function deleteCourse(id: number): Promise<apiPostResponse> {
+export async function deleteCourse(
+	id: number,
+	token: string
+): Promise<apiPostResponse> {
 	const params = new URLSearchParams({
 		id: id.toString(),
 	});
@@ -96,6 +122,9 @@ export async function deleteCourse(id: number): Promise<apiPostResponse> {
 
 	const requestOptions = {
 		method: 'DELETE',
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
 	};
 
 	return fetch(url, requestOptions)

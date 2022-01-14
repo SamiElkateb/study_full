@@ -36,7 +36,11 @@ const Register: React.FC = (props) => {
 		authCtx.register(data);
 	};
 	return (
-		<Form title="Create Your Free Account" onSubmit={submitHandler}>
+		<Form
+			title="Create Your Free Account"
+			onSubmit={submitHandler}
+			className={classes.form}
+		>
 			<Input
 				type="email"
 				name="email"

@@ -3,6 +3,7 @@ import { getChapterByCourseId } from '../API/chapters';
 import { getCourses } from '../API/courses';
 import { getLessonByChapterId } from '../API/lessons';
 import { Chapter, Course, Lesson } from '../DataStructures/LearnModule';
+import useAuth from './useAuth';
 interface learnModuleState {
 	courses: Course[];
 	chapters: Chapter[];
@@ -105,6 +106,7 @@ const useNavigateLearnModules = () => {
 		learnModuleReducer,
 		initialLearnModuleState
 	);
+	const { authToken } = useAuth();
 
 	const {
 		courses,
@@ -119,7 +121,7 @@ const useNavigateLearnModules = () => {
 	const showLessons = lessons.length > 0 || selectedChapter;
 
 	useEffect(() => {
-		getCourses().then((response) => {
+		getCourses(authToken).then((response) => {
 			const coursesMap = response.data.map((courseResponse) => {
 				return new Course(courseResponse);
 			});
@@ -128,7 +130,7 @@ const useNavigateLearnModules = () => {
 	}, []);
 
 	const updateCoursesHandler = () => {
-		getCourses().then((response) => {
+		getCourses(authToken).then((response) => {
 			const coursesMap = response.data.map((courseResponse) => {
 				return new Course(courseResponse);
 			});
@@ -138,7 +140,7 @@ const useNavigateLearnModules = () => {
 
 	const updateChaptersHandler = () => {
 		if (!selectedCourse) return;
-		getChapterByCourseId(selectedCourse).then((response) => {
+		getChapterByCourseId(selectedCourse, authToken).then((response) => {
 			const chaptersMap = response.data.map((chapterResponse) => {
 				return new Chapter(chapterResponse);
 			});
@@ -150,7 +152,7 @@ const useNavigateLearnModules = () => {
 	};
 	const updateLessonsHandler = () => {
 		if (!selectedChapter) return;
-		getLessonByChapterId(selectedChapter).then((response) => {
+		getLessonByChapterId(selectedChapter, authToken).then((response) => {
 			const lessonsMap = response.data.map((lessonResponse) => {
 				return new Lesson(lessonResponse);
 			});
@@ -162,7 +164,7 @@ const useNavigateLearnModules = () => {
 	};
 
 	const navigateToChapterHandler = (id: number) => {
-		getChapterByCourseId(id).then((response) => {
+		getChapterByCourseId(id, authToken).then((response) => {
 			const chaptersMap = response.data.map((chapterResponse) => {
 				return new Chapter(chapterResponse);
 			});
@@ -175,7 +177,7 @@ const useNavigateLearnModules = () => {
 	};
 
 	const navigateToLessonHandler = (id: number) => {
-		getLessonByChapterId(id).then((response) => {
+		getLessonByChapterId(id, authToken).then((response) => {
 			const lessonsMap = response.data.map((lessonResponse) => {
 				return new Lesson(lessonResponse);
 			});

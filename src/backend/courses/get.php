@@ -1,9 +1,13 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'] . '/helpers/get_user_id.php');
 
 function getCourses()
 {
     global $db;
-    $q = $db->prepare('SELECT * FROM courses');
+    $user_id = get_user_id();
+
+    $q = $db->prepare('SELECT * FROM courses WHERE creator_id=:creator_id OR visibility=1');
+    $q->bindValue(':creator_id', $user_id, PDO::PARAM_INT);
     if ($q->execute()) {
         $responseData = [];
         while ($data = $q->fetch(PDO::FETCH_ASSOC)) {
@@ -33,7 +37,11 @@ function getCourse($id = 0)
         return;
     }
     global $db;
-    $q = $db->prepare('SELECT * FROM courses WHERE id=:id LIMIT 1');
+
+    $user_id = get_user_id();
+
+    $q = $db->prepare('SELECT * FROM courses WHERE id=:id AND (creator_id=:creator_id OR visibility=1) LIMIT 1');
+    $q->bindValue(':creator_id', $user_id, PDO::PARAM_INT);
     $q->bindValue(':id', $id, PDO::PARAM_INT);
     if ($q->execute()) {
         $responseData = $q->fetch(PDO::FETCH_ASSOC);

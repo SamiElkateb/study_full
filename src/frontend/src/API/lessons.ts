@@ -7,10 +7,15 @@ import {
 	lessonPut,
 } from '../types/api_interfaces';
 
-export async function getLessons(): Promise<apiResponse<lessonData>> {
+export async function getLessons(
+	token: string
+): Promise<apiResponse<lessonData>> {
 	const url = `http://${API_URL}/api/lessons`;
 	const requestOptions = {
 		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
 	};
 
 	return fetch(url, requestOptions)
@@ -18,7 +23,10 @@ export async function getLessons(): Promise<apiResponse<lessonData>> {
 		.catch((error) => console.log(error));
 }
 
-export async function getLesson(id: number): Promise<apiResponse<lessonData>> {
+export async function getLesson(
+	id: number,
+	token: string
+): Promise<apiResponse<lessonData>> {
 	const params = new URLSearchParams({
 		id: id.toString(),
 	});
@@ -26,6 +34,9 @@ export async function getLesson(id: number): Promise<apiResponse<lessonData>> {
 
 	const requestOptions = {
 		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
 	};
 
 	return fetch(url, requestOptions)
@@ -34,7 +45,8 @@ export async function getLesson(id: number): Promise<apiResponse<lessonData>> {
 }
 
 export async function getLessonByChapterId(
-	courseId: number
+	courseId: number,
+	token: string
 ): Promise<apiResponse<lessonData>> {
 	const params = new URLSearchParams({
 		course_id: courseId.toString(),
@@ -44,6 +56,9 @@ export async function getLessonByChapterId(
 
 	const requestOptions = {
 		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
 	};
 
 	return fetch(url, requestOptions)
@@ -52,7 +67,8 @@ export async function getLessonByChapterId(
 }
 
 export async function addLesson(
-	postData: lessonPost
+	postData: lessonPost,
+	token: string
 ): Promise<apiPostResponse> {
 	const { title, chapterId, creatorId, visibility, rank } = postData;
 	if (!chapterId) throw 'chapterId undefined';
@@ -69,6 +85,9 @@ export async function addLesson(
 	const requestOptions = {
 		method: 'POST',
 		body: formData,
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
 	};
 
 	return fetch(url, requestOptions)
@@ -76,7 +95,8 @@ export async function addLesson(
 		.catch((error) => console.log(error));
 }
 export async function updateLesson(
-	postData: lessonPut
+	postData: lessonPut,
+	token: string
 ): Promise<apiPostResponse> {
 	const { id, chapterId, creatorId } = postData;
 	if (!id) throw 'update id undefined';
@@ -95,7 +115,10 @@ export async function updateLesson(
 
 	const requestOptions = {
 		method: 'PUT',
-		headers: { 'Content-Type': 'application/json' },
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${token}`,
+		},
 		body: JSON.stringify(bodyObject),
 	};
 
@@ -104,7 +127,10 @@ export async function updateLesson(
 		.catch((error) => console.log(error));
 }
 
-export async function deleteLesson(id: number): Promise<apiPostResponse> {
+export async function deleteLesson(
+	id: number,
+	token: string
+): Promise<apiPostResponse> {
 	const params = new URLSearchParams({
 		id: id.toString(),
 	});
@@ -113,6 +139,9 @@ export async function deleteLesson(id: number): Promise<apiPostResponse> {
 
 	const requestOptions = {
 		method: 'DELETE',
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
 	};
 
 	return fetch(url, requestOptions)

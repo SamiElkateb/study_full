@@ -1,9 +1,13 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'] . '/helpers/get_user_id.php');
 
 function getLessons()
 {
     global $db;
-    $q = $db->prepare('SELECT * FROM lessons');
+    $user_id = get_user_id();
+    $q = $db->prepare('SELECT * FROM lessons AND creator_id=:creator_id OR visibility=1');
+    $q->bindValue(':creator_id', $user_id, PDO::PARAM_INT);
+
     if ($q->execute()) {
         $responseData = [];
         while ($data = $q->fetch(PDO::FETCH_ASSOC)) {
@@ -33,8 +37,11 @@ function getLesson($id = 0)
         return;
     }
     global $db;
-    $q = $db->prepare('SELECT * FROM lessons WHERE id=:id LIMIT 1');
+    $user_id = get_user_id();
+    $q = $db->prepare('SELECT * FROM lessons WHERE id=:id AND (creator_id=:creator_id OR visibility=1) LIMIT 1');
     $q->bindValue(':id', $id, PDO::PARAM_INT);
+    $q->bindValue(':creator_id', $user_id, PDO::PARAM_INT);
+
     if ($q->execute()) {
         $responseData = $q->fetch(PDO::FETCH_ASSOC);
         $response = array(
@@ -62,8 +69,11 @@ function getLessonsByChapterId($chapter_id = 0)
         return;
     }
     global $db;
-    $q = $db->prepare('SELECT * FROM lessons WHERE chapter_id=:chapter_id');
+    $user_id = get_user_id();
+    $q = $db->prepare('SELECT * FROM lessons WHERE chapter_id=:chapter_id AND (creator_id=:creator_id OR visibility=1)');
     $q->bindValue(':chapter_id', $chapter_id, PDO::PARAM_INT);
+    $q->bindValue(':creator_id', $user_id, PDO::PARAM_INT);
+
     if ($q->execute()) {
         $responseData = [];
         while ($data = $q->fetch(PDO::FETCH_ASSOC)) {

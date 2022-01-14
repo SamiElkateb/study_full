@@ -1,4 +1,5 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'] . '/helpers/get_user_id.php');
 function addChapter()
 {
     global $db;
@@ -6,7 +7,7 @@ function addChapter()
     $icon_name = $_POST["icon_name"];
     $color = $_POST["color"];
     $course_id = $_POST["course_id"];
-    $creator_id = $_POST["creator_id"];
+    $user_id = get_user_id();
     $rank = $_POST["rank"];
     $visibility = $_POST["visibility"];
     $created = date('Y-m-d H:i:s');
@@ -17,19 +18,19 @@ function addChapter()
     $q->bindValue(':icon_name', $icon_name);
     $q->bindValue(':color', $color);
     $q->bindValue(':rank', $rank);
-    $q->bindValue(':creator_id', $creator_id);
+    $q->bindValue(':creator_id', $user_id);
     $q->bindValue(':course_id', $course_id);
     $q->bindValue(':visibility', $visibility);
     $q->bindValue(':created', $created);
     $q->bindValue(':modified', $modified);
 
-    if($q->execute()){
+    if ($q->execute()) {
         $response = array(
             'ok' => true,
             'status' => 200,
             'message' => 'Added successfully.'
         );
-    }else{
+    } else {
         $response = array(
             'ok' => false,
             'status' => 500,
