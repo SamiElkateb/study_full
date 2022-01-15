@@ -25,6 +25,9 @@ const Icon: React.FC<props> = (props) => {
 			<Ionicons name="ios-today-sharp" color={color} size={iconSize} />
 		);
 	}
+	if (name === 'back') {
+		return <Entypo name="chevron-left" color={color} size={iconSize} />;
+	}
 
 	if (name === 'trophy') {
 		return (

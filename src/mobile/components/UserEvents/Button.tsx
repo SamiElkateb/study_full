@@ -1,13 +1,14 @@
-/** @format */
 import { GestureResponderEvent, StyleSheet } from 'react-native';
 import { TouchableOpacity, Text } from 'react-native';
+import capitalizeFirstLetter from '../../helpers/capitalizeFirstLetter';
 import useCustomTheme from '../../hooks/useCustomTheme';
+import { CustomTheme, CustomThemeColors } from '../../types/theme';
 
 interface props {
 	onClick?: (event: GestureResponderEvent) => void;
 	disabled?: boolean;
 	styling?: 'primary' | 'secondary';
-	color?: 'default' | 'error' | 'correct';
+	color?: 'error' | 'correct';
 	style?: {};
 }
 
@@ -22,10 +23,14 @@ const Button: React.FC<props> = (props) => {
 	} = props;
 	const { theme } = useCustomTheme();
 
+	const textColorKey = ('on' +
+		capitalizeFirstLetter(color)) as CustomThemeColors;
 	const isSecondaryBtn = styling === 'secondary';
-	const textColor = isSecondaryBtn ? theme[color] : theme.onPrimary;
+	const textColor = isSecondaryBtn ? theme[color] : theme[textColorKey];
 	const backgroundColor = isSecondaryBtn ? 'transparent' : theme[color];
-
+	const disabledStyle = disabled ? styles.disabled : null;
+	const shadow =
+		!isSecondaryBtn && !disabled ? styles.button_container : null;
 	const buttonStyle = {
 		color: textColor,
 		backgroundColor,
@@ -38,9 +43,11 @@ const Button: React.FC<props> = (props) => {
 			onPress={onClick}
 			activeOpacity={0.7}
 			disabled={disabled}
-			style={[styles.button_container]}
+			style={shadow}
 		>
-			<Text style={[styles.button, buttonStyle, style]}>{children}</Text>
+			<Text style={[styles.button, buttonStyle, style, disabledStyle]}>
+				{children}
+			</Text>
 		</TouchableOpacity>
 	);
 };
@@ -69,5 +76,6 @@ const styles = StyleSheet.create({
 	disabled: {
 		backgroundColor: 'grey',
 		color: 'white',
+		borderColor: 'transparent',
 	},
 });

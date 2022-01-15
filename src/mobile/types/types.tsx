@@ -29,6 +29,7 @@ export interface toggleButton {
 }
 
 export type iconNames =
+	| 'back'
 	| 'close'
 	| 'question'
 	| 'check'
@@ -82,6 +83,8 @@ declare global {
 
 export type RootStackParamList = {
 	Root: NavigatorScreenParams<RootTabParamList> | undefined;
+	Login: undefined;
+	Register: undefined;
 	Modal: undefined;
 	Study: { initialDeck: cardData[] };
 	Chapters: { courseId: number };

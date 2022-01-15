@@ -1,4 +1,5 @@
 const iconNames = [
+	'back',
 	'edit',
 	'close',
 	'options',

@@ -1,5 +1,5 @@
 @use './colors.scss' as c;
-$on-light: rgb(5, 25, 45);
+$on-light: rgb(5, 25, 45); //#05192D
 $on-dark: rgb(255, 255, 255);
 
 $primary: map-get(c.$green, 'A700');
@@ -19,6 +19,7 @@ $on-error: $on-light;
 $themes: (
 	'light': (
 		'background': rgb(240, 244, 253),
+		// #FDF0F4
 		'on-background': $on-light,
 		'surface': rgb(255, 255, 255),
 		'on-surface': $on-light,

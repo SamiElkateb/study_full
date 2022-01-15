@@ -11,6 +11,7 @@ const ColorsBase = {
 	correct: 'rgb(101, 196, 102)',
 	onCorrect: onDark,
 	error: 'rgb(234, 78, 61)',
+	errorBackground: '#ffebee',
 	onError: onDark,
 };
 const ColorsTheme = {
@@ -76,4 +77,4 @@ const darkTheme = {
 	},
 };
 
-export { darkTheme, lightTheme };
+export { darkTheme, lightTheme, ColorsBase };
