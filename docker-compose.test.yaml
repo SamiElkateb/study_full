@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+    test-react:
+        build:
+            context: .
+            dockerfile: dockerfiles/react.dockerfile
+        volumes:
+            - /app/node_modules
+            - ./src/frontend:/app:ro
+        #environment:
+        #    - CI=true
+        command: npm test
+    test-expo:
+        build:
+            context: .
+            dockerfile: dockerfiles/expo.dockerfile
+            args:
+                - EXPO_USERNAME=$EXPO_USERNAME
+                - EXPO_PASSWORD=$EXPO_PASSWORD
+        volumes:
+            - /app/node_modules
+            - ./src/mobile:/app:ro
+            - ./src/mobile/.expo:/app/.expo
+        #environment:
+        #    - CI=true
+        command: npm test
