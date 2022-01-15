@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text } from 'react-native';
 import StudyCard from '../components/StudyCard/StudyCard';
 import { useContext } from 'react';
-import StudyContext, { StudyContextProvider } from '../store/StudyContext';
+import StudyContext, { StudyContextProvider } from '../Context/StudyContext';
 import ProgressBar from '../components/UI/ProgressBar';
 import useCustomTheme from '../hooks/useCustomTheme';
 import { NavigationProp, RouteProp } from '@react-navigation/native';

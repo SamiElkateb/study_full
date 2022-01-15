@@ -14,7 +14,7 @@ const Card: React.FC<props> = (props) => {
 		shadowOpacity,
 	};
 	return (
-		<View style={[themeStyle.card, styles.card, shadow]}>
+		<View style={[themeStyle.surface, styles.card, shadow]}>
 			{children}
 		</View>
 	);

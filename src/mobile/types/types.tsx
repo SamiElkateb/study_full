@@ -18,6 +18,7 @@ export type yamlCodeType =
 export type indexAndLengthArray = { index: number; length: number }[];
 
 export type answerType = 'text' | 'javascript' | 'terminal' | 'yaml';
+export type iconNamesType = typeof iconNames[number];
 
 export interface toggleButton {
 	isActive: boolean;
@@ -69,6 +70,7 @@ import {
 	NavigatorScreenParams,
 } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { iconNames } from '../constants/IconNames';
 import StudyCard from '../DataStructures/StudyCard';
 import { cardData } from './api_interfaces';
 

@@ -1,23 +1,32 @@
 /** @format */
 
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
-
-const Colors = {
-	correct: 'rgb(101, 196, 102)',
-	error: 'rgb(234, 78, 61)',
-	primary: 'rgb(101, 196, 102)',
+const onLight = 'rgb(5, 25, 45)';
+const onDark = 'rgb(255, 255, 255)';
+const ColorsBase = {
+	primary: 'rgb(0, 200, 83)',
+	onPrimary: onLight,
 	accent: 'rgb(246, 206, 70)',
+	onAccent: onLight,
+	correct: 'rgb(101, 196, 102)',
+	onCorrect: onDark,
+	error: 'rgb(234, 78, 61)',
+	onError: onDark,
+};
+const ColorsTheme = {
 	light: {
-		primary: 'rgb(101, 196, 102)',
 		text: 'rgb(62, 65, 106)',
 		background: 'rgb(240, 244, 253)',
-		card: 'rgb(255, 255, 255)',
+		onBackground: onLight,
+		surface: 'rgb(255, 255, 255)',
+		onSurface: onLight,
 	},
 	dark: {
-		primary: 'rgb(101, 196, 102)',
 		text: 'rgb(220, 220, 220)',
 		background: 'rgb(40, 40, 40)',
-		card: 'rgb(62, 65, 106)',
+		onBackground: onDark,
+		surface: 'rgb(62, 65, 106)',
+		onSurface: onDark,
 	},
 };
 
@@ -25,23 +34,22 @@ const lightTheme = {
 	...DefaultTheme,
 	dark: false,
 	colors: {
-		primary: Colors.primary,
-		background: Colors.light.background,
-		card: Colors.light.card,
-		text: Colors.light.text,
+		...ColorsBase,
+		...ColorsTheme.light,
 		border: 'rgb(199, 199, 204)',
 		notification: 'rgb(255, 69, 58)',
-		correct: Colors.correct,
-		error: Colors.error,
-		default: Colors.light.text,
-		tint: Colors.primary,
+		default: ColorsTheme.light.text,
+		card: ColorsTheme.light.surface,
+		tint: ColorsBase.primary,
 		tabIconDefault: '#ccc',
-		tabIconSelected: Colors.light.primary,
+		tabIconSelected: ColorsBase.primary,
 	},
 	styles: {
-		text: { color: Colors.light.text },
-		background: { backgroundColor: Colors.light.background },
-		card: { backgroundColor: Colors.light.card },
+		text: { color: ColorsTheme.light.text },
+		onSurface: { color: ColorsTheme.light.onSurface },
+		onBackground: { color: ColorsTheme.light.onBackground },
+		background: { backgroundColor: ColorsTheme.light.background },
+		surface: { backgroundColor: ColorsTheme.light.surface },
 	},
 };
 
@@ -49,23 +57,22 @@ const darkTheme = {
 	...DarkTheme,
 	dark: true,
 	colors: {
-		primary: Colors.primary,
-		text: Colors.dark.text,
-		background: Colors.dark.background,
-		card: Colors.dark.card,
+		...ColorsBase,
+		...ColorsTheme.dark,
+		card: ColorsTheme.dark.surface,
 		border: 'black',
 		notification: 'rgb(255, 69, 58)',
-		correct: Colors.correct,
-		error: Colors.error,
-		default: Colors.dark.text,
-		tint: Colors.primary,
+		default: ColorsTheme.dark.text,
+		tint: ColorsBase.primary,
 		tabIconDefault: '#ccc',
-		tabIconSelected: Colors.primary,
+		tabIconSelected: ColorsBase.primary,
 	},
 	styles: {
-		text: { color: Colors.dark.text },
-		background: { backgroundColor: Colors.dark.background },
-		card: { backgroundColor: Colors.dark.card },
+		text: { color: ColorsTheme.dark.text },
+		onSurface: { color: ColorsTheme.dark.onSurface },
+		onBackground: { color: ColorsTheme.dark.onBackground },
+		background: { backgroundColor: ColorsTheme.dark.background },
+		surface: { backgroundColor: ColorsTheme.dark.surface },
 	},
 };
 

@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState, useEffect } from 'react';
 import StudyCard from '../DataStructures/StudyCard';
 import StudyCardClass from '../DataStructures/StudyCard';

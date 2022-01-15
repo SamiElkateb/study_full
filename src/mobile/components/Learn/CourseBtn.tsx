@@ -20,7 +20,7 @@ const CourseBtn: React.FC<props> = (props) => {
 	return (
 		<TouchableOpacity
 			onPress={onClick}
-			style={[styles.button_container, themeStyle.card]}
+			style={[styles.button_container, themeStyle.surface]}
 			activeOpacity={0.7}
 		>
 			<View style={styles.button}>

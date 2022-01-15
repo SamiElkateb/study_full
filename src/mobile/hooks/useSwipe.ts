@@ -3,7 +3,7 @@
 import { useState, useRef, useContext } from 'react';
 import { Animated, Dimensions, PanResponder } from 'react-native';
 import StudyCard from '../DataStructures/StudyCard';
-import StudyContext from '../store/StudyContext';
+import StudyContext from '../Context/StudyContext';
 import { toggleButton } from '../types/types';
 
 type PointerEvent = 'auto' | 'none';
@@ -13,10 +13,9 @@ interface props {
 	correctButtonHook: toggleButton;
 }
 
-
 const useSwipe = (props: props) => {
 	const { studyCard, falseButtonHook, correctButtonHook } = props;
-	const pan:any = useRef(new Animated.ValueXY()).current;
+	const pan: any = useRef(new Animated.ValueXY()).current;
 	const [pointerEvent, setPointerEvent] = useState<PointerEvent>('auto');
 
 	const studyCtx = useContext(StudyContext);
@@ -32,7 +31,7 @@ const useSwipe = (props: props) => {
 			onMoveShouldSetPanResponder: () => true,
 			onPanResponderGrant: () => {
 				pan.setOffset({
-					x: pan.x._value, 
+					x: pan.x._value,
 					y: pan.y._value,
 				});
 			},
@@ -53,11 +52,11 @@ const useSwipe = (props: props) => {
 					const direction = pan.x._value > 0 ? 1 : -1;
 					Animated.timing(pan, {
 						toValue: {
-							x: direction*width*1.5,
-							y: pan.y._value * 4
+							x: direction * width * 1.5,
+							y: pan.y._value * 4,
 						},
 						useNativeDriver: false,
-            duration: 300
+						duration: 300,
 					}).start(() => {
 						onCorrect(studyCard);
 					});
@@ -82,7 +81,7 @@ const useSwipe = (props: props) => {
 	const translateX = pan.x;
 	const translateY = pan.y;
 
-  const transform = [{ translateX }, { translateY }, { rotateZ }];
+	const transform = [{ translateX }, { translateY }, { rotateZ }];
 
 	return { transform, pointerEvent, panResponder };
 };

@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text } from 'react-native';
 import { useContext } from 'react';
 import ProgressBar from '../UI/ProgressBar';
-import StudyContext from '../../store/StudyContext';
+import StudyContext from '../../Context/StudyContext';
 import StudyCard from './StudyCard';
 import useCustomTheme from '../../hooks/useCustomTheme';
 

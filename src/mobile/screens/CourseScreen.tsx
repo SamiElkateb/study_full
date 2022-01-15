@@ -6,15 +6,18 @@ import { getCourses } from '../API/courses';
 import CourseBtn from '../components/Learn/CourseBtn';
 import Loading from '../components/UI/Loading';
 import { Course } from '../DataStructures/LearnModule';
+import useAuth from '../hooks/useAuth';
 import { courseData } from '../types/api_interfaces';
 
 const CourseScreen: React.FC = (props) => {
 	const navigation = useNavigation();
+	const { authToken } = useAuth();
 	const [courses, setCourses] = useState<Course[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		getCourses().then((response) => {
+		if (!authToken) return;
+		getCourses(authToken).then((response) => {
 			setIsLoading(false);
 			const courseMap = response.data.map(
 				(courseResponse) => new Course(courseResponse)

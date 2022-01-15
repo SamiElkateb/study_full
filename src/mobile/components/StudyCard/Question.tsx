@@ -8,7 +8,7 @@ interface props {
 
 const Question: React.FC<props> = (props) => {
 	const { question } = props;
-	const {themeStyle} = useCustomTheme();
+	const { themeStyle } = useCustomTheme();
 	return (
 		<View style={styles.question_container}>
 			<Text style={[themeStyle.text, styles.question]}>{question}</Text>

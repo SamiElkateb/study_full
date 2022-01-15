@@ -8,57 +8,71 @@ import StudyScreen from '../screens/StudyScreen';
 import ChapterScreen from '../screens/ChapterScreen';
 import LessonScreen from '../screens/LessonScreen';
 import BottomTabNavigator from './BottomTab';
+import useAuth from '../hooks/useAuth';
+import Onboarding from '../screens/Onboarding';
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
 	const { theme } = useCustomTheme();
+	const { isLoggedIn } = useAuth();
 	return (
 		<Stack.Navigator>
-			<Stack.Screen
-				name="Root"
-				component={BottomTabNavigator}
-				options={{ headerShown: false }}
-			/>
-			<Stack.Screen name="Chapters" component={ChapterScreen} />
-			<Stack.Screen name="Lessons" component={LessonScreen} />
-			<Stack.Screen
-				name="Study"
-				component={StudyScreen}
-				options={({ navigation }) => ({
-					title: 'Study',
-					headerTintColor: 'transparent',
-					gestureEnabled: false,
-					headerRight: () => (
-						<Pressable
-							onPress={() => navigation.navigate('Modal')}
-							style={({ pressed }) => ({
-								opacity: pressed ? 0.5 : 1,
-							})}
-						>
-							<Icon
-								name="flag"
-								size={'small'}
-								color={theme.tabIconDefault}
-							/>
-						</Pressable>
-					),
-					headerLeft: () => (
-						<Pressable
-							onPress={() => navigation.goBack()}
-							style={({ pressed }) => ({
-								opacity: pressed ? 0.5 : 1,
-							})}
-						>
-							<Icon
-								name="close"
-								size={'small'}
-								color={theme.tabIconDefault}
-							/>
-						</Pressable>
-					),
-				})}
-			/>
+			{!isLoggedIn && (
+				<Stack.Screen
+					name="Root"
+					component={Onboarding}
+					options={{ headerShown: false }}
+				/>
+			)}
+			{isLoggedIn && (
+				<>
+					<Stack.Screen
+						name="Root"
+						component={BottomTabNavigator}
+						options={{ headerShown: false }}
+					/>
+					<Stack.Screen name="Chapters" component={ChapterScreen} />
+					<Stack.Screen name="Lessons" component={LessonScreen} />
+					<Stack.Screen
+						name="Study"
+						component={StudyScreen}
+						options={({ navigation }) => ({
+							title: 'Study',
+							headerTintColor: 'transparent',
+							gestureEnabled: false,
+							headerRight: () => (
+								<Pressable
+									onPress={() => navigation.navigate('Modal')}
+									style={({ pressed }) => ({
+										opacity: pressed ? 0.5 : 1,
+									})}
+								>
+									<Icon
+										name="flag"
+										size={'small'}
+										color={theme.tabIconDefault}
+									/>
+								</Pressable>
+							),
+							headerLeft: () => (
+								<Pressable
+									onPress={() => navigation.goBack()}
+									style={({ pressed }) => ({
+										opacity: pressed ? 0.5 : 1,
+									})}
+								>
+									<Icon
+										name="close"
+										size={'small'}
+										color={theme.tabIconDefault}
+									/>
+								</Pressable>
+							),
+						})}
+					/>
+				</>
+			)}
 		</Stack.Navigator>
 	);
 };

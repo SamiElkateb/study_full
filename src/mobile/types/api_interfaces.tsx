@@ -1,10 +1,18 @@
 /** @format */
 
+import { iconNamesType } from './types';
+
 export interface apiResponse<T> {
 	ok: boolean;
 	status: number;
 	message: string;
 	data: T[];
+}
+
+export interface apiPostResponse {
+	ok: boolean;
+	status: number;
+	message: string;
 }
 
 export interface courseData {
@@ -51,4 +59,126 @@ export interface cardData {
 	lesson_id: number;
 	created: string;
 	modified: string;
+}
+
+export interface coursePost {
+	title: string;
+	iconName?: iconNamesType;
+	color?: string;
+	creatorId: number;
+	rank: number;
+	visibility: number;
+}
+
+export interface chapterPost {
+	title: string;
+	iconName?: iconNamesType;
+	color?: string;
+	courseId?: number;
+	creatorId: number;
+	rank: number;
+	visibility: number;
+}
+
+export interface lessonPost {
+	title: string;
+	chapterId?: number;
+	creatorId: number;
+	rank: number;
+	visibility: number;
+}
+
+export interface cardAdd {
+	question: string;
+	answer: string;
+	answerType: string;
+	lessonId?: number;
+}
+
+export interface anyLearnModuleAdd {
+	title: string;
+	creatorId: number;
+	iconName?: iconNamesType;
+	color?: string;
+	rank: number;
+	visibility: number;
+	courseId?: number;
+	chapterId?: number;
+}
+
+export type learnModuleAdd =
+	| coursePost
+	| chapterPost
+	| lessonPost
+	| anyLearnModuleAdd;
+
+export interface coursePut {
+	id?: number;
+	title: string;
+	iconName?: iconNamesType;
+	color?: string;
+	creatorId: number;
+	rank: number;
+	visibility: number;
+}
+
+export interface chapterPut {
+	id?: number;
+	title: string;
+	iconName?: iconNamesType;
+	color?: string;
+	courseId?: number;
+	creatorId: number;
+	rank: number;
+	visibility: number;
+}
+
+export interface lessonPut {
+	id?: number;
+	title: string;
+	chapterId?: number;
+	creatorId: number;
+	rank: number;
+	visibility: number;
+}
+
+export interface cardUpdate {
+	id?: number;
+	question: string;
+	answer: string;
+	answerType: string;
+	lessonId?: number;
+}
+export interface anyLearnModuleUpdate {
+	id?: number;
+	title: string;
+	creatorId: number;
+	iconName?: iconNamesType;
+	color?: string;
+	rank: number;
+	visibility: number;
+	courseId?: number;
+	chapterId?: number;
+}
+
+export type learnModuleUpdate =
+	| coursePost
+	| chapterPost
+	| lessonPost
+	| anyLearnModuleAdd;
+
+export interface registerData {
+	email: string;
+	password: string;
+}
+export interface loginData {
+	email: string;
+	password: string;
+}
+export interface loginResponse {
+	ok: boolean;
+	status: number;
+	message: string;
+	jwt: string;
+	id: number;
 }

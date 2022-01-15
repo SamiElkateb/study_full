@@ -14,6 +14,7 @@ import LessonBtn from '../components/Learn/LessonBtn';
 import Icon from '../components/UI/Icon';
 import { getCardsByLessonId } from '../API/cards';
 import Loading from '../components/UI/Loading';
+import useAuth from '../hooks/useAuth';
 
 interface props {
 	route: RouteProp<RootStackParamList, 'Lessons'>;
@@ -21,6 +22,7 @@ interface props {
 }
 
 const LessonScreen: React.FC<props> = (props) => {
+	const { authToken } = useAuth();
 	const navigation = useNavigation();
 	const chapterId = props.route.params.chapterId;
 	const [lessons, setLessons] = useState<lessonData[]>([]);
@@ -28,15 +30,17 @@ const LessonScreen: React.FC<props> = (props) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		getLessonByChapterId(chapterId).then((response) => {
+		if (!authToken) return;
+		getLessonByChapterId(chapterId, authToken).then((response) => {
 			setIsLoading(false);
 			setLessons(response.data);
 		});
 	}, []);
 
 	const onStartStudyHandler = (lessonId: number) => {
+		if (!authToken) return;
 		setIsLoading(true);
-		getCardsByLessonId(lessonId).then((response) => {
+		getCardsByLessonId(lessonId, authToken).then((response) => {
 			setIsLoading(false);
 			const initialDeck = response.data;
 			navigation.navigate('Study', { initialDeck });

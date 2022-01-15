@@ -23,7 +23,7 @@ const Button: React.FC<props> = (props) => {
 	const { theme } = useCustomTheme();
 
 	const isSecondaryBtn = styling === 'secondary';
-	const textColor = isSecondaryBtn ? theme[color] : theme.background;
+	const textColor = isSecondaryBtn ? theme[color] : theme.onPrimary;
 	const backgroundColor = isSecondaryBtn ? 'transparent' : theme[color];
 
 	const buttonStyle = {
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		paddingVertical: 16,
 		paddingHorizontal: 32,
-		borderRadius: 28,
+		borderRadius: 4,
 		textAlign: 'center',
 		overflow: 'hidden',
 	},

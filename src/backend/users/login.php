@@ -29,7 +29,7 @@ function login()
             $now = new DateTimeImmutable();
             $issued_at_claim = $now->getTimestamp();
             $expire = $now->modify('+100 minutes')->getTimestamp();
-            $not_before_claim = $now->modify('+3 seconds')->getTimestamp();
+            $not_before_claim = $now->getTimestamp();
             $token = array(
                 "iss" => $issuer_claim,
                 "aud" => $audience_claim,
