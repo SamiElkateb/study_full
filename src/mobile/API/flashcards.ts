@@ -7,7 +7,28 @@ import {
 	flashcardUpdate,
 } from '../types/api_interfaces';
 
-export async function getFlashcards(token: string) {
+export async function getFlashcardsSinceLastUpdate(
+	token: string,
+	lastUpdateDate: string
+): Promise<apiResponse<flashcardData>> {
+	const params = new URLSearchParams({
+		last_update_date: lastUpdateDate,
+	});
+	const url = `http://${API_URL}/api/flashcards?${params}`;
+	const requestOptions = {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+	return fetch(url, requestOptions)
+		.then((response) => response.json())
+		.catch((error) => console.log(error));
+}
+
+export async function getFlashcards(
+	token: string
+): Promise<apiResponse<flashcardData>> {
 	const url = `http://${API_URL}/api/flashcards`;
 	const requestOptions = {
 		method: 'GET',

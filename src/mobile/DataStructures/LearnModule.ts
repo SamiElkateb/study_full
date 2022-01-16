@@ -8,15 +8,20 @@ class LearnModule {
 	readonly creatorId: number;
 	readonly rank: number;
 	readonly visibility: number;
+	readonly created: string;
+	readonly modified: string;
 
 	constructor(props: courseData | chapterData | lessonData) {
-		const { id, title, creator_id, rank, visibility } = props;
+		const { id, title, creator_id, rank, visibility, created, modified } =
+			props;
 
 		this.id = id;
 		this.title = title;
 		this.creatorId = +creator_id;
 		this.rank = +rank;
 		this.visibility = +visibility;
+		this.created = created;
+		this.modified = modified;
 	}
 }
 

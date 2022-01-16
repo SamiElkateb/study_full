@@ -3,19 +3,26 @@ import { View, StyleSheet, Text } from 'react-native';
 import Button from '../components/UserEvents/Button';
 import useCustomTheme from '../hooks/useCustomTheme';
 import { flashcardData } from '../types/api_interfaces';
-import cards from '../database/cards.json';
 import StudyManager from '../database/StudyManager';
-const allFlashcards = cards as unknown as flashcardData[];
+import { useEffect, useState } from 'react';
 
 const DailyCards: React.FC = () => {
 	const navigation = useNavigation();
 	const studyManager = new StudyManager();
-	const flashcardsRemaining = allFlashcards.length;
-	const areCardsRemaining = allFlashcards.length > 0;
+	const [studyDeck, setStudyDeck] = useState<flashcardData[]>([]);
+
+	useEffect(() => {
+		studyManager.getToday().then((data) => {
+			setStudyDeck(data);
+		});
+	}, []);
+
+	const flashcardsRemaining = studyDeck.length;
+	const areCardsRemaining = studyDeck.length > 0;
 	const { themeStyle } = useCustomTheme();
 
 	const startHandler = () => {
-		navigation.navigate('Study', { initialDeck: allFlashcards });
+		navigation.navigate('Study', { initialDeck: studyDeck });
 	};
 
 	return (

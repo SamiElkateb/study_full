@@ -2,13 +2,34 @@ import * as SQLite from 'expo-sqlite';
 import { Course } from '../DataStructures/LearnModule';
 
 type queryParams = (string | number)[];
-
+type lastUpdateRow = {
+	id: string;
+	date: string;
+};
 class DatabaseManager {
 	protected db: SQLite.WebSQLDatabase;
 	constructor() {
 		this.db = SQLite.openDatabase('data.db');
 	}
-
+	initialize = async () => {
+		const query =
+			'CREATE TABLE IF NOT EXISTS lastUpdate (id INTEGER PRIMARY KEY NOT NULL, date)';
+		await this.databaseInitialize(query);
+	};
+	setLastUpdate = async () => {
+		const deleteQuery = 'DELETE FROM lastUpdate';
+		await this.transaction(deleteQuery);
+		const query = 'INSERT INTO lastUpdate (date) VALUES (?)';
+		const lastUpdateDate = new Date().toISOString();
+		const params = [lastUpdateDate];
+		await this.transaction(query, params);
+	};
+	getLastUpdate = async () => {
+		const query = 'SELECT * FROM lastUpdate';
+		const lastUpdate = (await this.transaction(query))[0] as lastUpdateRow;
+		if (!lastUpdate) return '2000-00-00T00:00:00.000';
+		return lastUpdate.date;
+	};
 	protected databaseInitialize = async (query: string) => {
 		return new Promise((resolve, reject) => {
 			this.db.transaction(
@@ -23,7 +44,7 @@ class DatabaseManager {
 				},
 				function () {
 					resolve(true);
-					console.log('Created database OK');
+					//console.log('Created database OK');
 				}
 			);
 		});
@@ -53,6 +74,7 @@ class DatabaseManager {
 			);
 		});
 	};
+
 	protected transaction = async (
 		query: string,
 		params?: queryParams
@@ -85,7 +107,7 @@ class DatabaseManager {
 					throw new Error('transaction error: ' + error.message);
 				},
 				function () {
-					console.log('transaction ok');
+					//console.log('transaction ok');
 				}
 			);
 		});

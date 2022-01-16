@@ -7,6 +7,25 @@ import {
 	coursePut,
 } from '../types/api_interfaces';
 
+export async function getCoursesSinceLastUpdate(
+	token: string,
+	lastUpdateDate: string
+): Promise<apiResponse<courseData>> {
+	const params = new URLSearchParams({
+		last_update_date: lastUpdateDate,
+	});
+	const url = `http://${API_URL}/api/courses?${params}`;
+	const requestOptions = {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+	return fetch(url, requestOptions)
+		.then((response) => response.json())
+		.catch((error) => console.log(error));
+}
+
 export async function getCourses(
 	token: string
 ): Promise<apiResponse<courseData>> {
@@ -19,11 +38,7 @@ export async function getCourses(
 	};
 
 	return fetch(url, requestOptions)
-		.then((response) => response.text())
-		.then((data) => {
-			console.log(data);
-			return JSON.parse(data);
-		})
+		.then((response) => response.json())
 		.catch((error) => console.log(error));
 }
 

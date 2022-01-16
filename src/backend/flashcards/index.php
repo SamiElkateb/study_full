@@ -8,7 +8,9 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/flashcards/delete.php');
 $request_method = $_SERVER["REQUEST_METHOD"];
 switch ($request_method) {
     case 'GET':
-        if (!empty($_GET["id"])) {
+        if (!empty($_GET['last_update_date'])) {
+            getCardsSinceLastUpdate();
+        } else if (!empty($_GET["id"])) {
             $id = intval($_GET["id"]);
             getCard($id);
         } else if (!empty($_GET["lesson_id"])) {

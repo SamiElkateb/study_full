@@ -5,21 +5,21 @@ import { FlatList } from 'react-native-gesture-handler';
 import { getCourses } from '../API/courses';
 import CourseBtn from '../components/Learn/CourseBtn';
 import Loading from '../components/UI/Loading';
+import { CourseManager } from '../database/LearnModuleManager';
 import { Course } from '../DataStructures/LearnModule';
 import useAuth from '../hooks/useAuth';
 import { courseData } from '../types/api_interfaces';
 
 const CourseScreen: React.FC = (props) => {
 	const navigation = useNavigation();
-	const { authToken } = useAuth();
 	const [courses, setCourses] = useState<Course[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		if (!authToken) return;
-		getCourses(authToken).then((response) => {
+		const courseManager = new CourseManager();
+		courseManager.get().then((response) => {
 			setIsLoading(false);
-			const courseMap = response.data.map(
+			const courseMap = response.map(
 				(courseResponse) => new Course(courseResponse)
 			);
 			setCourses(courseMap);

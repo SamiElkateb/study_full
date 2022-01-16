@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { loginData, registerData } from '../types/api_interfaces';
 import { loginAPI, registerAPI } from '../API/auth';
 import UserManager from '../database/UserManager';
+import updateDatabase from '../helpers/updateDatabase';
 
 interface AuthContextInterface {
 	authToken?: string;
@@ -36,19 +37,21 @@ const AuthContextProvider: React.FC = (props) => {
 
 	const isLoggedIn = Boolean(authToken);
 
-	const login = (loginData: loginData) => {
-		loginAPI(loginData).then((response) => {
-			if (!response.ok) return;
-			const { id, jwt: token } = response;
-			const userManager = new UserManager();
-			userManager.add({ id, token });
-			setUserId(response.id);
-			setAuthToken(response.jwt);
-		});
+	const login = async (loginData: loginData) => {
+		const response = await loginAPI(loginData);
+		if (!response.ok) return;
+		const { id, jwt: token } = response;
+		const userManager = new UserManager();
+		await userManager.add({ id, token });
+		await updateDatabase();
+		setUserId(response.id);
+		setAuthToken(response.jwt);
 	};
+
 	const register = (registerData: registerData) => {
 		registerAPI(registerData).then(login.bind(null, registerData));
 	};
+
 	const logout = () => {
 		const userManager = new UserManager();
 		userManager.delete();

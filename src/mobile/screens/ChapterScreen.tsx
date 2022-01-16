@@ -8,6 +8,7 @@ import { View, StyleSheet } from 'react-native';
 import { getChapterByCourseId } from '../API/chapters';
 import CourseBtn from '../components/Learn/CourseBtn';
 import Loading from '../components/UI/Loading';
+import { ChapterManager } from '../database/LearnModuleManager';
 import { Chapter } from '../DataStructures/LearnModule';
 import useAuth from '../hooks/useAuth';
 import { chapterData } from '../types/api_interfaces';
@@ -23,13 +24,12 @@ const ChapterScreen: React.FC<props> = (props) => {
 	const courseId = props.route.params.courseId;
 	const [chapters, setChapters] = useState<chapterData[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
-	const { authToken } = useAuth();
 
 	useEffect(() => {
-		if (!authToken) return;
-		getChapterByCourseId(courseId, authToken).then((response) => {
+		const chapterManager = new ChapterManager();
+		chapterManager.getByCourseId(courseId).then((response) => {
 			setIsLoading(false);
-			setChapters(response.data);
+			setChapters(response);
 		});
 	}, []);
 

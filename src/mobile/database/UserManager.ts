@@ -11,7 +11,7 @@ class UserManager extends DatabaseManager {
 	}
 	initialize = async () => {
 		const query = 'CREATE TABLE IF NOT EXISTS user (id, token)';
-		return this.databaseInitialize(query);
+		await this.databaseInitialize(query);
 	};
 	add = async (user: user) => {
 		await this.ready;

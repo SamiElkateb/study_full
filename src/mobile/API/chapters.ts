@@ -7,6 +7,25 @@ import {
 	chapterPut,
 } from '../types/api_interfaces';
 
+export async function getChaptersSinceLastUpdate(
+	token: string,
+	lastUpdateDate: string
+): Promise<apiResponse<chapterData>> {
+	const params = new URLSearchParams({
+		last_update_date: lastUpdateDate,
+	});
+	const url = `http://${API_URL}/api/chapters?${params}`;
+	const requestOptions = {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+	return fetch(url, requestOptions)
+		.then((response) => response.json())
+		.catch((error) => console.log(error));
+}
+
 export async function getChapters(
 	token: string
 ): Promise<apiResponse<chapterData>> {

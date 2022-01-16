@@ -95,3 +95,33 @@ function getLessonsByChapterId($chapter_id = 0)
     header('Content-Type: application/json');
     echo json_encode($response, JSON_PRETTY_PRINT);
 }
+
+function getLessonsSinceLastUpdate()
+{
+    global $db;
+    $user_id = get_user_id();
+    $last_update_date = $_GET['last_update_date'];
+    $q = $db->prepare('SELECT * FROM lessons WHERE (creator_id=:creator_id OR visibility=1) AND modified > :last_update_date');
+    $q->bindValue(':creator_id', $user_id, PDO::PARAM_INT);
+    $q->bindValue(':last_update_date', $last_update_date, PDO::PARAM_INT);
+    if ($q->execute()) {
+        $responseData = [];
+        while ($data = $q->fetch(PDO::FETCH_ASSOC)) {
+            array_push($responseData, $data);
+        }
+        $response = array(
+            'ok' => true,
+            'status' => 200,
+            'message' => 'Transaction successful.',
+            'data' => $responseData
+        );
+    } else {
+        $response = array(
+            'ok' => false,
+            'status' => 500,
+            'message' => 'ERROR: ' . $q->errorCode()
+        );
+    }
+    header('Content-Type: application/json');
+    echo json_encode($response, JSON_PRETTY_PRINT);
+}

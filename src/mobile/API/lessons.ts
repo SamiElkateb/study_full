@@ -7,6 +7,25 @@ import {
 	lessonPut,
 } from '../types/api_interfaces';
 
+export async function getLessonsSinceLastUpdate(
+	token: string,
+	lastUpdateDate: string
+): Promise<apiResponse<lessonData>> {
+	const params = new URLSearchParams({
+		last_update_date: lastUpdateDate,
+	});
+	const url = `http://${API_URL}/api/lessons?${params}`;
+	const requestOptions = {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+	return fetch(url, requestOptions)
+		.then((response) => response.json())
+		.catch((error) => console.log(error));
+}
+
 export async function getLessons(
 	token: string
 ): Promise<apiResponse<lessonData>> {

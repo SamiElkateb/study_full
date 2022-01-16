@@ -15,6 +15,8 @@ import Icon from '../components/UI/Icon';
 import { getFlashcardsByLessonId } from '../API/flashcards';
 import Loading from '../components/UI/Loading';
 import useAuth from '../hooks/useAuth';
+import { LessonManager } from '../database/LearnModuleManager';
+import FlashcardManager from '../database/FlashcardManager';
 
 interface props {
 	route: RouteProp<RootStackParamList, 'Lessons'>;
@@ -30,21 +32,18 @@ const LessonScreen: React.FC<props> = (props) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		if (!authToken) return;
-		getLessonByChapterId(chapterId, authToken).then((response) => {
+		const lessonManager = new LessonManager();
+		lessonManager.getByChapterId(chapterId).then((response) => {
 			setIsLoading(false);
-			setLessons(response.data);
+			setLessons(response);
 		});
 	}, []);
 
-	const onStartStudyHandler = (lessonId: number) => {
-		if (!authToken) return;
-		setIsLoading(true);
-		getFlashcardsByLessonId(lessonId, authToken).then((response) => {
-			setIsLoading(false);
-			const initialDeck = response.data;
-			navigation.navigate('Study', { initialDeck });
-		});
+	const onStartStudyHandler = async (lessonId: number) => {
+		const flashcardManager = new FlashcardManager();
+		const initialDeck = await flashcardManager.getByLessonId(lessonId);
+		setIsLoading(false);
+		navigation.navigate('Study', { initialDeck });
 	};
 
 	return (
