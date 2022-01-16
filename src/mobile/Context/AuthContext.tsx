@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { loginData, registerData } from '../types/api_interfaces';
 import { loginAPI, registerAPI } from '../API/auth';
+import UserManager from '../database/UserManager';
 
 interface AuthContextInterface {
 	authToken?: string;
@@ -23,20 +24,24 @@ const AuthContextProvider: React.FC = (props) => {
 	const { children } = props;
 	const [authToken, setAuthToken] = useState<string>();
 	const [userId, setUserId] = useState<number>();
-	/* useEffect(() => {
-		const token = localStorage.getItem('session');
-		const id = localStorage.getItem('user_id');
-		token && setAuthToken(token);
-		id && setUserId(+id);
+	useEffect(() => {
+		const userManager = new UserManager();
+		userManager.get().then((data) => {
+			if (data.length === 0) return;
+			const { token, id } = data[0];
+			token && setAuthToken(token);
+			id && setUserId(+id);
+		});
 	}, []);
- */
+
 	const isLoggedIn = Boolean(authToken);
 
 	const login = (loginData: loginData) => {
 		loginAPI(loginData).then((response) => {
 			if (!response.ok) return;
-			/* localStorage.setItem('session', response.jwt);
-			localStorage.setItem('user_id', response.id.toString()); */
+			const { id, jwt: token } = response;
+			const userManager = new UserManager();
+			userManager.add({ id, token });
 			setUserId(response.id);
 			setAuthToken(response.jwt);
 		});
@@ -45,8 +50,8 @@ const AuthContextProvider: React.FC = (props) => {
 		registerAPI(registerData).then(login.bind(null, registerData));
 	};
 	const logout = () => {
-		/* localStorage.removeItem('session');
-		localStorage.removeItem('user_id'); */
+		const userManager = new UserManager();
+		userManager.delete();
 		setUserId(undefined);
 		setAuthToken(undefined);
 	};
