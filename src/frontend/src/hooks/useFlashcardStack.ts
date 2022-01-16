@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { getCardsByLessonId } from '../API/cards';
-import StudyCard from '../DataStructures/StudyCard';
+import { getFlashcardsByLessonId } from '../API/flashcards';
+import Flashcard from '../DataStructures/Flashcard';
 import useAuth from './useAuth';
 
 const useCardStack = (lessonId?: number) => {
-	const [cards, setCards] = useState<StudyCard[]>([]);
+	const [cards, setCards] = useState<Flashcard[]>([]);
 	const { authToken } = useAuth();
 	const showCards = cards.length > 0;
 
@@ -15,9 +15,9 @@ const useCardStack = (lessonId?: number) => {
 
 	const updateCardsHandler = (lessonId: number) => {
 		if (!authToken) return;
-		getCardsByLessonId(lessonId, authToken).then((response) => {
+		getFlashcardsByLessonId(lessonId, authToken).then((response) => {
 			const cardsMap = response.data.map((courseResponse) => {
-				return new StudyCard(courseResponse);
+				return new Flashcard(courseResponse);
 			});
 			setCards(cardsMap);
 		});

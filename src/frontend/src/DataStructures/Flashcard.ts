@@ -1,6 +1,6 @@
 import { answerType } from '../types/types';
 
-interface card {
+interface flashcard {
 	question: string;
 	answer: string;
 	streak?: number;
@@ -8,14 +8,14 @@ interface card {
 	lesson_id: number;
 	id: number;
 }
-class StudyCard {
+class Flashcard {
 	readonly question: string;
 	readonly answer: string;
 	readonly answerType: answerType;
 	readonly lessonId: number;
 	readonly id: number;
 	private streak: number;
-	constructor(props: card) {
+	constructor(props: flashcard) {
 		const {
 			question,
 			answer,
@@ -49,4 +49,4 @@ class StudyCard {
 		this.streak = 0;
 	};
 }
-export default StudyCard;
+export default Flashcard;

@@ -4,10 +4,12 @@ import Button from '../components/UserEvents/Button';
 import useCustomTheme from '../hooks/useCustomTheme';
 import { flashcardData } from '../types/api_interfaces';
 import cards from '../database/cards.json';
+import StudyManager from '../database/StudyManager';
 const allFlashcards = cards as unknown as flashcardData[];
 
 const DailyCards: React.FC = () => {
 	const navigation = useNavigation();
+	const studyManager = new StudyManager();
 	const flashcardsRemaining = allFlashcards.length;
 	const areCardsRemaining = allFlashcards.length > 0;
 	const { themeStyle } = useCustomTheme();

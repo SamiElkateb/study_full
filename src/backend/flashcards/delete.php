@@ -8,7 +8,7 @@ function deleteCard($id = 0)
     }
     global $db;
     $user_id = get_user_id();
-    $q = $db->prepare('DELETE FROM cards WHERE id=:id AND creator_id=:creator_id  LIMIT 1');
+    $q = $db->prepare('DELETE FROM flashcards WHERE id=:id AND creator_id=:creator_id  LIMIT 1');
     $q->bindValue(':id', $id, PDO::PARAM_INT);
     $q->bindValue(':creator_id', $user_id, PDO::PARAM_INT);
 

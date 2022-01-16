@@ -28,7 +28,7 @@ function login()
             $audience_claim = getenv("JWT_AUDIENCE");
             $now = new DateTimeImmutable();
             $issued_at_claim = $now->getTimestamp();
-            $expire = $now->modify('+100 minutes')->getTimestamp();
+            $expire = $now->modify('+3 days')->getTimestamp();
             $not_before_claim = $now->getTimestamp();
             $token = array(
                 "iss" => $issuer_claim,

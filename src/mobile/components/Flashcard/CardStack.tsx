@@ -2,7 +2,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import { useContext } from 'react';
 import ProgressBar from '../UI/ProgressBar';
 import StudyContext from '../../Context/StudyContext';
-import StudyCard from './StudyCard';
+import Flashcard from './Flashcard';
 import useCustomTheme from '../../hooks/useCustomTheme';
 
 const CardStack: React.FC = (props) => {
@@ -13,7 +13,7 @@ const CardStack: React.FC = (props) => {
 		<View style={[themeStyle.background, styles.container]}>
 			<ProgressBar progress={progress} />
 			{studyDeck.map((flashCard, index) => (
-				<StudyCard
+				<Flashcard
 					key={flashCard.id}
 					flashCard={flashCard}
 					index={index}

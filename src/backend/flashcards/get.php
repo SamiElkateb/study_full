@@ -5,7 +5,7 @@ function getCards()
 {
     global $db;
     $user_id = get_user_id();
-    $q = $db->prepare('SELECT * FROM cards WHERE creator_id=:creator_id OR visibility=1');
+    $q = $db->prepare('SELECT * FROM flashcards WHERE creator_id=:creator_id OR visibility=1');
     $q->bindValue(':creator_id', $user_id, PDO::PARAM_INT);
     if ($q->execute()) {
         $responseData = [];
@@ -37,7 +37,7 @@ function getCard($id = 0)
     }
     global $db;
     $user_id = get_user_id();
-    $q = $db->prepare('SELECT * FROM cards WHERE id=:id AND (creator_id=:creator_id OR visibility=1) LIMIT 1');
+    $q = $db->prepare('SELECT * FROM flashcards WHERE id=:id AND (creator_id=:creator_id OR visibility=1) LIMIT 1');
     $q->bindValue(':id', $id, PDO::PARAM_INT);
     $q->bindValue(':creator_id', $user_id, PDO::PARAM_INT);
     if ($q->execute()) {
@@ -68,7 +68,7 @@ function getCardByLessonId($lesson_id = 0)
     }
     global $db;
     $user_id = get_user_id();
-    $q = $db->prepare('SELECT * FROM cards WHERE lesson_id=:lesson_id AND (creator_id=:creator_id OR visibility=1)');
+    $q = $db->prepare('SELECT * FROM flashcards WHERE lesson_id=:lesson_id AND (creator_id=:creator_id OR visibility=1)');
     $q->bindValue(':lesson_id', $lesson_id, PDO::PARAM_INT);
     $q->bindValue(':creator_id', $user_id, PDO::PARAM_INT);
     if ($q->execute()) {

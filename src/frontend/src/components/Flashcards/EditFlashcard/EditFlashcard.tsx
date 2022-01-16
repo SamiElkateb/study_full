@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { addCard, updateCard } from '../../../API/cards';
+import { addFlashcard, updateFlashcard } from '../../../API/flashcards';
 import { answerTypes } from '../../../constants/AnswerTypes';
-import StudyCard from '../../../DataStructures/StudyCard';
+import Flashcard from '../../../DataStructures/Flashcard';
 import useAuth from '../../../hooks/useAuth';
 import useInput from '../../../hooks/useInput';
 import { answerType } from '../../../types/types';
@@ -13,15 +13,15 @@ import Button from '../../UserEvents/Button/Button';
 import Form from '../../UserEvents/Form/Form';
 import Input from '../../UserEvents/Input/Input';
 import Select from '../../UserEvents/Select/Select';
-import classes from './EditStudyCard.module.scss';
+import classes from './EditFlashcard.module.scss';
 interface props {
 	lessonId?: number;
 	onEdited?: (lessonId: number) => void;
-	studyCard?: StudyCard;
+	flashcard?: Flashcard;
 }
 
-const EditStudyCard: React.FC<props> = (props) => {
-	const { lessonId, studyCard, onEdited } = props;
+const EditFlashcard: React.FC<props> = (props) => {
+	const { lessonId, flashcard, onEdited } = props;
 	const answerTypeArray = [...answerTypes];
 	const { authToken } = useAuth();
 	const {
@@ -39,23 +39,23 @@ const EditStudyCard: React.FC<props> = (props) => {
 	} = useInput(() => true, 'text' as answerType);
 
 	useEffect(() => {
-		if (!studyCard) return;
-		questionInputChangeHandler(studyCard.question);
-		answerInputChangeHandler(studyCard.answer);
-		answerTypeInputChangeHandler(studyCard.answerType);
-	}, [studyCard]);
+		if (!flashcard) return;
+		questionInputChangeHandler(flashcard.question);
+		answerInputChangeHandler(flashcard.answer);
+		answerTypeInputChangeHandler(flashcard.answerType);
+	}, [flashcard]);
 
 	const clearInputsHandler = () => {
 		questionInputChangeHandler('');
 		answerInputChangeHandler('');
 	};
 
-	const isUpdate = Boolean(studyCard);
+	const isUpdate = Boolean(flashcard);
 	const submitHandler = (event: React.FormEvent) => {
 		event.preventDefault();
 		if (!authToken) return;
 		if (!lessonId) return;
-		const id = studyCard?.id;
+		const id = flashcard?.id;
 		const data = {
 			id,
 			question: enteredQuestion,
@@ -65,12 +65,12 @@ const EditStudyCard: React.FC<props> = (props) => {
 		};
 
 		if (isUpdate) {
-			updateCard(data, authToken)
+			updateFlashcard(data, authToken)
 				.then(onEdited?.bind(null, lessonId))
 				.then(clearInputsHandler);
 		}
 		if (!isUpdate) {
-			addCard(data, authToken)
+			addFlashcard(data, authToken)
 				.then(onEdited?.bind(null, lessonId))
 				.then(clearInputsHandler);
 		}
@@ -114,4 +114,4 @@ const EditStudyCard: React.FC<props> = (props) => {
 	);
 };
 
-export default EditStudyCard;
+export default EditFlashcard;

@@ -51,7 +51,7 @@ export interface lessonData {
 	modified: string;
 }
 
-export interface cardData {
+export interface flashcardData {
 	id: number;
 	question: string;
 	answer: string;
@@ -88,7 +88,7 @@ export interface lessonPost {
 	visibility: number;
 }
 
-export interface cardAdd {
+export interface flashcardAdd {
 	question: string;
 	answer: string;
 	answerType: string;
@@ -142,7 +142,7 @@ export interface lessonPut {
 	visibility: number;
 }
 
-export interface cardUpdate {
+export interface flashcardUpdate {
 	id?: number;
 	question: string;
 	answer: string;

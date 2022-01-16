@@ -12,7 +12,7 @@ function addCard()
     $created = date('Y-m-d H:i:s');
     $modified = date('Y-m-d H:i:s');
 
-    $q = $db->prepare('INSERT INTO cards(question, answer, answer_type, lesson_id, creator_id, visibility, created, modified) VALUES (:question, :answer, :answer_type, :lesson_id, :creator_id, :visibility, :created, :modified)');
+    $q = $db->prepare('INSERT INTO flashcards(question, answer, answer_type, lesson_id, creator_id, visibility, created, modified) VALUES (:question, :answer, :answer_type, :lesson_id, :creator_id, :visibility, :created, :modified)');
     $q->bindValue(':question', $question);
     $q->bindValue(':answer', $answer);
     $q->bindValue(':answer_type', $answer_type);

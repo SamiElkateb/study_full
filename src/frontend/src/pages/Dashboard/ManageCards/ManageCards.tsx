@@ -1,13 +1,13 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { deleteCard } from '../../../API/cards';
-import EditStudyCard from '../../../components/StudyCards/EditStudyCard/EditStudyCard';
-import StudyCard from '../../../components/StudyCards/StudyCard/StudyCard';
+import { deleteFlashcard } from '../../../API/flashcards';
+import EditFlashcard from '../../../components/Flashcards/EditFlashcard/EditFlashcard';
+import Flashcard from '../../../components/Flashcards/Flashcard/Flashcard';
 import Wrapper from '../../../components/UI/Wrapper/Wrapper';
 import EditToolbox from '../../../components/UserEvents/EditToolbox/EditToolbox';
-import StudyCardClass from '../../../DataStructures/StudyCard';
+import FlashcardClass from '../../../DataStructures/Flashcard';
 import useAuth from '../../../hooks/useAuth';
-import useCardStack from '../../../hooks/useCardStack';
+import useFlashcardStack from '../../../hooks/useFlashcardStack';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import classes from './ManageCards.module.scss';
 import sectionTitlesData from '../../../data/sectionTitlesData.json';
@@ -16,20 +16,20 @@ const ManageCards: React.FC = (props) => {
 	const { authToken } = useAuth();
 	const { lesson_id } = useParams();
 	const lessonId = lesson_id ? +lesson_id : undefined;
-	const { cards, updateCardsHandler } = useCardStack(lessonId);
-	const [cardToEdit, setCardToEdit] = useState<StudyCardClass>();
+	const { cards, updateCardsHandler } = useFlashcardStack(lessonId);
+	const [cardToEdit, setCardToEdit] = useState<FlashcardClass>();
 	const { title, description } = sectionTitlesData.manageCards;
 
 	const deleteCardHandler = (id: number) => {
 		if (!authToken) return;
 		const lessonIdToUpdate = lessonId ? lessonId : 0;
-		deleteCard(id, authToken).then(
+		deleteFlashcard(id, authToken).then(
 			updateCardsHandler.bind(null, lessonIdToUpdate)
 		);
 		if (id === cardToEdit?.id) setCardToEdit(undefined);
 	};
 
-	const editCardHandler = (card: StudyCardClass) => {
+	const editCardHandler = (card: FlashcardClass) => {
 		setCardToEdit(card);
 	};
 
@@ -45,10 +45,10 @@ const ManageCards: React.FC = (props) => {
 				description={description}
 				iconName="edit"
 			/>
-			<EditStudyCard
+			<EditFlashcard
 				lessonId={lessonId}
 				onEdited={editedHandler}
-				studyCard={cardToEdit}
+				flashcard={cardToEdit}
 			/>
 
 			<div className={classes['cards-list']}>
@@ -61,7 +61,7 @@ const ManageCards: React.FC = (props) => {
 								onDelete={deleteCardHandler.bind(null, card.id)}
 								onEdit={editCardHandler.bind(null, card)}
 							>
-								<StudyCard
+								<Flashcard
 									card={card}
 									className={classes.card}
 								/>

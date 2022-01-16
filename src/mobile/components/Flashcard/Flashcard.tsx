@@ -5,15 +5,15 @@ import Answer from './Answer';
 import RoundButton from '../UserEvents/RoundButton';
 import Card from '../UI/Card';
 import Swiper from './Swiper';
-import Flashcard from '../../DataStructures/Flashcard';
+import FlashcardClass from '../../DataStructures/Flashcard';
 import useLinkSwipeBtn from '../../hooks/useLinkSwipeBtn';
 import Question from './Question';
 
 interface props {
-	flashCard: Flashcard;
+	flashCard: FlashcardClass;
 	index: number;
 }
-const StudyCard: React.FC<props> = (props) => {
+const Flashcard: React.FC<props> = (props) => {
 	const { flashCard, index } = props;
 	const [isAnswerVisible, setIsAnswerVisible] = useState(false);
 
@@ -73,7 +73,7 @@ const StudyCard: React.FC<props> = (props) => {
 	);
 };
 
-export default StudyCard;
+export default Flashcard;
 
 const styles = StyleSheet.create({
 	container: {

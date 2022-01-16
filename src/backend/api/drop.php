@@ -8,5 +8,5 @@ $q = $db->prepare('DELETE FROM chapters');
 $q->execute();
 $q = $db->prepare('DELETE FROM lessons');
 $q->execute();
-$q = $db->prepare('DELETE FROM cards');
+$q = $db->prepare('DELETE FROM flashcards');
 $q->execute();

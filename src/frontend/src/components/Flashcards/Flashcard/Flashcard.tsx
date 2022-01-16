@@ -1,15 +1,15 @@
-import StudyCardClass from '../../../DataStructures/StudyCard';
+import FlashcardClass from '../../../DataStructures/Flashcard';
 import Javascript from '../../Code/Javascript/Javascript';
 import Terminal from '../../Code/Terminal/Terminal';
 import Yaml from '../../Code/Yaml/Yaml';
 import Card from '../../UI/Card/Card';
-import classes from './StudyCard.module.scss';
+import classes from './Flashcard.module.scss';
 interface props {
-	card: StudyCardClass;
+	card: FlashcardClass;
 	className?: string;
 }
 
-const StudyCard: React.FC<props> = (props) => {
+const Flashcard: React.FC<props> = (props) => {
 	const { card, className } = props;
 	const { question, answer, answerType } = card;
 
@@ -24,4 +24,4 @@ const StudyCard: React.FC<props> = (props) => {
 	);
 };
 
-export default StudyCard;
+export default Flashcard;

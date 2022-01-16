@@ -8,7 +8,7 @@ import {
 } from '../types/api_interfaces';
 
 export async function getFlashcards(token: string) {
-	const url = `http://${API_URL}/api/cards`;
+	const url = `http://${API_URL}/api/flashcards`;
 	const requestOptions = {
 		method: 'GET',
 		headers: {
@@ -28,7 +28,7 @@ export async function getFlashcardsByLessonId(
 	const params = new URLSearchParams({
 		lesson_id: lessonId.toString(),
 	});
-	const url = `http://${API_URL}/api/cards?${params}`;
+	const url = `http://${API_URL}/api/flashcards?${params}`;
 
 	const requestOptions = {
 		method: 'GET',
@@ -54,7 +54,7 @@ export async function addFlashcard(
 	formData.append('answer_type', answerType);
 	formData.append('lesson_id', lessonId.toString());
 
-	const url = `http://${API_URL}/api/cards`;
+	const url = `http://${API_URL}/api/flashcards`;
 
 	const requestOptions = {
 		method: 'POST',
@@ -81,7 +81,7 @@ export async function updateFlashcard(
 		id: id.toString(),
 	});
 
-	const url = `http://${API_URL}/api/cards?${params}`;
+	const url = `http://${API_URL}/api/flashcards?${params}`;
 	const bodyObject = {
 		...postData,
 		answer_type: answerType,
@@ -109,7 +109,7 @@ export async function deleteFlashcard(
 		id: id.toString(),
 	});
 
-	const url = `http://${API_URL}/api/cards?${params}`;
+	const url = `http://${API_URL}/api/flashcards?${params}`;
 
 	const requestOptions = {
 		method: 'DELETE',

@@ -16,7 +16,7 @@ function updateCard($id = 0)
     $user_id = get_user_id();
     $modified = date('Y-m-d H:i:s');
 
-    $q = $db->prepare('UPDATE cards SET question=:question, answer=:answer, answer_type=:answer_type, modified=:modified WHERE id=:id AND creator_id=:creator_id');
+    $q = $db->prepare('UPDATE flashcards SET question=:question, answer=:answer, answer_type=:answer_type, modified=:modified WHERE id=:id AND creator_id=:creator_id');
     $q->bindValue(':question', $question, PDO::PARAM_STR);
     $q->bindValue(':answer', $answer, PDO::PARAM_STR);
     $q->bindValue(':answer_type', $answer_type, PDO::PARAM_STR);
