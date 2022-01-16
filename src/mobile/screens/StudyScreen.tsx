@@ -1,12 +1,12 @@
 import { View, StyleSheet, Text } from 'react-native';
-import StudyCard from '../components/StudyCard/StudyCard';
+import StudyCard from '../components/Flashcard/StudyCard';
 import { useContext } from 'react';
 import StudyContext, { StudyContextProvider } from '../Context/StudyContext';
 import ProgressBar from '../components/UI/ProgressBar';
 import useCustomTheme from '../hooks/useCustomTheme';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../types/types';
-import CardStack from '../components/StudyCard/CardStack';
+import CardStack from '../components/Flashcard/CardStack';
 
 interface props {
 	route: RouteProp<RootStackParamList, 'Study'>;

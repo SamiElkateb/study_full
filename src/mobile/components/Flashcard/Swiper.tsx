@@ -2,13 +2,13 @@
 
 import React, { useContext } from 'react';
 import { Animated, View, StyleSheet } from 'react-native';
-import StudyCard from '../../DataStructures/StudyCard';
+import Flashcard from '../../DataStructures/Flashcard';
 import useSwipe from '../../hooks/useSwipe';
 import StudyContext from '../../Context/StudyContext';
 import { toggleButton } from '../../types/types';
 
 interface props {
-	studyCard: StudyCard;
+	flashCard: Flashcard;
 	falseButtonHook: toggleButton;
 	correctButtonHook: toggleButton;
 	showAnswerButtonHook: toggleButton;
@@ -18,14 +18,14 @@ interface props {
 const Swiper: React.FC<props> = (props) => {
 	const {
 		children,
-		studyCard,
+		flashCard,
 		falseButtonHook,
 		correctButtonHook,
 		showAnswerButtonHook,
 		index,
 	} = props;
 	const { transform, pointerEvent, panResponder } = useSwipe({
-		studyCard,
+		flashCard,
 		falseButtonHook,
 		correctButtonHook,
 	});

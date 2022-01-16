@@ -72,8 +72,8 @@ import {
 } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { iconNames } from '../constants/IconNames';
-import StudyCard from '../DataStructures/StudyCard';
-import { cardData } from './api_interfaces';
+import Flashcard from '../DataStructures/Flashcard';
+import { flashcardData } from './api_interfaces';
 
 declare global {
 	namespace ReactNavigation {
@@ -86,7 +86,7 @@ export type RootStackParamList = {
 	Login: undefined;
 	Register: undefined;
 	Modal: undefined;
-	Study: { initialDeck: cardData[] };
+	Study: { initialDeck: flashcardData[] };
 	Chapters: { courseId: number };
 	Lessons: { chapterId: number };
 	NotFound: undefined;

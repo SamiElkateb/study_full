@@ -1,5 +1,3 @@
-/** @format */
-
 import { iconNamesType } from './types';
 
 export interface apiResponse<T> {
@@ -51,12 +49,14 @@ export interface lessonData {
 	modified: string;
 }
 
-export interface cardData {
+export interface flashcardData {
 	id: number;
 	question: string;
 	answer: string;
 	answer_type: string;
 	lesson_id: number;
+	creator_id: number;
+	visibility: number;
 	created: string;
 	modified: string;
 }
@@ -88,7 +88,7 @@ export interface lessonPost {
 	visibility: number;
 }
 
-export interface cardAdd {
+export interface flashcardAdd {
 	question: string;
 	answer: string;
 	answerType: string;
@@ -142,7 +142,7 @@ export interface lessonPut {
 	visibility: number;
 }
 
-export interface cardUpdate {
+export interface flashcardUpdate {
 	id?: number;
 	question: string;
 	answer: string;

@@ -2,19 +2,19 @@
 
 import { useState, useRef, useContext } from 'react';
 import { Animated, Dimensions, PanResponder } from 'react-native';
-import StudyCard from '../DataStructures/StudyCard';
+import Flashcard from '../DataStructures/Flashcard';
 import StudyContext from '../Context/StudyContext';
 import { toggleButton } from '../types/types';
 
 type PointerEvent = 'auto' | 'none';
 interface props {
-	studyCard: StudyCard;
+	flashCard: Flashcard;
 	falseButtonHook: toggleButton;
 	correctButtonHook: toggleButton;
 }
 
 const useSwipe = (props: props) => {
-	const { studyCard, falseButtonHook, correctButtonHook } = props;
+	const { flashCard, falseButtonHook, correctButtonHook } = props;
 	const pan: any = useRef(new Animated.ValueXY()).current;
 	const [pointerEvent, setPointerEvent] = useState<PointerEvent>('auto');
 
@@ -58,7 +58,7 @@ const useSwipe = (props: props) => {
 						useNativeDriver: false,
 						duration: 300,
 					}).start(() => {
-						onCorrect(studyCard);
+						onCorrect(flashCard);
 					});
 					setPointerEvent('none');
 					return;

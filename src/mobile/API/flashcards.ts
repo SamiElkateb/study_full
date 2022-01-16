@@ -2,12 +2,12 @@ import { API_URL } from '../constants/Url';
 import {
 	apiPostResponse,
 	apiResponse,
-	cardAdd,
-	cardData,
-	cardUpdate,
+	flashcardAdd,
+	flashcardData,
+	flashcardUpdate,
 } from '../types/api_interfaces';
 
-export async function getCards(token: string) {
+export async function getFlashcards(token: string) {
 	const url = `http://${API_URL}/api/cards`;
 	const requestOptions = {
 		method: 'GET',
@@ -21,10 +21,10 @@ export async function getCards(token: string) {
 		.catch((error) => console.log(error));
 }
 
-export async function getCardsByLessonId(
+export async function getFlashcardsByLessonId(
 	lessonId: number,
 	token: string
-): Promise<apiResponse<cardData>> {
+): Promise<apiResponse<flashcardData>> {
 	const params = new URLSearchParams({
 		lesson_id: lessonId.toString(),
 	});
@@ -42,8 +42,8 @@ export async function getCardsByLessonId(
 		.catch((error) => console.log(error));
 }
 
-export async function addCard(
-	postData: cardAdd,
+export async function addFlashcard(
+	postData: flashcardAdd,
 	token: string
 ): Promise<apiPostResponse> {
 	const { question, answer, answerType, lessonId } = postData;
@@ -69,8 +69,8 @@ export async function addCard(
 		.catch((error) => console.log(error));
 }
 
-export async function updateCard(
-	postData: cardUpdate,
+export async function updateFlashcard(
+	postData: flashcardUpdate,
 	token: string
 ): Promise<apiPostResponse> {
 	const { id, question, answer, answerType, lessonId } = postData;
@@ -101,7 +101,7 @@ export async function updateCard(
 		.catch((error) => console.log(error));
 }
 
-export async function deleteCard(
+export async function deleteFlashcard(
 	id: number,
 	token: string
 ): Promise<apiPostResponse> {

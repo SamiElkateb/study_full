@@ -12,10 +12,10 @@ const CardStack: React.FC = (props) => {
 	return (
 		<View style={[themeStyle.background, styles.container]}>
 			<ProgressBar progress={progress} />
-			{studyDeck.map((studyCard, index) => (
+			{studyDeck.map((flashCard, index) => (
 				<StudyCard
-					key={studyCard.id}
-					studyCard={studyCard}
+					key={flashCard.id}
+					flashCard={flashCard}
 					index={index}
 				/>
 			))}

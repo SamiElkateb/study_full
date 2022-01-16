@@ -12,7 +12,7 @@ import { Lesson } from '../DataStructures/LearnModule';
 import { getLessonByChapterId } from '../API/lessons';
 import LessonBtn from '../components/Learn/LessonBtn';
 import Icon from '../components/UI/Icon';
-import { getCardsByLessonId } from '../API/cards';
+import { getFlashcardsByLessonId } from '../API/flashcards';
 import Loading from '../components/UI/Loading';
 import useAuth from '../hooks/useAuth';
 
@@ -40,7 +40,7 @@ const LessonScreen: React.FC<props> = (props) => {
 	const onStartStudyHandler = (lessonId: number) => {
 		if (!authToken) return;
 		setIsLoading(true);
-		getCardsByLessonId(lessonId, authToken).then((response) => {
+		getFlashcardsByLessonId(lessonId, authToken).then((response) => {
 			setIsLoading(false);
 			const initialDeck = response.data;
 			navigation.navigate('Study', { initialDeck });

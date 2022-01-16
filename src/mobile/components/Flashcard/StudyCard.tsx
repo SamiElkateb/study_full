@@ -5,23 +5,23 @@ import Answer from './Answer';
 import RoundButton from '../UserEvents/RoundButton';
 import Card from '../UI/Card';
 import Swiper from './Swiper';
-import StudyCardClass from '../../DataStructures/StudyCard';
+import Flashcard from '../../DataStructures/Flashcard';
 import useLinkSwipeBtn from '../../hooks/useLinkSwipeBtn';
 import Question from './Question';
 
 interface props {
-	studyCard: StudyCardClass;
+	flashCard: Flashcard;
 	index: number;
 }
 const StudyCard: React.FC<props> = (props) => {
-	const { studyCard, index } = props;
+	const { flashCard, index } = props;
 	const [isAnswerVisible, setIsAnswerVisible] = useState(false);
 
 	const correctButtonHook = useLinkSwipeBtn();
 	const falseButtonHook = useLinkSwipeBtn();
 	const showAnswerButtonHook = useLinkSwipeBtn();
 
-	const { question, answerType, answer } = studyCard;
+	const { question, answerType, answer } = flashCard;
 
 	const showAnswerHandler = () => {
 		setIsAnswerVisible(true);
@@ -29,7 +29,7 @@ const StudyCard: React.FC<props> = (props) => {
 
 	return (
 		<Swiper
-			studyCard={studyCard}
+			flashCard={flashCard}
 			falseButtonHook={falseButtonHook}
 			correctButtonHook={correctButtonHook}
 			showAnswerButtonHook={showAnswerButtonHook}
