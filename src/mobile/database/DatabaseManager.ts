@@ -9,7 +9,7 @@ type lastUpdateRow = {
 class DatabaseManager {
 	protected db: SQLite.WebSQLDatabase;
 	constructor() {
-		this.db = SQLite.openDatabase('data.db');
+		this.db = SQLite.openDatabase('data6.db');
 	}
 	initialize = async () => {
 		const query =

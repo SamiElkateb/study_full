@@ -31,11 +31,13 @@ const StudyContextProvider: React.FC<props> = (props) => {
 		100;
 
 	const cardCorrectHandler = (flashcard: Flashcard) => {
+		flashcard.answeredCorrectly();
 		setStudyDeck((prevDeck) =>
 			prevDeck.filter((card) => card.id !== flashcard.id)
 		);
 	};
 	const cardFalseHandler = (flashcard: Flashcard) => {
+		flashcard.answeredIncorrectly();
 		setStudyDeck((prevDeck) =>
 			prevDeck.filter((card) => card.id !== flashcard.id)
 		);

@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Animated, View, StyleSheet } from 'react-native';
 import Flashcard from '../../DataStructures/Flashcard';
 import useSwipe from '../../hooks/useSwipe';
@@ -12,10 +12,11 @@ interface props {
 	falseButtonHook: toggleButton;
 	correctButtonHook: toggleButton;
 	showAnswerButtonHook: toggleButton;
+	isAnswerCorrect?: boolean;
 	index: number;
 }
 
-const Swiper: React.FC<props> = (props) => {
+const SwipeContainer: React.FC<props> = (props) => {
 	const {
 		children,
 		flashCard,
@@ -23,12 +24,20 @@ const Swiper: React.FC<props> = (props) => {
 		correctButtonHook,
 		showAnswerButtonHook,
 		index,
+		isAnswerCorrect,
 	} = props;
-	const { transform, pointerEvent, panResponder } = useSwipe({
-		flashCard,
-		falseButtonHook,
-		correctButtonHook,
-	});
+	const { transform, pointerEvent, panResponder, flashcardHideAnimation } =
+		useSwipe({
+			flashCard,
+			falseButtonHook,
+			correctButtonHook,
+		});
+
+	useEffect(() => {
+		if (typeof isAnswerCorrect !== 'undefined') {
+			flashcardHideAnimation(isAnswerCorrect);
+		}
+	}, [isAnswerCorrect]);
 
 	const studyCtx = useContext(StudyContext);
 	const zIndex = { zIndex: studyCtx.studyDeck.length - index };
@@ -65,4 +74,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default Swiper;
+export default SwipeContainer;

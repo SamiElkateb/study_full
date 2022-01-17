@@ -1,4 +1,5 @@
 import moment from 'moment';
+import StudyManager from '../database/StudyManager';
 import { answerType } from '../types/types';
 
 interface flashcard {
@@ -31,22 +32,32 @@ class Flashcard {
 		}
 	}
 
-	setNextStudyDate = () => {
+	nextStudyDate = () => {
 		const today = new Date();
 		let nextStudyDate = new Date(today);
 		const daysForNext = 1 + 3 * this.streak;
+		//const daysForNext = 0;
 		nextStudyDate.setDate(nextStudyDate.getDate() + daysForNext);
 		return moment(nextStudyDate).format('YYYY-MM-DD');
 	};
 
 	answeredCorrectly = () => {
 		this.streak++;
-		this.setNextStudyDate();
+		this.updateDatabase();
 	};
 
 	answeredIncorrectly = () => {
 		this.streak = 0;
-		this.setNextStudyDate();
+		this.updateDatabase();
+	};
+	updateDatabase = () => {
+		const nextStudyDate = this.nextStudyDate();
+		const studyManager = new StudyManager();
+		studyManager.studied({
+			flashcard_id: this.id,
+			next_study_date: nextStudyDate,
+			streak: this.streak,
+		});
 	};
 }
 export default Flashcard;

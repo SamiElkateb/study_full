@@ -21,8 +21,9 @@ const DailyCards: React.FC = () => {
 	const areCardsRemaining = studyDeck.length > 0;
 	const { themeStyle } = useCustomTheme();
 
-	const startHandler = () => {
-		navigation.navigate('Study', { initialDeck: studyDeck });
+	const startHandler = async () => {
+		const initialDeck = await studyManager.getToday();
+		navigation.navigate('Study', { initialDeck });
 	};
 
 	return (

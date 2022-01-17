@@ -18,7 +18,9 @@ const updateDatabase = async () => {
 	const studyManager = new StudyManager();
 	await databaseManager.initialize();
 	await userManager.initialize();
-	const { token } = (await userManager.get())[0];
+	const user = await userManager.get();
+	if (user.length === 0) return;
+	const token = user[0].token;
 	await flashcardManager.initialize(token);
 	await courseManager.initialize(token);
 	await chapterManager.initialize(token);

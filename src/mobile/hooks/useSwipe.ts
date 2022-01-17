@@ -20,12 +20,28 @@ const useSwipe = (props: props) => {
 
 	const studyCtx = useContext(StudyContext);
 	const onCorrect = studyCtx.cardCorrectHandler;
+	const onFalse = studyCtx.cardFalseHandler;
 
 	const { toggleSwipeHandler: correctBtnToggleHandler } = correctButtonHook;
 	const { toggleSwipeHandler: falseBtnToggleHandler } = falseButtonHook;
 
 	const width = Dimensions.get('window').width;
 
+	const flashcardHideAnimation = (isCorrect: boolean) => {
+		const direction = isCorrect ? 1 : -1;
+		Animated.timing(pan, {
+			toValue: {
+				x: direction * width * 1.5,
+				y: pan.y._value * 4,
+			},
+			useNativeDriver: false,
+			duration: 300,
+		}).start(() => {
+			isCorrect && onCorrect(flashCard);
+			!isCorrect && onFalse(flashCard);
+		});
+		setPointerEvent('none');
+	};
 	const panResponder = useRef(
 		PanResponder.create({
 			onMoveShouldSetPanResponder: () => true,
@@ -49,18 +65,8 @@ const useSwipe = (props: props) => {
 			},
 			onPanResponderRelease: () => {
 				if (pan.x._value < -40 || pan.x._value > 40) {
-					const direction = pan.x._value > 0 ? 1 : -1;
-					Animated.timing(pan, {
-						toValue: {
-							x: direction * width * 1.5,
-							y: pan.y._value * 4,
-						},
-						useNativeDriver: false,
-						duration: 300,
-					}).start(() => {
-						onCorrect(flashCard);
-					});
-					setPointerEvent('none');
+					const isCorrect = pan.x._value > 0;
+					flashcardHideAnimation(isCorrect);
 					return;
 				}
 
@@ -83,7 +89,7 @@ const useSwipe = (props: props) => {
 
 	const transform = [{ translateX }, { translateY }, { rotateZ }];
 
-	return { transform, pointerEvent, panResponder };
+	return { transform, pointerEvent, panResponder, flashcardHideAnimation };
 };
 
 export default useSwipe;
