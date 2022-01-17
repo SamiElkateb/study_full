@@ -5,26 +5,28 @@ import { FlatList } from 'react-native-gesture-handler';
 import { getCourses } from '../API/courses';
 import CourseBtn from '../components/Learn/CourseBtn';
 import Loading from '../components/UI/Loading';
-import { CourseManager } from '../database/LearnModuleManager';
+import { CourseManager, LessonManager } from '../database/LearnModuleManager';
 import { Course } from '../DataStructures/LearnModule';
 import useAuth from '../hooks/useAuth';
+import useEffectOnFocus from '../hooks/useEffectOnFocus';
 import { courseData } from '../types/api_interfaces';
 
 const CourseScreen: React.FC = (props) => {
 	const navigation = useNavigation();
 	const [courses, setCourses] = useState<Course[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
+	const lessonManager = new LessonManager();
 
-	useEffect(() => {
+	useEffectOnFocus(() => {
 		const courseManager = new CourseManager();
-		courseManager.get().then((response) => {
+		courseManager.getWithCompletion().then((response) => {
 			setIsLoading(false);
 			const courseMap = response.map(
 				(courseResponse) => new Course(courseResponse)
 			);
 			setCourses(courseMap);
 		});
-	}, []);
+	});
 
 	const navigateToChapterHandler = (courseId: number) => {
 		navigation.navigate('Chapters', { courseId });
@@ -38,13 +40,14 @@ const CourseScreen: React.FC = (props) => {
 				<FlatList
 					data={courses}
 					keyExtractor={(course) => course.id.toString()}
-					renderItem={({ item }) => (
+					renderItem={({ item: course }) => (
 						<CourseBtn
-							course={item}
+							course={course}
 							onClick={navigateToChapterHandler.bind(
 								null,
-								item.id
+								course.id
 							)}
+							progress={course.completionPercent}
 						/>
 					)}
 				/>

@@ -49,7 +49,9 @@ const Answer: React.FC<props> = (props) => {
 		<Pressable onPress={hideAnswerHandler} hitSlop={0}>
 			<View style={styles.answer_container}>
 				{answerType === 'text' && (
-					<Text style={themeStyle.text}>{answer}</Text>
+					<Text
+						style={[styles.answer_text, themeStyle.text]}
+					>{`\u2022 ${answer} \n\u2022 ${answer}`}</Text>
 				)}
 				{answerType === 'terminal' && <Terminal code={answer} />}
 				{answerType === 'javascript' && <Javascript code={answer} />}
@@ -79,5 +81,9 @@ const styles = StyleSheet.create({
 		borderRadius: 12,
 		overflow: 'hidden',
 		overlayColor: 'red',
+	},
+	answer_text: {
+		fontSize: 20,
+		fontWeight: 'bold',
 	},
 });

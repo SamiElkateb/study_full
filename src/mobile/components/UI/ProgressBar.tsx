@@ -11,12 +11,10 @@ interface props {
 
 const ProgressBar: React.FC<props> = (props) => {
 	const { theme } = useCustomTheme();
-	const { progress = 0, color = 'correct'} = props;
+	const { progress = 0, color = 'correct' } = props;
 
-	const animatedRef = useRef(new Animated.Value(0)).current;
-	
+	const animatedRef = useRef(new Animated.Value(progress)).current;
 
-	
 	const width = animatedRef.interpolate({
 		inputRange: [0, 100],
 		outputRange: ['0%', '100%'],
@@ -44,7 +42,7 @@ export default ProgressBar;
 
 const styles = StyleSheet.create({
 	container: {
-		zIndex:1000,
+		zIndex: 1000,
 		height: 10,
 		width: '100%',
 		backgroundColor: '#ccc',

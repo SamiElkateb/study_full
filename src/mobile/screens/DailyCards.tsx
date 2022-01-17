@@ -5,17 +5,18 @@ import useCustomTheme from '../hooks/useCustomTheme';
 import { flashcardData } from '../types/api_interfaces';
 import StudyManager from '../database/StudyManager';
 import { useEffect, useState } from 'react';
+import useEffectOnFocus from '../hooks/useEffectOnFocus';
 
 const DailyCards: React.FC = () => {
 	const navigation = useNavigation();
 	const studyManager = new StudyManager();
 	const [studyDeck, setStudyDeck] = useState<flashcardData[]>([]);
 
-	useEffect(() => {
+	useEffectOnFocus(() => {
 		studyManager.getToday().then((data) => {
 			setStudyDeck(data);
 		});
-	}, []);
+	});
 
 	const flashcardsRemaining = studyDeck.length;
 	const areCardsRemaining = studyDeck.length > 0;

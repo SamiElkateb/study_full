@@ -21,10 +21,11 @@ export default Question;
 const styles = StyleSheet.create({
 	question: {
 		fontWeight: 'bold',
-		fontSize: 16,
+		fontSize: 20,
+		textAlign: 'justify',
 	},
 	question_container: {
-		paddingHorizontal: 20,
-		paddingVertical: 30,
+		paddingHorizontal: 30,
+		paddingVertical: 40,
 	},
 });

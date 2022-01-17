@@ -11,6 +11,7 @@ import Loading from '../components/UI/Loading';
 import { ChapterManager } from '../database/LearnModuleManager';
 import { Chapter } from '../DataStructures/LearnModule';
 import useAuth from '../hooks/useAuth';
+import useEffectOnFocus from '../hooks/useEffectOnFocus';
 import { chapterData } from '../types/api_interfaces';
 import { RootStackParamList } from '../types/types';
 
@@ -25,13 +26,15 @@ const ChapterScreen: React.FC<props> = (props) => {
 	const [chapters, setChapters] = useState<chapterData[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 
-	useEffect(() => {
+	useEffectOnFocus(() => {
 		const chapterManager = new ChapterManager();
-		chapterManager.getByCourseId(courseId).then((response) => {
-			setIsLoading(false);
-			setChapters(response);
-		});
-	}, []);
+		chapterManager
+			.getByCourseIdWithCompletion(courseId)
+			.then((response) => {
+				setIsLoading(false);
+				setChapters(response);
+			});
+	});
 
 	const navigateToLessonHandler = (chapterId: number) => {
 		navigation.navigate('Lessons', { chapterId });
@@ -48,6 +51,7 @@ const ChapterScreen: React.FC<props> = (props) => {
 						key={chapter.id}
 						course={chapter}
 						onClick={navigateToLessonHandler.bind(null, chapter.id)}
+						progress={chapter.completionPercent}
 					/>
 				);
 			})}

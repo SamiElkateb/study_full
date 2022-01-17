@@ -17,6 +17,7 @@ import Loading from '../components/UI/Loading';
 import useAuth from '../hooks/useAuth';
 import { LessonManager } from '../database/LearnModuleManager';
 import FlashcardManager from '../database/FlashcardManager';
+import useEffectOnFocus from '../hooks/useEffectOnFocus';
 
 interface props {
 	route: RouteProp<RootStackParamList, 'Lessons'>;
@@ -31,13 +32,15 @@ const LessonScreen: React.FC<props> = (props) => {
 	const { theme } = useCustomTheme();
 	const [isLoading, setIsLoading] = useState(true);
 
-	useEffect(() => {
+	useEffectOnFocus(() => {
 		const lessonManager = new LessonManager();
-		lessonManager.getByChapterId(chapterId).then((response) => {
-			setIsLoading(false);
-			setLessons(response);
-		});
-	}, []);
+		lessonManager
+			.getByChapterIdWithCompletion(chapterId)
+			.then((response) => {
+				setIsLoading(false);
+				setLessons(response);
+			});
+	});
 
 	const onStartStudyHandler = async (lessonId: number) => {
 		const flashcardManager = new FlashcardManager();
@@ -53,11 +56,13 @@ const LessonScreen: React.FC<props> = (props) => {
 			{lessons.map((lessonResponse, index, array) => {
 				const isLastLesson = index === array.length - 1;
 				const lesson = new Lesson(lessonResponse);
+
 				return (
 					<React.Fragment key={lesson.id}>
 						<LessonBtn
 							lesson={lesson}
 							onClick={onStartStudyHandler.bind(null, lesson.id)}
+							isDone={lesson.isCompleted}
 						/>
 						{!isLastLesson && (
 							<Icon

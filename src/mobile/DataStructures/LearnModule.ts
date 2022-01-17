@@ -1,3 +1,4 @@
+import { LessonManager } from '../database/LearnModuleManager';
 import isIconName from '../helpers/data_testing/isIconName';
 import { chapterData, courseData, lessonData } from '../types/api_interfaces';
 import { iconNames } from '../types/types';
@@ -24,31 +25,41 @@ class LearnModule {
 		this.modified = modified;
 	}
 }
+interface completionCourseData extends courseData {
+	completionPercent?: number;
+}
 
 class Course extends LearnModule {
 	readonly iconName: iconNames;
 	readonly color: string;
-	constructor(props: courseData) {
+	readonly completionPercent?: number;
+	constructor(props: completionCourseData) {
 		super(props);
-		const { icon_name, color } = props;
+		const { icon_name, color, completionPercent } = props;
 		this.color = color;
+		this.completionPercent = completionPercent;
 		if (isIconName(icon_name)) {
 			this.iconName = icon_name as iconNames;
 		} else {
 			this.iconName = 'square';
 		}
 	}
+}
+interface completionChapterData extends chapterData {
+	completionPercent?: number;
 }
 
 class Chapter extends LearnModule {
 	readonly courseId: number;
 	readonly iconName: iconNames;
 	readonly color: string;
-	constructor(props: chapterData) {
+	readonly completionPercent?: number;
+	constructor(props: completionChapterData) {
 		super(props);
-		const { icon_name, color, course_id } = props;
+		const { icon_name, color, course_id, completionPercent } = props;
 		this.courseId = +course_id;
 		this.color = color;
+		this.completionPercent = completionPercent;
 		if (isIconName(icon_name)) {
 			this.iconName = icon_name as iconNames;
 		} else {
@@ -56,13 +67,18 @@ class Chapter extends LearnModule {
 		}
 	}
 }
+interface isCompletedLessonData extends lessonData {
+	isCompleted?: boolean;
+}
 
 class Lesson extends LearnModule {
 	readonly chapterId: number;
-	constructor(props: lessonData) {
+	isCompleted?: boolean;
+	constructor(props: isCompletedLessonData) {
 		super(props);
-		const { chapter_id } = props;
+		const { chapter_id, isCompleted } = props;
 		this.chapterId = +chapter_id;
+		this.isCompleted = isCompleted;
 	}
 }
 

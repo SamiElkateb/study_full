@@ -46,6 +46,45 @@ class CourseManager extends DatabaseManager {
 		const query = 'SELECT * FROM courses';
 		return this.transaction(query) as Promise<courseData[]>;
 	};
+	getWithCompletion = async () => {
+		const courses = await this.get();
+		return await Promise.all(
+			courses.map(async (course) => {
+				const completionPercent = await this.completionPercent(
+					course.id
+				);
+				return { ...course, completionPercent };
+			})
+		);
+	};
+
+	completionPercent = async (courseId: number) => {
+		const studiedCardsCountQuery = `SELECT COUNT() FROM study 
+		INNER JOIN flashcards ON study.flashcard_id=flashcards.id 
+		LEFT JOIN lessons ON flashcards.lesson_id=lessons.id 
+		LEFT JOIN chapters ON lessons.chapter_id=chapters.id 
+		LEFT JOIN courses ON chapters.course_id=courses.id 
+		WHERE courses.id = ?;`;
+		const params = [courseId];
+		const studiedCardsCount = await this.transaction(
+			studiedCardsCountQuery,
+			params
+		);
+		const totalCardsCountQuery = `SELECT COUNT() FROM flashcards
+		LEFT JOIN lessons ON flashcards.lesson_id=lessons.id
+		LEFT JOIN chapters ON lessons.chapter_id=chapters.id 
+		LEFT JOIN courses ON chapters.course_id=courses.id 
+		WHERE courses.id = ?;`;
+		const totalCardsCount = await this.transaction(
+			totalCardsCountQuery,
+			params
+		);
+		return (
+			//@ts-ignore
+			(studiedCardsCount[0]['COUNT()'] / totalCardsCount[0]['COUNT()']) *
+			100
+		);
+	};
 
 	controlBeforeAdding = async (course: Course) => {
 		const exists = await this.exists(course.id);
@@ -114,6 +153,43 @@ class ChapterManager extends DatabaseManager {
 		const params = [courseId];
 		return this.transaction(query, params) as Promise<chapterData[]>;
 	};
+	getByCourseIdWithCompletion = async (courseId: number) => {
+		const chapters = await this.getByCourseId(courseId);
+		return await Promise.all(
+			chapters.map(async (chapter) => {
+				const completionPercent = await this.completionPercent(
+					chapter.id
+				);
+				return { ...chapter, completionPercent };
+			})
+		);
+	};
+
+	completionPercent = async (chapterId: number) => {
+		const studiedCardsCountQuery = `SELECT COUNT() FROM study 
+		INNER JOIN flashcards ON study.flashcard_id=flashcards.id 
+		LEFT JOIN lessons ON flashcards.lesson_id=lessons.id 
+		LEFT JOIN chapters ON lessons.chapter_id=chapters.id 
+		WHERE chapters.id = ?;`;
+		const params = [chapterId];
+		const studiedCardsCount = await this.transaction(
+			studiedCardsCountQuery,
+			params
+		);
+		const totalCardsCountQuery = `SELECT COUNT() FROM flashcards
+		LEFT JOIN lessons ON flashcards.lesson_id=lessons.id
+		LEFT JOIN chapters ON lessons.chapter_id=chapters.id 
+		WHERE chapters.id = ?;`;
+		const totalCardsCount = await this.transaction(
+			totalCardsCountQuery,
+			params
+		);
+		return (
+			//@ts-ignore
+			(studiedCardsCount[0]['COUNT()'] / totalCardsCount[0]['COUNT()']) *
+			100
+		);
+	};
 
 	controlBeforeAdding = async (chapter: Chapter) => {
 		const exists = await this.exists(chapter.id);
@@ -179,6 +255,36 @@ class LessonManager extends DatabaseManager {
 		const query = 'SELECT * FROM lessons WHERE chapter_id=?';
 		const params = [chapterId];
 		return this.transaction(query, params) as Promise<lessonData[]>;
+	};
+	getByChapterIdWithCompletion = async (chapterId: number) => {
+		const lessons = await this.getByChapterId(chapterId);
+		return await Promise.all(
+			lessons.map(async (lesson) => {
+				const isCompleted = await this.isCompleted(lesson.id);
+				return { ...lesson, isCompleted };
+			})
+		);
+	};
+
+	isCompleted = async (lessonId: number) => {
+		const studiedCardsCountQuery = `SELECT COUNT() FROM study 
+		INNER JOIN flashcards ON study.flashcard_id=flashcards.id 
+		LEFT JOIN lessons ON flashcards.lesson_id=lessons.id 
+		WHERE lessons.id = ?;`;
+		const params = [lessonId];
+		const studiedCardsCount = await this.transaction(
+			studiedCardsCountQuery,
+			params
+		);
+		const totalCardsCountQuery = `SELECT COUNT() FROM flashcards WHERE lesson_id = ?;`;
+		const totalCardsCount = await this.transaction(
+			totalCardsCountQuery,
+			params
+		);
+		return (
+			//@ts-ignore
+			studiedCardsCount[0]['COUNT()'] === totalCardsCount[0]['COUNT()']
+		);
 	};
 
 	controlBeforeAdding = async (lesson: Lesson) => {
