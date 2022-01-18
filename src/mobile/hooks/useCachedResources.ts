@@ -6,7 +6,6 @@ import updateDatabase from '../helpers/updateDatabase';
 
 export default function useCachedResources() {
 	const [isLoadingComplete, setLoadingComplete] = useState(false);
-
 	useEffect(() => {
 		async function loadResourcesAndDataAsync() {
 			try {

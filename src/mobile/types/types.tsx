@@ -89,6 +89,7 @@ export type RootStackParamList = {
 	Study: { initialDeck: flashcardData[] };
 	Chapters: { courseId: number };
 	Lessons: { chapterId: number };
+	Daily: undefined;
 	NotFound: undefined;
 };
 

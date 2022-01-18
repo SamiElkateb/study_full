@@ -48,6 +48,19 @@ class StudyManager extends DatabaseManager {
 		const params = [moment(today).format('YYYY-MM-DD')];
 		return this.transaction(query, params) as Promise<flashcardData[]>;
 	};
+	getTomorrow = async (): Promise<flashcardData[]> => {
+		const today = new Date();
+		const tomorrow = new Date().setDate(today.getDate() + 1);
+		const query = `SELECT * FROM study 
+			INNER JOIN flashcards ON study.flashcard_id = flashcards.id
+			WHERE next_study_date<=date(?) ORDER BY lesson_id;`;
+		const params = [moment(tomorrow).format('YYYY-MM-DD')];
+		return this.transaction(query, params) as Promise<flashcardData[]>;
+	};
+	getMastered = async (): Promise<flashcardData[]> => {
+		const query = 'SELECT * FROM study WHERE streak>=3';
+		return this.transaction(query) as Promise<flashcardData[]>;
+	};
 	delete = async () => {
 		const query = 'DELETE FROM study';
 		return this.transaction(query);

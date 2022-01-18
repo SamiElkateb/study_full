@@ -4,17 +4,18 @@ import { View, StyleSheet } from 'react-native';
 import useCustomTheme from '../../hooks/useCustomTheme';
 interface props {
 	index?: number;
+	style?: {};
 }
 
 const Card: React.FC<props> = (props) => {
-	const { children, index = 0 } = props;
+	const { children, index = 0, style } = props;
 	const shadowOpacity = 0.06 - index * 0.006;
 	const { themeStyle } = useCustomTheme();
 	const shadow = {
 		shadowOpacity,
 	};
 	return (
-		<View style={[themeStyle.surface, styles.card, shadow]}>
+		<View style={[themeStyle.surface, styles.card, shadow, style]}>
 			{children}
 		</View>
 	);
