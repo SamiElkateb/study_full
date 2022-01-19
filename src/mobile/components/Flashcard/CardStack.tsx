@@ -14,7 +14,7 @@ const CardStack: React.FC = (props) => {
 			<ProgressBar progress={progress} />
 			{studyDeck.map((flashCard, index) => (
 				<Flashcard
-					key={flashCard.id}
+					key={flashCard.key}
 					flashCard={flashCard}
 					index={index}
 				/>

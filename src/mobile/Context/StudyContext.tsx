@@ -17,17 +17,17 @@ const StudyContext = React.createContext<StudyContextInterface>({
 });
 interface props {
 	initialDeck: flashcardData[];
+	doesRepeat?: boolean;
 }
 
 const StudyContextProvider: React.FC<props> = (props) => {
-	const { children, initialDeck } = props;
+	const { children, initialDeck, doesRepeat } = props;
 	const flashcards = initialDeck.map((flashcard) => new Flashcard(flashcard));
 	const [studyDeck, setStudyDeck] = useState<Flashcard[]>(flashcards);
-	const [cardsToStudyLength] = useState(initialDeck.length);
+	const [totalDeckLength] = useState(initialDeck.length);
 
 	const progress =
-		((cardsToStudyLength - studyDeck.length) /
-			Math.max(cardsToStudyLength, 1)) *
+		((totalDeckLength - studyDeck.length) / Math.max(totalDeckLength, 1)) *
 		100;
 
 	const cardCorrectHandler = (flashcard: Flashcard) => {
@@ -36,12 +36,17 @@ const StudyContextProvider: React.FC<props> = (props) => {
 			prevDeck.filter((card) => card.id !== flashcard.id)
 		);
 	};
+
 	const cardFalseHandler = (flashcard: Flashcard) => {
 		flashcard.answeredIncorrectly();
-		setStudyDeck((prevDeck) =>
-			prevDeck.filter((card) => card.id !== flashcard.id)
-		);
+		setStudyDeck((prevDeck) => {
+			const newDeck = prevDeck.filter((card) => card.id !== flashcard.id);
+			if (!doesRepeat || newDeck.length < 1) return newDeck;
+			flashcard.repeat();
+			return [...newDeck, flashcard];
+		});
 	};
+
 	const studyContext = {
 		studyDeck,
 		progress,

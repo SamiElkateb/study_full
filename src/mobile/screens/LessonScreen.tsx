@@ -46,7 +46,7 @@ const LessonScreen: React.FC<props> = (props) => {
 		const flashcardManager = new FlashcardManager();
 		const initialDeck = await flashcardManager.getByLessonId(lessonId);
 		setIsLoading(false);
-		navigation.navigate('Study', { initialDeck });
+		navigation.navigate('Study', { initialDeck, doesRepeat: true });
 	};
 
 	return (

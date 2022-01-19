@@ -86,7 +86,7 @@ export type RootStackParamList = {
 	Login: undefined;
 	Register: undefined;
 	Modal: undefined;
-	Study: { initialDeck: flashcardData[] };
+	Study: { initialDeck: flashcardData[]; doesRepeat?: boolean };
 	Chapters: { courseId: number };
 	Lessons: { chapterId: number };
 	Daily: undefined;

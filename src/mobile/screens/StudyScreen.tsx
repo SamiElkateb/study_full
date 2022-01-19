@@ -11,10 +11,10 @@ interface props {
 
 const StudyScreen: React.FC<props> = (props) => {
 	const { route } = props;
-	const { initialDeck } = route.params;
+	const { initialDeck, doesRepeat } = route.params;
 
 	return (
-		<StudyContextProvider initialDeck={initialDeck}>
+		<StudyContextProvider initialDeck={initialDeck} doesRepeat={doesRepeat}>
 			<CardStack />
 		</StudyContextProvider>
 	);

@@ -14,13 +14,17 @@ class Flashcard {
 	readonly answer: string;
 	readonly answerType: answerType;
 	readonly id: number;
-	private streak: number;
+	private _streak: number;
+	private _wasRepeated: boolean;
+	key: string;
 	constructor(props: flashcard) {
 		const { question, answer, answer_type, streak = 0, id } = props;
 		this.id = id;
+		this.key = id.toString();
 		this.question = question;
 		this.answer = answer;
-		this.streak = streak;
+		this._streak = streak;
+		this._wasRepeated = false;
 		if (
 			answer_type === 'terminal' ||
 			answer_type === 'yaml' ||
@@ -35,19 +39,26 @@ class Flashcard {
 	nextStudyDate = () => {
 		const today = new Date();
 		let nextStudyDate = new Date(today);
-		const daysForNext = 1 + 3 * this.streak;
+		const daysForNext = 1 + 3 * this._streak;
 		//const daysForNext = 0;
 		nextStudyDate.setDate(nextStudyDate.getDate() + daysForNext);
 		return moment(nextStudyDate).format('YYYY-MM-DD');
 	};
 
+	repeat = () => {
+		this.key = `r${this.key}`;
+		this._wasRepeated = true;
+	};
+
 	answeredCorrectly = () => {
-		this.streak++;
+		if (this._wasRepeated) return;
+		this._streak++;
 		this.updateDatabase();
 	};
 
 	answeredIncorrectly = () => {
-		this.streak = 0;
+		if (this._wasRepeated) return;
+		this._streak = 0;
 		this.updateDatabase();
 	};
 	updateDatabase = () => {
@@ -56,7 +67,7 @@ class Flashcard {
 		studyManager.studied({
 			flashcard_id: this.id,
 			next_study_date: nextStudyDate,
-			streak: this.streak,
+			streak: this._streak,
 		});
 	};
 }
