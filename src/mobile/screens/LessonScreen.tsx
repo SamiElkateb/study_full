@@ -4,7 +4,7 @@ import {
 	useNavigation,
 } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import useCustomTheme from '../hooks/useCustomTheme';
 import { lessonData } from '../types/api_interfaces';
 import { RootStackParamList } from '../types/types';
@@ -18,6 +18,7 @@ import useAuth from '../hooks/useAuth';
 import { LessonManager } from '../database/LearnModuleManager';
 import FlashcardManager from '../database/FlashcardManager';
 import useEffectOnFocus from '../hooks/useEffectOnFocus';
+import { FlatList } from 'react-native-gesture-handler';
 
 interface props {
 	route: RouteProp<RootStackParamList, 'Lessons'>;
@@ -28,7 +29,7 @@ const LessonScreen: React.FC<props> = (props) => {
 	const { authToken } = useAuth();
 	const navigation = useNavigation();
 	const chapterId = props.route.params.chapterId;
-	const [lessons, setLessons] = useState<lessonData[]>([]);
+	const [lessons, setLessons] = useState<Lesson[]>([]);
 	const { theme } = useCustomTheme();
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -38,7 +39,10 @@ const LessonScreen: React.FC<props> = (props) => {
 			.getByChapterIdWithCompletion(chapterId)
 			.then((response) => {
 				setIsLoading(false);
-				setLessons(response);
+				const lessonMap = response.map(
+					(lessonResponse) => new Lesson(lessonResponse)
+				);
+				setLessons(lessonMap);
 			});
 	});
 
@@ -52,28 +56,28 @@ const LessonScreen: React.FC<props> = (props) => {
 	return (
 		<View style={styles.container}>
 			{isLoading && <Loading />}
-
-			{lessons.map((lessonResponse, index, array) => {
-				const isLastLesson = index === array.length - 1;
-				const lesson = new Lesson(lessonResponse);
-
-				return (
-					<React.Fragment key={lesson.id}>
+			{lessons.length > 0 && (
+				<FlatList
+					data={lessons}
+					keyExtractor={(lesson) => lesson.id.toString()}
+					renderItem={({ item: lesson }) => (
 						<LessonBtn
 							lesson={lesson}
 							onClick={onStartStudyHandler.bind(null, lesson.id)}
 							isDone={lesson.isCompleted}
 						/>
-						{!isLastLesson && (
+					)}
+					ItemSeparatorComponent={({}) => (
+						<View style={styles.separator}>
 							<Icon
 								name="arrowdown"
 								size="med"
 								color={theme.text}
 							/>
-						)}
-					</React.Fragment>
-				);
-			})}
+						</View>
+					)}
+				/>
+			)}
 		</View>
 	);
 };
@@ -83,6 +87,9 @@ export default LessonScreen;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		alignItems: 'center',
+	},
+	separator: {
 		alignItems: 'center',
 	},
 });

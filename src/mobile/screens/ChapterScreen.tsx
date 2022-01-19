@@ -5,6 +5,7 @@ import {
 } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import { getChapterByCourseId } from '../API/chapters';
 import CourseBtn from '../components/Learn/CourseBtn';
 import Loading from '../components/UI/Loading';
@@ -23,7 +24,7 @@ interface props {
 const ChapterScreen: React.FC<props> = (props) => {
 	const navigation = useNavigation();
 	const courseId = props.route.params.courseId;
-	const [chapters, setChapters] = useState<chapterData[]>([]);
+	const [chapters, setChapters] = useState<Chapter[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffectOnFocus(() => {
@@ -32,7 +33,10 @@ const ChapterScreen: React.FC<props> = (props) => {
 			.getByCourseIdWithCompletion(courseId)
 			.then((response) => {
 				setIsLoading(false);
-				setChapters(response);
+				const chapterMap = response.map(
+					(courseResponse) => new Chapter(courseResponse)
+				);
+				setChapters(chapterMap);
 			});
 	});
 
@@ -43,18 +47,22 @@ const ChapterScreen: React.FC<props> = (props) => {
 	return (
 		<View style={styles.container}>
 			{isLoading && <Loading />}
-
-			{chapters.map((chapterResponse) => {
-				const chapter = new Chapter(chapterResponse);
-				return (
-					<CourseBtn
-						key={chapter.id}
-						course={chapter}
-						onClick={navigateToLessonHandler.bind(null, chapter.id)}
-						progress={chapter.completionPercent}
-					/>
-				);
-			})}
+			{chapters.length > 0 && (
+				<FlatList
+					data={chapters}
+					keyExtractor={(course) => course.id.toString()}
+					renderItem={({ item: chapter }) => (
+						<CourseBtn
+							course={chapter}
+							onClick={navigateToLessonHandler.bind(
+								null,
+								chapter.id
+							)}
+							progress={chapter.completionPercent}
+						/>
+					)}
+				/>
+			)}
 		</View>
 	);
 };
