@@ -19,7 +19,7 @@ const Stats: React.FC<props> = (props) => {
 		const total = (await studyManager.get()).length;
 		const tomorrow = (await studyManager.getTomorrow()).length;
 		const mastered = (await studyManager.getMastered()).length;
-		const mastery = Math.floor((mastered / total) * 100);
+		const mastery = Math.floor((mastered / Math.max(total, 1)) * 100);
 		setInRotation(total);
 		setTomorrow(tomorrow);
 		setMastered(mastered);

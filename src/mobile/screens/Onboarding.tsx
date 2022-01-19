@@ -2,9 +2,11 @@ import { useNavigation } from '@react-navigation/native';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../components/UserEvents/Button';
+import useCustomTheme from '../hooks/useCustomTheme';
 
 const Onboarding: React.FC = () => {
 	const navigation = useNavigation();
+	const { themeStyle } = useCustomTheme();
 
 	const navigateToLoginHandler = () => {
 		navigation.navigate('Login');
@@ -13,14 +15,18 @@ const Onboarding: React.FC = () => {
 		navigation.navigate('Register');
 	};
 	return (
-		<SafeAreaView style={[styles.safe_container]}>
-			<Text style={[styles.title]}>TheStudyApp</Text>
+		<SafeAreaView style={[styles.safe_container, themeStyle.background]}>
+			<Text style={[styles.title, themeStyle.onBackground]}>
+				TheStudyApp
+			</Text>
 			<Image
 				style={[styles.image]}
 				source={require('../assets/images/robot.png')}
 			/>
-			<Text style={[styles.subtitle]}>A simple flashcard app</Text>
-			<Text style={[styles.description]}>
+			<Text style={[styles.subtitle, themeStyle.onBackground]}>
+				A simple flashcard app
+			</Text>
+			<Text style={[styles.description, themeStyle.onBackground]}>
 				Study your flashcards daily and optimize your learning by
 				repeating concepts at the perfect time interval for maximum
 				memory retention.
